@@ -1,0 +1,308 @@
+<!--title: Daftar Jadi Mitra Pemilik · KontrakYuk-->
+<style>
+  .mitra-hero { background: var(--color-surface-container-low); border-bottom: 1px solid var(--line); padding: 48px 0; }
+  .mitra-hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 64px; align-items: end; }
+  .mitra-hero h1 { text-wrap: balance; max-width: 640px; }
+  .mitra-hero p { margin-top: 16px; max-width: 600px; color: var(--color-on-surface-variant); }
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .perk { display: grid; grid-template-columns: 32px 1fr; column-gap: 10px; padding: 12px; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-xs); }
+  .perk i { grid-row: span 2; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-style: normal; background: var(--color-primary-fixed); color: var(--color-primary); }
+  .perk i .icon { font-size: 18px; }
+  .perk b { font: 600 13px/18px var(--font-body); }
+  .perk span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+
+  .apply { padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; }
+  .stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; list-style: none; padding: 0; }
+  .stepper li { display: grid; grid-template-columns: 28px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; align-content: center; padding: 12px; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-xs); color: var(--color-on-surface-variant); transition: background-color var(--m-slide) var(--m-ease), box-shadow var(--m-slide) var(--m-ease); }
+  .stepper .n { grid-row: 1 / span 2; align-self: center; width: 28px; height: 28px; border-radius: 14px; display: grid; place-items: center; background: var(--color-surface-container-high); font: 600 13px/1 var(--font-body); transition: background-color var(--m-slide) var(--m-ease), color var(--m-slide) var(--m-ease); }
+  .stepper b { font: 600 13px/18px var(--font-body); color: var(--color-on-surface); }
+  .stepper small { font: 400 12px/16px var(--font-body); }
+  .stepper li[aria-current="step"] { box-shadow: 0 0 0 2px var(--color-primary); }
+  .stepper li[aria-current="step"] .n { background: var(--color-primary); color: #fff; }
+  .stepper li.is-done .n { background: var(--color-status-available); color: #fff; font-size: 0; }
+  .stepper li.is-done .n::after { content: ""; width: 11px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; border-radius: 1px; transform: translateY(-2px) rotate(-45deg); }
+  .step-panel { padding: 28px; }
+  .step-panel h2 { margin-bottom: 4px; }
+  .step-panel > p { font: 400 14px/22px var(--font-body); color: var(--color-on-surface-variant); }
+  .fields { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fields .full { grid-column: 1 / -1; }
+  .f { display: grid; gap: 6px; align-content: start; }
+  .f label { font: 600 14px/20px var(--font-body); }
+  .f small { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .f input:not([type="file"]):not([type="radio"]):not([type="checkbox"]), .f select { width: 100%; height: 48px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 15px/20px var(--font-body); color: var(--color-on-surface); transition: box-shadow var(--m-in) var(--m-ease), border-color var(--m-in) var(--m-ease); }
+  .f select { -webkit-appearance: none; appearance: none; padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235d6470' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+  .f input[type="date"] { -webkit-appearance: none; appearance: none; display: flex; align-items: center; color: var(--color-on-surface); }
+  .f input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+  #mitra-form, #mitra-status { scroll-margin-top: 96px; }
+  .f input:focus, .f select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-fixed); }
+  .f.is-invalid input, .f.is-invalid .drop { border-color: #b42318; box-shadow: 0 0 0 3px #fde3e0; }
+  .f .err { display: none; font: 600 12px/16px var(--font-body); color: #b42318; }
+  .f.is-invalid .err { display: block; }
+  .drop { position: relative; display: grid; grid-template-columns: 40px 1fr auto; column-gap: 12px; align-items: center; padding: 14px 16px; border: 1px dashed #b9bdc5; border-radius: var(--radius-md); background: var(--color-surface-container-low); cursor: pointer; transition: border-color var(--m-in) var(--m-ease), background-color var(--m-in) var(--m-ease); }
+  .drop:hover { border-color: var(--color-primary); background: #fff; }
+  .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .drop i { grid-row: span 2; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--color-primary-fixed); color: var(--color-primary); font-style: normal; }
+  .drop i .icon { font-size: 22px; }
+  .drop b { font: 600 14px/20px var(--font-body); }
+  .drop span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .drop em { grid-row: 1 / span 2; grid-column: 3; font: 600 12px/16px var(--font-body); font-style: normal; color: var(--color-primary); }
+  .drop.has-file { border-style: solid; border-color: var(--color-status-available); background: var(--color-status-available-bg); }
+  .drop.has-file i { background: #fff; color: var(--color-status-available); }
+  .drop.has-file em { color: var(--color-status-available); }
+  .radio-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .radio-row label { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: var(--radius-pill); background: var(--color-surface-container-low); box-shadow: var(--shadow-xs); font: 600 14px/20px var(--font-body); cursor: pointer; }
+  .radio-row input { accent-color: var(--color-primary); width: 18px; height: 18px; margin: 0; }
+  .radio-row label:has(input:checked) { background: var(--color-primary-fixed); color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
+  .actions-row { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .actions-row small { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .step-body[hidden] { display: none; }
+  .actions-row [hidden] { display: none; }
+  .f textarea { width: 100%; min-height: 88px; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 15px/22px var(--font-body); color: var(--color-on-surface); resize: vertical; }
+  .f textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-fixed); }
+  .size-row { display: grid; grid-template-columns: 1fr auto 1fr auto; gap: 8px; align-items: center; margin-top: 8px; }
+  .size-row span { font: 400 14px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .counter { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .counter b { font: 600 14px/20px var(--font-body); }
+  .counter small { display: block; }
+  .counter .ctl { display: inline-grid; grid-template-columns: 40px 56px 40px; gap: 6px; }
+  .counter .ctl button { height: 40px; border-radius: var(--radius-md); border: 1px solid var(--line); background: #fff; font: 600 18px/1 var(--font-body); color: var(--color-on-surface); cursor: pointer; }
+  .counter .ctl button:disabled { opacity: .4; cursor: default; }
+  .counter .ctl output { display: grid; place-items: center; height: 40px; border-radius: var(--radius-md); background: #fff; border: 1px solid var(--line); font: 600 15px/1 var(--font-body); }
+  .note { display: grid; grid-template-columns: 20px 1fr; column-gap: 10px; padding: 12px 16px; border-radius: var(--radius-md); background: var(--color-primary-fixed); font: 400 13px/20px var(--font-body); color: var(--color-on-surface); }
+  .note .icon { font-size: 20px; color: var(--color-primary); }
+  .step-body:not([hidden]) { animation: ky-enter 360ms var(--m-arrive); }
+
+  .status-card { padding: 32px; text-align: left; }
+  .status-card .badge-big { width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: var(--color-status-soon-bg); color: var(--color-status-soon); }
+  .status-card .badge-big .icon { font-size: 28px; }
+  .status-card h2 { margin-top: 16px; }
+  .status-card > p { margin-top: 8px; color: var(--color-on-surface-variant); max-width: 560px; }
+  .timeline { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .timeline li { position: relative; display: grid; grid-template-columns: 24px 1fr auto; column-gap: 14px; padding-bottom: 18px; }
+  .timeline li::before { content: ""; position: absolute; left: 11px; top: 24px; bottom: 0; width: 2px; background: var(--color-surface-container-high); }
+  .timeline li:last-child::before { display: none; }
+  .timeline .dotc { grid-column: 1; grid-row: 1; position: relative; z-index: 1; width: 24px; height: 24px; border-radius: 12px; display: grid; place-items: center; background: #fff; box-shadow: inset 0 0 0 2px var(--color-surface-container-high); color: var(--color-on-surface-variant); }
+  .timeline .dotc .icon { font-size: 14px; }
+  .timeline li.done .dotc { background: var(--color-status-available); box-shadow: none; color: #fff; }
+  .timeline li.now .dotc { background: var(--color-primary); box-shadow: 0 0 0 4px var(--color-primary-fixed); color: #fff; }
+  .timeline b { grid-column: 2; grid-row: 1; font: 600 14px/24px var(--font-body); }
+  .timeline li > span:not(.dotc) { grid-column: 2 / -1; grid-row: 2; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .timeline time { grid-row: 1; grid-column: 3; font: 600 12px/24px var(--font-body); color: var(--color-on-surface-variant); }
+  .status-actions { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .side { position: sticky; top: 104px; display: grid; gap: 16px; }
+  .prep { padding: 20px; }
+  .prep h2 { font: 500 16px/22px var(--font-head); }
+  .prep ul { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .prep li { display: grid; grid-template-columns: 20px 1fr; column-gap: 8px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .prep li .icon { font-size: 18px; color: var(--color-primary); }
+  .prep li b { color: var(--color-on-surface); font-weight: 600; }
+  .why { padding: 20px; border-radius: var(--radius-lg); background: var(--color-on-surface); color: #fff; }
+  .why b { display: flex; align-items: center; gap: 8px; font: 500 16px/22px var(--font-head); }
+  .why b .icon { font-size: 20px; color: #9db0ff; }
+  .why p { margin-top: 8px; font: 400 13px/20px var(--font-body); color: var(--color-inverse-on-surface); }
+  .helpline { display: grid; grid-template-columns: 36px 1fr; column-gap: 10px; align-items: center; padding: 16px; }
+  .helpline .avatar { width: 36px; height: 36px; border-radius: 18px; grid-row: span 2; }
+  .helpline b { font: 600 13px/18px var(--font-body); }
+  .helpline span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .helpline .btn { grid-column: 1 / -1; margin-top: 12px; }
+
+  @media (max-width: 1100px) { .mitra-hero .wrap, .apply { grid-template-columns: minmax(0, 1fr); } .side { position: static; } .stepper { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) { .timeline li { grid-template-columns: 24px 1fr; } .timeline time { grid-column: 2; grid-row: 2; line-height: 18px; } .timeline li > span:not(.dotc) { grid-row: 3; } .stepper { grid-template-columns: 1fr; } .fields, .perks { grid-template-columns: 1fr; } .step-panel, .status-card { padding: 20px; } .actions-row { flex-direction: column-reverse; align-items: stretch; } }
+</style>
+
+<main>
+  <section class="mitra-hero">
+    <div class="wrap">
+      <div>
+        <h1 class="t-headline-lg">Pasang iklan kontrakan gratis, setelah unit Anda terverifikasi</h1>
+        <p class="t-body-lg">Daftar cukup dengan nomor HP yang diverifikasi lewat OTP. Surveyor KontrakYuk lalu mengecek unit Anda langsung sekaligus memasang Spanduk QR, dan listing tayang dengan lencana Terverifikasi.</p>
+      </div>
+      <div class="perks" aria-label="Keuntungan mitra">
+        <div class="perk"><i><span class="icon" aria-hidden="true">money_off</span></i><b>Tanpa potongan sewa</b><span>Sewa dibayar langsung ke Anda</span></div>
+        <div class="perk"><i><span class="icon" aria-hidden="true">toggle_on</span></i><b>Status 1 klik</b><span>Tersedia, Segera, atau Terisi</span></div>
+        <div class="perk"><i><span class="icon" aria-hidden="true">qr_code_2</span></i><b>Spanduk QR</b><span>Pencari scan dari pagar</span></div>
+        <div class="perk"><i><span class="icon" aria-hidden="true">photo_camera</span></i><b>Foto properti gratis</b><span>Area Pondok Labu, Limo &amp; Cinere</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap apply">
+    <div>
+      <ol class="stepper" aria-label="Langkah verifikasi">
+        <li data-step-tab="1" aria-current="step"><span class="n">1</span><b>Data diri &amp; kontak</b><small>Akun &amp; verifikasi OTP</small></li>
+        <li data-step-tab="2"><span class="n">2</span><b>Data kontrakan</b><small>Nama &amp; alamat</small></li>
+        <li data-step-tab="3"><span class="n">3</span><b>Unit &amp; harga</b><small>Tipe, ukuran, jumlah</small></li>
+        <li data-step-tab="4"><span class="n">4</span><b>Foto &amp; survei</b><small>Jadwal cek lapangan</small></li>
+      </ol>
+
+      <form class="step-panel card" id="mitra-form" novalidate>
+        <div class="step-body" data-step="1">
+          <h2 class="t-headline-sm">Data diri pemilik</h2>
+          <p>Nomor HP/WhatsApp ini yang akan dihubungi calon penyewa. Kami kirim kode OTP ke nomor ini untuk verifikasi.</p>
+          <div class="fields">
+            <div class="f"><label for="m-name">Nama lengkap</label><input id="m-name" autocomplete="name" required placeholder="Contoh: Rina Sulistyowati"><span class="err">Isi nama lengkap Anda.</span></div>
+            <div class="f"><label for="m-wa">No. HP/WhatsApp aktif</label><input id="m-wa" type="tel" inputmode="tel" autocomplete="tel" required placeholder="08xx xxxx xxxx" pattern="0[0-9 ]{9,14}"><small>Kami kirim kode OTP untuk verifikasi.</small><span class="err">Nomor diawali 0, 10 sampai 13 angka.</span></div>
+            <div class="f"><label for="m-email">Email aktif</label><input id="m-email" type="email" autocomplete="email" required placeholder="nama@email.com"><span class="err">Isi email yang valid.</span></div>
+            <div class="f"><label for="m-pass">Password</label><input id="m-pass" type="password" autocomplete="new-password" required pattern=".{8,}" placeholder="Minimal 8 karakter"><span class="err">Password minimal 8 karakter.</span></div>
+            <div class="f full"><label class="radio-row" style="display:flex"><span style="display:inline-flex;align-items:center;gap:10px;font:400 14px/20px var(--font-body)"><input type="checkbox" id="m-agree" required style="width:18px;height:18px;accent-color:var(--color-primary)"><span>Saya setuju dengan <a class="link" style="margin:0;display:inline" href="terms.html">Syarat &amp; Ketentuan</a> dan <a class="link" style="margin:0;display:inline" href="privacy.html">Kebijakan Privasi</a> KontrakYuk.</span></span></label><span class="err">Centang persetujuan untuk melanjutkan.</span></div>
+          </div>
+        </div>
+
+        <div class="step-body" data-step="2" hidden>
+          <h2 class="t-headline-sm">Data kontrakan</h2>
+          <p>Alamat ini dipakai surveyor untuk datang dan ditampilkan ke pencari tanpa nomor rumah.</p>
+          <div class="fields">
+            <div class="f full"><label for="m-kname">Nama kontrakan</label><input id="m-kname" required placeholder="Contoh: Kontrakan Melati 3 Pintu"><small>Tulis tanpa nama kecamatan dan kota.</small><span class="err">Isi nama kontrakan.</span></div>
+            <div class="f full"><span class="t-label-md">Status Anda</span><div class="radio-row"><label><input type="radio" name="role" value="owner" checked>Pemilik langsung</label><label><input type="radio" name="role" value="manager">Pengelola dengan surat kuasa</label></div></div>
+            <div class="f"><label for="m-area">Kawasan</label><select id="m-area"><option>Pondok Labu &amp; UPNVJ</option><option>Cilandak</option><option>Limo &amp; Krukut</option><option>Cinere &amp; Gandul</option><option>Pangkalan Jati &amp; Andara</option></select></div>
+            <div class="f"><label for="m-kel">Kelurahan, kecamatan</label><input id="m-kel" required placeholder="Contoh: Pondok Labu, Cilandak"><span class="err">Isi kelurahan dan kecamatan.</span></div>
+            <div class="f full"><label for="m-addr">Alamat lengkap</label><input id="m-addr" required autocomplete="street-address" placeholder="Nama jalan, nomor rumah (jika ada), RT/RW"><span class="err">Isi alamat kontrakan.</span></div>
+            <div class="f full"><label for="m-mark">Patokan alamat (opsional)</label><textarea id="m-mark" maxlength="500" placeholder="Contoh: masuk gang sebelah Indomaret, pagar hijau. Jika tidak ada nomor rumah atau nama jalan, tulis di sini."></textarea></div>
+          </div>
+        </div>
+
+        <div class="step-body" data-step="3" hidden>
+          <h2 class="t-headline-sm">Unit &amp; harga</h2>
+          <p>Kalau Anda punya beberapa tipe unit, daftarkan satu tipe dulu. Tipe lain bisa ditambah dari Panel Mitra.</p>
+          <div class="fields">
+            <div class="f"><label for="m-tname">Nama tipe unit (opsional)</label><input id="m-tname" placeholder="Contoh: Standar, 2 kamar"></div>
+            <div class="f"><label for="m-type">Jenis properti</label><select id="m-type"><option>Kontrakan petak</option><option>Rumah petak</option><option>Paviliun</option></select></div>
+            <div class="f full"><span class="t-label-md">Penyewa yang diperbolehkan</span><div class="radio-row"><label><input type="radio" name="tenant" value="putra">Putra</label><label><input type="radio" name="tenant" value="putri">Putri</label><label><input type="radio" name="tenant" value="campur" checked>Campur</label><label><input type="radio" name="tenant" value="keluarga">Keluarga</label></div><small>Campur berarti unit bisa disewa putra maupun putri.</small></div>
+            <div class="f full"><span class="t-label-md">Ukuran unit</span><div class="radio-row" data-sizes><label><input type="radio" name="size" value="3x3">3 × 3 m</label><label><input type="radio" name="size" value="3x4" checked>3 × 4 m</label><label><input type="radio" name="size" value="4x4">4 × 4 m</label><label><input type="radio" name="size" value="4x6">4 × 6 m</label></div>
+              <div class="size-row"><input id="m-len" type="number" min="1" max="20" value="3" aria-label="Panjang (meter)"><span>×</span><input id="m-wid" type="number" min="1" max="20" value="4" aria-label="Lebar (meter)"><span>meter</span></div></div>
+            <div class="f full"><label for="m-price">Harga sewa per bulan</label><input id="m-price" inputmode="numeric" required pattern="[0-9.]{6,11}" placeholder="Contoh: 1.200.000"><span class="err">Isi harga sewa dalam rupiah, minimal 100.000.</span></div>
+            <div class="f"><div class="counter"><span><b>Total unit</b><small>Maksimal 100 unit</small></span><span class="ctl" data-counter="total" data-min="1" data-max="100"><button type="button" data-dec aria-label="Kurangi total unit">−</button><output id="m-total">1</output><button type="button" data-inc aria-label="Tambah total unit">+</button></span></div></div>
+            <div class="f"><div class="counter"><span><b>Unit kosong</b><small data-filled>Sudah terisi: 0</small></span><span class="ctl" data-counter="empty" data-min="0" data-max="1"><button type="button" data-dec aria-label="Kurangi unit kosong">−</button><output id="m-empty">1</output><button type="button" data-inc aria-label="Tambah unit kosong">+</button></span></div></div>
+          </div>
+        </div>
+
+        <div class="step-body" data-step="4" hidden>
+          <h2 class="t-headline-sm">Foto &amp; jadwal survei</h2>
+          <p>Surveyor datang sekali untuk mengecek unit, memotret, dan memasang Spanduk QR, tanpa biaya.</p>
+          <div class="fields">
+            <div class="f full"><span class="t-label-md">Foto unit (opsional)</span><label class="drop"><input type="file" accept="image/*" multiple data-file><i><span class="icon" aria-hidden="true">add_a_photo</span></i><b>Tambah foto depan, kamar, dan kamar mandi</b><span>JPG atau PNG, maks. 5 MB per foto. Boleh dilewati, surveyor akan memotret saat survei.</span><em>Pilih foto</em></label></div>
+            <div class="f"><label for="m-date">Tanggal survei</label><input id="m-date" type="date" required><span class="err">Pilih tanggal survei.</span></div>
+            <div class="f"><label for="m-slot">Jam</label><select id="m-slot"><option>09:00 - 11:00</option><option>13:00 - 15:00</option><option>15:30 - 17:30</option></select></div>
+            <div class="f full"><p class="note"><span class="icon" aria-hidden="true">description</span><span>Siapkan sertifikat, AJB, atau surat kuasa untuk ditunjukkan ke surveyor saat survei. Dokumen tidak perlu diunggah.</span></p></div>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn btn--ghost" type="button" data-prev hidden><span class="icon" aria-hidden="true">arrow_back</span>Kembali</button>
+          <small data-progress>Langkah 1 dari 4</small>
+          <button class="btn btn--primary" type="submit" data-next>Lanjut<span class="icon" aria-hidden="true">arrow_forward</span></button>
+        </div>
+      </form>
+
+      <section class="status-card card" id="mitra-status" hidden aria-live="polite">
+        <span class="badge-big"><span class="icon" aria-hidden="true">hourglass_top</span></span>
+        <h2 class="t-headline-md">Pendaftaran Anda sudah masuk</h2>
+        <p class="t-body-md">Kami konfirmasi jadwal survei lewat WhatsApp paling lambat 1×24 jam. Setelah survei, listing Anda langsung tayang.</p>
+        <ol class="timeline">
+          <li class="done"><span class="dotc"><span class="icon" aria-hidden="true">check</span></span><b>Pendaftaran diterima</b><time data-now>Baru saja</time><span>Nomor HP terverifikasi OTP, data kontrakan dan unit tersimpan.</span></li>
+          <li class="now"><span class="dotc"><span class="icon" aria-hidden="true">event</span></span><b>Konfirmasi jadwal survei</b><time>Maks. 1×24 jam</time><span>Tim kami menghubungi Anda lewat WhatsApp.</span></li>
+          <li><span class="dotc"><span class="icon" aria-hidden="true">home_pin</span></span><b>Survei unit &amp; pasang Spanduk QR</b><time data-survey>Sesuai jadwal</time><span>Surveyor mengecek unit langsung, melihat sertifikat/AJB/surat kuasa, memotret, dan memasang Spanduk QR.</span></li>
+          <li><span class="dotc"><span class="icon" aria-hidden="true">verified</span></span><b>Listing tayang Terverifikasi</b><time>Setelah survei</time><span>Unit tampil ke pencari dengan lencana Listing Terverifikasi. Rekening untuk pembayaran sewa diisi di Panel Mitra.</span></li>
+        </ol>
+        <div class="status-actions">
+          <a class="btn btn--ghost" href="index.html"><span class="icon" aria-hidden="true">home</span>Kembali ke Beranda</a>
+          <a class="btn btn--wa" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">chat</span>Tanya Tim Mitra</a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="side" aria-label="Persiapan verifikasi">
+      <section class="prep card" aria-labelledby="prep-h">
+        <h2 id="prep-h">Yang perlu disiapkan</h2>
+        <ul>
+          <li><span class="icon" aria-hidden="true">smartphone</span><span><b>Nomor HP/WA aktif</b> untuk kode OTP</span></li>
+          <li><span class="icon" aria-hidden="true">home_pin</span><span><b>Alamat lengkap</b> kontrakan, nama jalan dan RT/RW</span></li>
+          <li><span class="icon" aria-hidden="true">description</span><span><b>Sertifikat, AJB, atau surat kuasa</b> untuk ditunjukkan ke surveyor saat survei</span></li>
+          <li><span class="icon" aria-hidden="true">schedule</span><span><b>Satu jadwal</b> untuk survei, foto unit, dan pasang Spanduk QR</span></li>
+        </ul>
+      </section>
+      <div class="why"><b><span class="icon" aria-hidden="true">shield</span>Kenapa harus verifikasi?</b><p>Supaya penyewa yakin unit itu benar ada dan pemiliknya asli. Listing terverifikasi dapat lencana khusus di hasil pencarian, jadi pencari lebih yakin menghubungi Anda.</p></div>
+      <div class="helpline card"><span class="avatar" aria-hidden="true"></span><b>Budi Prakoso</b><span>Mitra Officer area Pondok Labu–Limo</span><a class="btn btn--ghost btn--md btn--block" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">chat</span>Tanya soal verifikasi</a></div>
+    </aside>
+  </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('mitra-form');
+  const bodies = [...form.querySelectorAll('[data-step]')];
+  const tabs = [...document.querySelectorAll('[data-step-tab]')];
+  const prev = form.querySelector('[data-prev]'), next = form.querySelector('[data-next]'), progress = form.querySelector('[data-progress]');
+  let step = 1;
+  const last = bodies.length;
+  const date = document.getElementById('m-date');
+  const d = new Date(); d.setDate(d.getDate() + 1); const ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; date.min = ymd; date.value = ymd;
+
+  form.querySelectorAll('[data-file]').forEach((inp) => inp.addEventListener('change', () => {
+    const drop = inp.closest('.drop');
+    if (!inp.files.length) return;
+    drop.classList.add('has-file');
+    drop.querySelector('b').textContent = inp.files.length > 1 ? `${inp.files.length} foto dipilih` : inp.files[0].name;
+    drop.querySelector('em').textContent = 'Ganti';
+    drop.querySelector('i .icon').textContent = 'check_circle';
+    inp.closest('.f').classList.remove('is-invalid');
+  }));
+  const lenI = document.getElementById('m-len'), widI = document.getElementById('m-wid');
+  form.querySelectorAll('[data-sizes] input').forEach((rb) => rb.addEventListener('change', () => { const [a, b] = rb.value.split('x'); lenI.value = a; widI.value = b; }));
+  [lenI, widI].forEach((i) => i.addEventListener('input', () => form.querySelectorAll('[data-sizes] input').forEach((rb) => { rb.checked = rb.value === `${lenI.value}x${widI.value}`; })));
+  const price = document.getElementById('m-price');
+  price.addEventListener('input', () => { const d = price.value.replace(/\D/g, '').slice(0, 9); price.value = d ? Number(d).toLocaleString('id-ID') : ''; price.setCustomValidity(d && Number(d) < 100000 ? 'min' : ''); });
+  const ctl = (k) => form.querySelector(`[data-counter="${k}"]`);
+  const val = (k) => Number(ctl(k).querySelector('output').value || ctl(k).querySelector('output').textContent);
+  function setCount(k, v) {
+    const c = ctl(k), min = Number(c.dataset.min), max = Number(c.dataset.max);
+    v = Math.min(max, Math.max(min, v)); c.querySelector('output').textContent = v;
+    c.querySelector('[data-dec]').disabled = v <= min; c.querySelector('[data-inc]').disabled = v >= max;
+    if (k === 'total') { ctl('empty').dataset.max = v; setCount('empty', Math.min(val('empty'), v)); }
+    form.querySelector('[data-filled]').textContent = `Sudah terisi: ${val('total') - val('empty')}`;
+  }
+  ['total', 'empty'].forEach((k) => {
+    ctl(k).querySelector('[data-dec]').addEventListener('click', () => setCount(k, val(k) - 1));
+    ctl(k).querySelector('[data-inc]').addEventListener('click', () => setCount(k, val(k) + 1));
+  });
+  setCount('total', 1);
+  form.addEventListener('input', (e) => { const f = e.target.closest('.f'); if (f && e.target.checkValidity()) f.classList.remove('is-invalid'); });
+
+  function valid(n) {
+    let ok = true, first = null;
+    bodies[n - 1].querySelectorAll('input[required]').forEach((inp) => {
+      const good = inp.type === 'checkbox' ? inp.checked : inp.checkValidity() && (inp.type !== 'file' || inp.files.length);
+      inp.closest('.f').classList.toggle('is-invalid', !good);
+      if (!good && !first) first = inp;
+      ok = ok && good;
+    });
+    if (first) first.focus({ preventScroll: false });
+    return ok;
+  }
+  function show(n) {
+    step = n;
+    bodies.forEach((b, i) => { b.hidden = i !== n - 1; });
+    tabs.forEach((t, i) => { t.classList.toggle('is-done', i < n - 1); i === n - 1 ? t.setAttribute('aria-current', 'step') : t.removeAttribute('aria-current'); });
+    prev.hidden = n === 1;
+    next.innerHTML = n === last ? 'Daftarkan Kontrakan<span class="icon" aria-hidden="true">send</span>' : 'Lanjut<span class="icon" aria-hidden="true">arrow_forward</span>';
+    progress.textContent = `Langkah ${n} dari ${last}`;
+    form.scrollIntoView({ block: 'start' });
+  }
+  prev.addEventListener('click', () => show(step - 1));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!valid(step)) { KY.toast('Lengkapi isian yang ditandai', 'error'); return; }
+    if (step < last) { show(step + 1); return; }
+    tabs.forEach((t) => { t.classList.add('is-done'); t.removeAttribute('aria-current'); });
+    form.hidden = true;
+    const st = document.getElementById('mitra-status');
+    const when = new Date(date.value + 'T00:00');
+    st.querySelector('[data-survey]').textContent = when.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' }) + ', ' + document.getElementById('m-slot').value.split(' ')[0];
+    st.hidden = false;
+    if (window.KY) KY.enter([st]);
+    st.scrollIntoView({ block: 'start' });
+    KY.toast('Pendaftaran kontrakan terkirim');
+  });
+});
+</script>

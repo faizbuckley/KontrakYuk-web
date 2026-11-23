@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="id" data-type="software" data-radius="round" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KontrakYuk: cari kontrakan yang masih kosong</title>
+<meta name="description" content="KontrakYuk menampilkan kontrakan dan rumah petak dengan status kamar dari pemiliknya, chat langsung ke pemilik, dan jasa pindahan mulai Rp 120.000.">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #eef0f3; --p-surface: #e2e5ea; --p-ink: #0b0c0e; --p-muted: #5d6470;
+  --p-accent: #1f2de6; --p-accent-ink: #ffffff; --p-action: #1f2de6; --p-action-ink: #ffffff;
+  --p-inv-bg: #0b0c0e; --p-inv-surface: #17181a; --p-inv-ink: #eef0f3; --p-inv-muted: #8e8f92;
+  --p-inv-accent: #eef0f3; --p-inv-accent-ink: #0b0c0e; --p-inv-action: #eef0f3; --p-inv-action-ink: #0b0c0e;
+  --font-display: "Funnel Display", system-ui, sans-serif;
+  --font-text: "Funnel Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<link rel="stylesheet" href="assets/ui/window/fragment.css">
+<link rel="stylesheet" href="assets/ui/chat/fragment.css">
+<link rel="stylesheet" href="assets/ui/toggles/fragment.css">
+<link rel="stylesheet" href="assets/ui/notify/fragment.css">
+<link rel="stylesheet" href="assets/ui/checklist/fragment.css">
+<link rel="stylesheet" href="assets/ui/stat/fragment.css">
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/marquee-row/moment.js">
+<style>
+  /* hero window (inside the visual only): a light listing window on the hero's ground */
+  .hero__window { background:
+    radial-gradient(120% 70% at 80% 120%, #9fb4f0 0 38%, transparent 60%),
+    radial-gradient(90% 60% at 10% 110%, #c9d3f5 0 40%, transparent 62%),
+    linear-gradient(#dfe5f7, #eef0f3 80%); }
+  .d-win { background: #fff; color: #16181a; border-radius: 12px; overflow: hidden; font: 400 14px/1.4 var(--font-text);
+    box-shadow: 0 0 0 1px rgb(11 12 14 / .08), 0 30px 70px -30px rgb(11 12 14 / .35); }
+  .d-win__bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px; background: #f4f5f7; font-size: 13px; color: #5d6268; }
+  .d-win__bar b { color: #16181a; font-weight: 500; } .d-win__bar .sp { flex: 1; }
+  .d-win__dots { display: flex; gap: 6px; } .d-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #dcdfe2; }
+  .d-win__body { display: grid; grid-template-columns: 270px 1fr; min-height: 420px; }
+  .inbox { background: #fafbfc; padding: 14px 10px; display: grid; align-content: start; gap: 2px; }
+  .inbox .q { height: 34px; margin-bottom: 6px; border-radius: 9px; background: #f1f2f4; display: flex; align-items: center; padding: 0 10px; color: #5d6268; font-size: 13px; }
+  .inbox .t { display: grid; grid-template-columns: 30px 1fr auto; gap: 1px 10px; padding: 9px 8px; border-radius: 9px; font-size: 13px; }
+  .inbox .t.is-on { background: #eef0f6; }
+  .inbox .t i { grid-row: 1 / span 2; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font: 500 13px/1 var(--font-text); font-style: normal; color: #0c0d0f; }
+  .inbox .t b { font-weight: 500; color: #16181a; } .inbox .t time { color: #5d6268; font-size: 13px; }
+  .inbox .t span { grid-column: 2 / -1; color: #5d6268; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .convo { display: grid; min-width: 0; align-content: start; }
+  .d-chat { display: grid; gap: 8px; align-content: start; padding: 14px 18px; font-size: 14px; }
+  .d-msg { max-width: 78%; padding: 10px 14px; border-radius: 16px; line-height: 1.45; }
+  .d-msg--me { justify-self: end; background: #1f2de6; color: #fff; border-bottom-right-radius: 6px; }
+  .d-msg--bot { max-width: 86%; background: #f1f2f4; color: #16181a; border-bottom-left-radius: 6px; }
+  .d-msg small { display: inline; margin-left: 8px; font-size: 13px; color: #5d6268; white-space: nowrap; }
+  .d-tool { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5d6268; }
+  .d-tool::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; }
+  .acts { display: flex; gap: 8px; } .acts span { height: 30px; padding: 0 12px; border-radius: 99px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; background: #1f2de6; color: #fff; }
+  .acts span + span { background: #d9dbde; color: #0b0c0e; }
+  @media (max-width: 639px) { .d-win__body { grid-template-columns: 1fr; } .inbox { display: none; } .hero__window .d-chat { font-size: 13px; padding: 12px 14px; } .d-win__bar .sp ~ span { display: none; } }
+
+  /* app-frame (sections-library.md, app-frame) */
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list { max-height: 252px; }
+    .app > .app__pane--list::after { display: none; }
+    .app .ui-win__side { display: none; }
+    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  }
+  @media (max-width: 639px) {
+    .app.ui { grid-template-rows: minmax(0, 1fr); }
+    .app > .app__pane--list { display: none; }
+    .app > .app__pane + .app__pane { border-top: 0; }
+  }
+
+  .hero--centred .hero__lead { color: var(--ink); }
+  #fitur .panel { --p-h: 336px; }
+  @media (min-width: 640px) and (max-width: 1023px) { #fitur .grid > .card { grid-column: 1 / -1; } #fitur .panel { --p-h: 196px; } }
+  @media (max-width: 639px) { #fitur .panel { --p-h: 160px; } .acts span + span { display: none; } }
+  @media (min-width: 640px) and (max-width: 1023px) { #pindahan .grid > * { grid-column: auto / span 6 !important; } }
+  @media (max-width: 1279px) { .d-win__body { grid-template-columns: 1fr; } .inbox { display: none; } }
+</style>
+</head>
+<body>
+<!-- type: software (web app for renting kontrakan and booking moving services)
+     deal: hero centred, nav nav-mega, close close-type, footer footer-dark, rhythm dark-band, buttons pill,
+           mark arc, palette cool-grey-cobalt, type funnel, radius round, ground sand, grounds none,
+           effect grain-gradient (hero window)
+     moments: marquee-row (last row of #pindahan)
+     screens: hero 1 · cari (app-frame) 1 · fitur (features-2x2) 2 · pindahan (split, dark band) 1 · tanya (faq) 1 · footer 1 -->
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>KontrakYuk</a>
+    <nav class="nav__links" aria-label="Utama">
+      <div class="nav__item">
+        <a class="nav__link" href="#cari">Kontrakan <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Penyewa</p>
+              <a href="#cari">Cari kontrakan<span>Status kamar dari pemilik</span></a>
+              <a href="#fitur">Ingatkan saat kosong<span>Kabar saat unit dilepas</span></a>
+              <a href="#cari">Chat pemilik<span>Langsung ke WhatsApp</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Pemilik</p>
+              <a href="#fitur">Ubah status unit<span>Tersedia, segera, terisi</span></a>
+              <a href="#fitur">Spanduk QR<span>Pencari scan di pagar</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="#pindahan">
+              <div class="panel">
+                <div class="stage stage--fade-br"><div class="at-corner">
+                  <div class="ui ui-notify" data-ui="notify">
+                    <ul class="ui-notify__list">
+                      <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">Pickup bak dijadwalkan<time>08:30</time></span><span class="ui-note__body">Pondok Cina ke Kukusan, 12 km</span></span></li>
+                    </ul>
+                  </div>
+                </div></div>
+              </div>
+              <span class="t-card">Pindahan dan cleaning</span>
+              <span class="t-small muted">Satu pesanan, hemat 15%</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#fitur">Fitur</a></div>
+      <div class="nav__item"><a class="nav__link" href="#pindahan">Pindahan</a></div>
+      <div class="nav__item"><a class="nav__link" href="#tanya">Pertanyaan</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="#cari">Cari kontrakan</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--centred" aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#pindahan"><span>Jasa pindahan mulai Rp 120.000</span><span class="muted">Lihat armada</span></a>
+        <h1 id="hero-h">Cari kontrakan yang masih kosong</h1>
+        <p class="hero__lead">Setiap unit tertulis Tersedia, Segera, atau Terisi, diubah langsung oleh pemiliknya. Chat pemilik lewat WhatsApp, lalu pesan pindahan dari halaman yang sama.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="#cari">Cari kontrakan</a><a class="btn btn--secondary" href="#pindahan">Pesan jasa pindahan</a></div>
+      </div>
+      <div class="hero__window" data-fx="grain-gradient" data-fx-seed="7" role="img" aria-label="KontrakYuk mencari kontrakan kosong di Kukusan, Depok, dan menampilkan unit yang masih tersedia">
+        <div class="ly-piece d-win" aria-hidden="true">
+          <div class="d-win__bar"><span class="d-win__dots"><i></i><i></i><i></i></span><span><b>Kukusan, Depok</b> · di bawah Rp 1,5 jt</span><span class="sp"></span><span>12 unit · 3 tersedia</span></div>
+          <div class="d-win__body">
+            <div class="inbox">
+              <div class="q">Cari wilayah atau nama kontrakan</div>
+              <div class="t is-on"><i style="background:#bfe8c9">A2</i><b>Kontrakan 3 Petak A-02</b><time>Tersedia</time><span>Rp 1.250.000 / bulan · Kukusan</span></div>
+              <div class="t"><i style="background:#f6dca0">K5</i><b>Rumah Petak Kenanga</b><time>Segera</time><span>Rp 950.000 / bulan · Beji Timur</span></div>
+              <div class="t"><i style="background:#d6dae2">A1</i><b>Kontrakan 3 Petak A-01</b><time>Terisi</time><span>Disewa sampai November</span></div>
+              <div class="t"><i style="background:#bfe8c9">GK</i><b>Kontrakan Griya Kartini</b><time>Tersedia</time><span>Rp 950.000 / bulan · Buah Batu</span></div>
+            </div>
+            <div class="convo">
+              <div class="d-chat" data-ly-steps="900">
+                <div class="d-msg d-msg--me">Kontrakan 3 petak dekat UI, masuk mobil, di bawah Rp 1,5 juta</div>
+                <div class="d-tool" data-step>Mengecek 12 unit, status diubah pemilik hari ini</div>
+                <div class="d-msg d-msg--bot" data-step>3 unit masih kosong. Paling dekat: Kontrakan 3 Petak A-02, Rp&nbsp;1.250.000 per bulan, token listrik 1300&nbsp;VA.</div>
+                <div class="acts" data-step><span>Chat pemilik</span><span>Simpan unit</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="cari" aria-labelledby="cari-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 class="span-6" id="cari-h">Daftar kontrakan dengan status dari pemiliknya</h2>
+        <p class="span-6 start-7">Pilih unit yang masih Tersedia, baca harga dan fasilitasnya, lalu tanya jadwal survei ke pemilik. Pesan template sudah terisi nama unitnya. <a class="link" href="#tanya">Baca cara kerja status</a></p>
+      </div>
+      <div class="ui app fill" role="img" aria-label="Daftar kontrakan di Depok dengan status kamar, di samping chat penyewa dengan pemilik unit A-02" data-ui-pause-host>
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-open="Tersedia" data-work="Dicek" data-done="Terisi">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb">Depok <i>/</i> <b>Tersedia</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">Cari unit</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 7.5 8 3l5.5 4.5V13h-11z"/></svg>Tersedia<em>3</em></span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>Segera<em>1</em></span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg>Terisi<em>8</em></span>
+                <span class="ui-win__label">Wilayah</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Kukusan</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Beji</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>Pemilik</span><span>Unit</span><span>Status</span><span>Update</span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">HS</span><span class="ui-win__who">H. Syarifudin</span><span class="ui-win__sub">3 Petak A-02 · Rp 1,25 jt</span><span class="ui-win__st" data-st>Tersedia</span><span class="ui-win__age">20m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">RS</span><span class="ui-win__who">Rina S.</span><span class="ui-win__sub">Petak Kenanga · Rp 950 rb</span><span class="ui-win__st is-you" data-st>Segera</span><span class="ui-win__age">1h</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">GK</span><span class="ui-win__who">Griya Kartini</span><span class="ui-win__sub">Buah Batu · Rp 950 rb</span><span class="ui-win__st" data-st>Tersedia</span><span class="ui-win__age">2h</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">MA</span><span class="ui-win__who">Melati Asri</span><span class="ui-win__sub">Tebet · Rp 1,85 jt</span><span class="ui-win__st is-you" data-st>Segera</span><span class="ui-win__age">3h</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">HS</span><span class="ui-win__who">H. Syarifudin</span><span class="ui-win__sub">3 Petak A-01 · Rp 1,25 jt</span><span class="ui-win__st is-done" data-st>Terisi</span><span class="ui-win__age">3d</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">CP</span><span class="ui-win__who">Cempaka Putih</span><span class="ui-win__sub">Paviliun 2 kamar · Rp 2,2 jt</span><span class="ui-win__st is-done" data-st>Terisi</span><span class="ui-win__age">4d</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">PH</span><span class="ui-win__who">Pak Haji Syarif</span><span class="ui-win__sub">Kukusan · Rp 1,2 jt</span><span class="ui-win__st" data-st>Tersedia</span><span class="ui-win__age">5h</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">BD</span><span class="ui-win__who">Bu Dewi</span><span class="ui-win__sub">Margonda · Rp 1,1 jt</span><span class="ui-win__st is-done" data-st>Terisi</span><span class="ui-win__age">6d</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">AJ</span><span class="ui-win__who">Pak Anwar</span><span class="ui-win__sub">Pondok Cina · Rp 900 rb</span><span class="ui-win__st is-done" data-st>Terisi</span><span class="ui-win__age">1w</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open" data-ui-loop>
+          <div class="ui ui-panel ui-chat" data-ui="chat">
+            <div class="ui-head">
+              <span class="ui-agent" aria-hidden="true"></span>
+              <div class="ui-title">H. Syarifudin · 3 Petak A-02</div>
+              <span class="ui-chat__online">Online</span>
+              <span class="ui-spacer"></span>
+            </div>
+            <div class="ui-chat__body">
+              <div class="ui-msg ui-msg--me" data-chat-q>
+                <span class="ui-msg__text">Pak, unit A-02 masih kosong? Saya mau survei Sabtu pagi.</span>
+              </div>
+              <div class="ui-msg ui-msg--bot" data-chat-a>
+                <span class="ui-agent ui-msg__av" aria-hidden="true"></span>
+                <span class="ui-msg__col">
+                  <span class="ui-chat__answer">Masih kosong, Mas. Sabtu jam 10 bisa, saya tunggu di <b>Jl. KH. M. Usman, Kukusan</b>.</span>
+                  <span class="ui-chat__srcs">
+                    <span class="ui-chat__src"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 7.5 8 3l5.5 4.5V13h-11z"/></svg>Unit A-02 · Tersedia</span>
+                    <span class="ui-chat__src"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>Diubah 20 menit lalu</span>
+                  </span>
+                </span>
+              </div>
+              <div class="ui-msg ui-msg--me">
+                <span class="ui-msg__text">Siap, Pak. Sampai ketemu Sabtu.</span>
+              </div>
+              <div class="ui-msg ui-msg--bot">
+                <span class="ui-agent ui-msg__av" aria-hidden="true"></span>
+                <span class="ui-msg__col"><span class="ui-chat__answer">Kalau jadi sewa, jasa pindahannya bisa dipesan dari halaman unit ini juga.</span></span>
+              </div>
+            </div>
+            <div class="ui-chat__input">
+              <span class="ui-chat__ph">Tulis pesan</span>
+              <span class="ui-chat__send" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 13V3.5M3.8 7.5 8 3.3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2" id="fitur" aria-labelledby="fitur-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="fitur-h">Satu aplikasi untuk penyewa dan pemilik. <span class="muted">Status, kabar, pindahan dan spanduk QR.</span></h2>
+        </div>
+        <div class="grid">
+          <article class="card card--row card--open span-6 m-nolift">
+            <h3>Mengubah status unit dalam satu ketukan</h3>
+            <p>Pemilik memilih Tersedia, Segera, atau Terisi dari ponsel. Pencari langsung melihat perubahannya tanpa perlu muat ulang.</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:56px;--ay-sm:48px" data-ui-loop>
+                <div class="ui ui-panel ui-toggles" data-ui="toggles">
+                  <div class="ui-head">
+                    <svg class="ui-icon ui-toggles__ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7.5 8 3l5.5 4.5V13h-11z"/></svg>
+                    <div class="ui-title">Unit untuk pencari</div>
+                    <span class="ui-spacer"></span>
+                    <div class="ui-meta" data-tg-count>3 dibuka</div>
+                  </div>
+                  <ul class="ui-toggles__list">
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">3 Petak Unit A-02</span><span class="ui-tg__sub">Tersedia, Rp 1.250.000 / bulan</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Unit A-02 dibuka"><i></i></button></li>
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Rumah Petak Kenanga</span><span class="ui-tg__sub">Segera, kosong tanggal 1</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Kenanga dibuka"><i></i></button></li>
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">3 Petak Unit A-01</span><span class="ui-tg__sub">Terisi sampai November</span></span><button class="ui-switch" type="button" role="switch" aria-checked="false" aria-label="Unit A-01 dibuka"><i></i></button></li>
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Paviliun Belakang</span><span class="ui-tg__sub">Tersedia, Rp 1.600.000 / bulan</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Paviliun dibuka"><i></i></button></li>
+                  </ul>
+                </div>
+              </div></div>
+            </div>
+          </article>
+          <article class="card card--row card--open span-6 m-nolift">
+            <h3>Mengabari penyewa saat unit kosong</h3>
+            <p>Tekan Ingatkan Saat Kosong pada unit yang terisi. Begitu pemilik membukanya lagi, kabar masuk ke ponsel Anda.</p>
+            <div class="panel">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:32px;--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)">
+                <div class="ui ui-notify" data-ui="notify">
+                  <ul class="ui-notify__list" data-notify-list>
+                    <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Unit A-02 kosong lagi<time>baru</time></span><span class="ui-note__body">Kukusan, Rp 1.250.000 per bulan</span></span><span class="ui-btn ui-btn--sm ui-note__btn">Buka</span></li>
+                    <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="3">RS</span><span class="ui-note__text"><span class="ui-note__title">Rina S. membalas<time>4m</time></span><span class="ui-note__body">Kenanga bisa dilihat hari Minggu</span></span></li>
+                    <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">Survei dikonfirmasi<time>12m</time></span><span class="ui-note__body">Sabtu, 10:00 di Kukusan</span></span></li>
+                  </ul>
+                </div>
+              </div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-6 m-nolift">
+          <h3>Menyusun jadwal armada pindahan</h3>
+          <p>Pilih tanggal dan slot jam, lalu sopir dan kru ditugaskan. Status pesanan bisa dipantau sampai barang turun di kontrakan baru.</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:40px;--ay-sm:40px">
+              <div class="ui ui-panel ui-checks" data-ui="checklist">
+                <div class="ui-checks__head"><div class="ui-title">Pesanan KY-MOV-8841</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>2 dari 5</div></div>
+                <div class="ui-checks__bar"><i data-checks-bar style="--k:0.4"></i></div>
+                <ul class="ui-checks__list">
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Slot Sabtu 08:30 dipilih</span></li>
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Pickup bak dan 1 kru siap</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Barang dimuat di Pondok Cina</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Tiba di Kukusan</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Serah terima dan foto barang</span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-6 m-nolift">
+          <h3>Menghitung pencari dari spanduk QR</h3>
+          <p>Pasang spanduk QR di pagar kontrakan. Setiap scan membuka foto, harga dan status unit, dan tercatat di dashboard pemilik.</p>
+          <div class="panel">
+            <div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:420px;--ax:max(24px, 50% - 210px);--ay:56px;--ay-sm:48px">
+              <div class="ui ui-panel ui-stat" data-ui="stat" data-from="312" data-to="384" data-ui-opts='{"fill":true}'>
+                <div class="ui-stat__head">
+                  <div class="ui-stat__top"><span class="ui-stat__label">Pengunjung dari spanduk QR</span><span class="ui-stat__range">14 hari terakhir</span></div>
+                  <div class="ui-stat__line"><span class="ui-stat__num" data-stat-num>384</span><span class="ui-chip ui-chip--plain ui-stat__delta"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 9.5v-7M3 5.5l3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>18%</span><span class="ui-stat__sub">dari 14 hari sebelumnya</span></div>
+                </div>
+                <div class="ui-stat__chart">
+                  <svg class="ui-stat__svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="ui-stat__grid" d="M0 30.5H400M0 60.5H400M0 90.5H400"/>
+                    <path class="ui-stat__cover" fill-rule="evenodd" d=""/>
+                    <g class="ui-stat__bars"><rect rx="3" x="0.00" y="49.04" width="21.14" height="70.96"/><rect rx="3" x="29.14" y="40.86" width="21.14" height="79.14"/><rect rx="3" x="58.29" y="44.95" width="21.14" height="75.05"/><rect rx="3" x="87.43" y="36.76" width="21.14" height="83.24"/><rect rx="3" x="116.57" y="42.22" width="21.14" height="77.78"/><rect rx="3" x="145.71" y="34.04" width="21.14" height="85.96"/><rect rx="3" x="174.86" y="38.13" width="21.14" height="81.87"/><rect rx="3" x="204.00" y="29.94" width="21.14" height="90.06"/><rect rx="3" x="233.14" y="35.40" width="21.14" height="84.60"/><rect rx="3" x="262.29" y="25.85" width="21.14" height="94.15"/><rect rx="3" x="291.43" y="31.31" width="21.14" height="88.69"/><rect rx="3" x="320.57" y="23.12" width="21.14" height="96.88"/><rect rx="3" x="349.71" y="27.21" width="21.14" height="92.79"/><rect rx="3" x="378.86" y="16.30" width="21.14" height="103.70"/></g>
+                  </svg>
+                  <div class="ui-stat__axis" aria-hidden="true"><span>30 Okt</span><span>6 Nov</span><span>Hari ini</span></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-inverse" id="pindahan" style="--hm: 2" aria-labelledby="pindahan-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="stack-5" style="grid-column: 1 / span 6">
+          <h2 id="pindahan-h">Pindahan dan cleaning sekaligus</h2>
+          <p class="t-lead">Barang diangkut, kontrakan baru dibersihkan sebelum Anda masuk. Paket bundling hemat 15%.</p>
+          <ul class="rows">
+            <li><span class="rows__name">Motor roda tiga, 150 kg</span><span class="rows__value">Rp 120.000</span></li>
+            <li><span class="rows__name">Mobil pickup bak, 800 kg</span><span class="rows__value">Rp 180.000</span></li>
+            <li><span class="rows__name">Mobil blind van, tertutup</span><span class="rows__value">Rp 240.000</span></li>
+            <li><span class="rows__name">Kru angkut tambahan, per orang</span><span class="rows__value">Rp 75.000</span></li>
+            <li><span class="rows__name">Deep cleaning 3 petak</span><span class="rows__value">Rp 120.000</span></li>
+          </ul>
+        </div>
+        <div class="frame frame--split frame--lit span-6 start-7" data-visual>
+          <div class="stage stage--fade-b"><div class="at-rise fit to-edge" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:56px;--ay-sm:40px" data-ui-loop>
+            <div class="ui ui-panel ui-checks" data-ui="checklist">
+              <div class="ui-checks__head"><div class="ui-title">Deep cleaning 3 petak</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>1 dari 5</div></div>
+              <div class="ui-checks__bar"><i data-checks-bar style="--k:0.2"></i></div>
+              <ul class="ui-checks__list">
+                <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Foto sebelum dibersihkan</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Kerak lantai dan nat disikat</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Kloset dan kamar mandi disinfeksi</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Kaca, kusen, ventilasi dilap</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Foto sesudah dikirim ke Anda</span></li>
+              </ul>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mq-row">
+        <p class="t-label">Kontrakan terdaftar di</p>
+        <div data-moment="marquee-row" data-moment-opts='{"speed": 36}'>
+          <ul class="mo-mq__track"><li>Kukusan</li><li>Beji</li><li>Pondok Cina</li><li>Margonda</li><li>Tebet</li><li>Cempaka Putih</li><li>Buah Batu</li><li>Dipatiukur</li><li>Bekasi</li><li>Tangerang</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tanya" aria-labelledby="tanya-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="stack-4" style="grid-column: 1 / span 6">
+          <h2 id="tanya-h">Pertanyaan penyewa</h2>
+          <p><a class="link" href="mailto:halo@kontrakyuk.example">Email tim KontrakYuk</a></p>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>Siapa yang mengubah status kamar?</h3><p>Pemilik unit sendiri, dari dashboard atau ponselnya. Waktu perubahan terakhir tertulis di setiap unit.</p></div>
+          <div class="faq__item"><h3>Apakah ada biaya untuk penyewa?</h3><p>Tidak. Mencari kontrakan dan chat pemilik gratis. Anda hanya membayar sewa ke pemilik dan jasa pindahan bila memesannya.</p></div>
+          <div class="faq__item"><h3>Bagaimana kalau status Segera?</h3><p>Unit akan kosong pada tanggal yang tertulis. Tekan Ingatkan Saat Kosong agar dikabari saat pemilik membukanya.</p></div>
+          <div class="faq__item"><h3>Apa saja isi paket bundling?</h3><p>Satu armada pilihan Anda, kru angkut, dan deep cleaning kontrakan baru. Totalnya dipotong 15%.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Temukan kontrakan yang masih kosong</h2>
+        <p>Gratis untuk penyewa, status kamar dari pemiliknya.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="#cari">Cari kontrakan<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>KontrakYuk</a>
+          <p class="footer__lede">Kontrakan dengan status kamar dari pemilik, plus jasa pindahan dan cleaning.</p>
+        </div>
+        <div class="span-2 footer__col"><h4>Penyewa</h4><ul><li><a href="#cari">Cari kontrakan</a></li><li><a href="#tanya">Pertanyaan</a></li></ul></div>
+        <div class="span-2 footer__col"><h4>Pemilik</h4><ul><li><a href="#fitur">Ubah status</a></li><li><a href="#fitur">Spanduk QR</a></li></ul></div>
+        <div class="span-2 footer__col"><h4>Layanan</h4><ul><li><a href="#pindahan">Jasa pindahan</a></li><li><a href="#pindahan">Deep cleaning</a></li></ul></div>
+        <div class="span-2 footer__col"><h4>Bantuan</h4><ul><li><a href="#tanya">Cara kerja</a></li><li><a href="mailto:halo@kontrakyuk.example">Email kami</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 KontrakYuk &nbsp; <a href="privacy.html">Privasi</a> &nbsp; <a href="terms.html">Ketentuan</a></span>
+        <div class="socials"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+</body>
+</html>

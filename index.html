@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KontrakYuk · Cari Kontrakan & Jasa Pindahan</title>
+<meta name="description" content="Temukan kontrakan dan rumah petak terverifikasi dengan info ketersediaan real-time, plus jasa pindahan dan cleaning service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
+<link rel="stylesheet" href="css/kontrakyuk.css">
+<style>
+  /* hero */
+  .hero { position: relative; background: var(--color-surface-container-low); border-bottom: 1px solid var(--line); padding: 48px 0 88px; }
+  .hero__blob { position: absolute; border-radius: 50%; pointer-events: none; }
+  .hero__blob--a { width: 384px; height: 384px; left: calc(50% + 464px); top: -128px; background: #9db0ff; filter: blur(48px); opacity: .7; }
+  .hero__blob--b { width: 320px; height: 320px; left: -96px; top: 309px; background: #dfe3ec; filter: blur(32px); }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 340px; column-gap: 64px; align-items: start; }
+  .hero .live-feed { grid-column: 2; grid-row: 1 / span 2; }
+  .hero h1, .hero__lead { grid-column: 1; }
+  .hero .search-card { grid-column: 1 / -1; }
+  @media (max-width: 1100px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } .hero .live-feed { display: none; } }
+  .hero__eyebrow { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 16px; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-xs); font: 600 12px/16px var(--font-body); letter-spacing: .3px; text-transform: uppercase; color: var(--color-primary); }
+  .hero__eyebrow .dot { margin-right: 4px; }
+  .hero h1 { margin-top: 0; text-wrap: balance; }
+  .hero h1 span { display: block; }
+  .hero h1 .accent { position: relative; color: var(--color-primary-container); width: max-content; }
+  .hero h1 .accent img { display: none; }
+  .hero h1 .accent { color: var(--color-primary); background: linear-gradient(var(--color-primary-fixed), var(--color-primary-fixed)) 0 92% / 100% 10px no-repeat; }
+  .hero__lead { margin-top: 17px; max-width: 673px; color: var(--color-on-surface-variant); }
+  .search-card { margin-top: 40px; padding: 24px; }
+  .search-row { display: grid; grid-template-columns: 378.5px 181.5px 280px 1fr; gap: 16px 16px; align-items: end; }
+  .field label { display: flex; align-items: center; gap: 4px; margin-bottom: 9px; font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .field label .icon { font-size: 16px; color: var(--color-primary); }
+  .select { position: relative; }
+  .select select, .select input { appearance: none; width: 100%; height: 44px; padding: 0 36px 0 12px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 13px/20px var(--font-body); color: var(--color-on-surface); }
+  .select .icon { position: absolute; right: 10px; top: 12px; font-size: 20px; color: #757585; pointer-events: none; }
+  .search-row .btn { align-self: end; margin-bottom: 6px; }
+  .facilities { margin-top: 24px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-height: 60px; padding: 12px 8px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .facilities__label { font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); margin-right: 8px; }
+  .fac { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 18px; background: #fff; box-shadow: var(--shadow-xs); font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .fac .icon { font-size: 14px; }
+  .fac[aria-pressed="true"] { background: var(--color-primary-fixed); color: var(--color-primary); box-shadow: none; }
+  .toggle-avail { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 16px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-xs); font: 600 12px/16px var(--font-body); }
+  .toggle-avail .dot { width: 10px; height: 10px; border-radius: 5px; }
+  .switch { position: relative; width: 36px; height: 20px; border-radius: 10px; background: var(--color-status-available); margin-left: 6px; transition: background-color .15s; }
+  .switch::after { content: ""; position: absolute; top: 2px; left: 18px; width: 16px; height: 16px; border-radius: 8px; background: #fff; transition: left .15s; }
+  .toggle-avail[aria-checked="false"] .switch { background: var(--color-outline-variant); }
+  .toggle-avail[aria-checked="false"] .switch::after { left: 2px; }
+
+  /* stats */
+  .stats { position: relative; z-index: 1; margin-top: -48px; display: grid; grid-template-columns: repeat(3, 1fr); padding: 26px 24px; gap: 24px; }
+  .stat { display: grid; grid-template-columns: 56px auto; column-gap: 16px; align-items: center; }
+  .stat__icon { grid-row: span 2; width: 56px; height: 56px; border-radius: var(--radius-lg); background: var(--color-surface-container-low); display: grid; place-items: center; }
+  .stat__icon .icon { font-size: 30px; }
+  .stat__num { display: flex; align-items: baseline; gap: 4px; }
+  .stat__num b { font: 500 32px/40px var(--font-head); }
+  .stat__num small { font: 700 12px/16px var(--font-body); }
+  .stat p { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+
+  /* steps */
+  .steps { padding-top: 100px; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+  .section-head > p { max-width: 449px; color: var(--color-on-surface-variant); align-self: start; margin-top: 15px; }
+  .steps .t-eyebrow { margin-bottom: 7px; }
+  .steps-grid { margin-top: 41px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .step { position: relative; height: 296px; padding: 24px; display: flex; flex-direction: column; }
+  .step__icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: grid; place-items: center; }
+  .step__icon .icon { font-size: 24px; }
+  .step__num { position: absolute; right: 24px; top: 27px; font: 500 32px/40px var(--font-head); color: #8b919c; font-variant-numeric: tabular-nums; }
+  .step h3 { margin-top: 24px; }
+  .step p { margin-top: 3px; color: var(--color-on-surface-variant); }
+  .step__foot { margin-top: auto; display: flex; align-items: center; gap: 4px; font: 600 12px/16px var(--font-body); }
+  .step__foot .icon { font-size: 16px; }
+
+  /* listings */
+  .listings { padding-top: 54px; }
+  .listings__title { display: flex; align-items: center; gap: 4px; }
+  .listings__title .icon { font-size: 20px; color: var(--color-primary); }
+  .listings .section-head { align-items: center; }
+  .listings__sub { margin-top: 4px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .tabs { display: flex; gap: 4px; padding: 4px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .tabs button { height: 28px; padding: 0 16px; border-radius: var(--radius-default); font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .tabs button[aria-selected="true"] { background: #fff; color: var(--color-primary); box-shadow: var(--shadow-xs); }
+  .listing-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .listing { display: flex; flex-direction: column; height: 462px; overflow: hidden; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-xs); transition: transform .2s ease, box-shadow .2s ease; }
+  .listing:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .listing.is-full { opacity: .8; }
+  .listing__media { position: relative; height: 192px; flex: none; }
+  .listing__media .status { position: absolute; left: 12px; top: 12px; }
+  .listing__fav { position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 16px; background: #fff; display: grid; place-items: center; }
+  .listing__fav .icon { font-size: 18px; }
+  .listing__fav[aria-pressed="true"] .icon { color: #e11d48; font-variation-settings: "FILL" 1; }
+  .listing__count { position: absolute; right: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 8px; border-radius: var(--radius-sm); background: var(--color-on-surface); color: var(--color-surface); font: 600 12px/16px var(--font-body); }
+  .listing__count .icon { font-size: 12px; }
+  .listing__body { flex: 1; display: flex; flex-direction: column; padding: 16px; }
+  .listing__loc { display: flex; align-items: center; gap: 4px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .listing__loc .icon { font-size: 14px; color: var(--color-primary); }
+  .listing h3 { margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .listing__price { margin-top: 8px; display: flex; align-items: baseline; gap: 4px; }
+  .listing__price small { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .listing__chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .listing .btn { margin-top: auto; height: 40px; font: 600 14px/20px var(--font-body); }
+  .listing.is-full .listing__price .t-price { color: var(--color-on-surface-variant); }
+  .listing.is-full .listing__loc .icon { color: var(--color-outline); }
+
+  /* promo */
+  .promo { margin-top: 40px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: center; min-height: 360px; padding: 40px; border-radius: var(--radius-xl); color: #fff; background: var(--color-on-surface); }
+  .promo__glow { position: absolute; right: -120px; bottom: -200px; width: 420px; height: 420px; border-radius: 50%; background: var(--color-primary); filter: blur(140px); opacity: .55; pointer-events: none; }
+  .promo__pill { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 16px; border-radius: var(--radius-lg); background: var(--color-secondary-container); color: var(--color-on-secondary-container); font: 700 12px/16px var(--font-body); letter-spacing: .6px; text-transform: uppercase; }
+  .promo__pill .icon { font-size: 16px; }
+  .promo h2 { max-width: 745px; text-wrap: balance; }
+  .promo__lead { margin-top: 8px; max-width: 673px; color: var(--color-inverse-on-surface); }
+  .promo__perks { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .glass { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(6px); }
+  .promo__perks > span { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px 0 10px; border-radius: var(--radius-default); font: 600 12px/16px var(--font-body); }
+  .promo__perks .icon { font-size: 22px; color: var(--color-secondary-fixed); }
+  .promo__box { position: relative; padding: 18px 15px 16px; border-radius: var(--radius-lg); text-align: center; backdrop-filter: blur(12px); }
+  .promo__box .t-label-sm { color: var(--color-inverse-on-surface); text-transform: uppercase; }
+  .promo__box b { display: block; margin-top: 7px; font: 500 24px/32px var(--font-head); }
+  .promo__box p { margin-top: 4px; font: 400 13px/20px var(--font-body); color: var(--color-inverse-on-surface); }
+  .promo__box .btn { margin-top: 16px; width: 100%; }
+
+  /* areas */
+  .areas { margin-top: 56px; padding: 24px; }
+  .areas__head { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
+  .areas__head p { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .link { display: inline-flex; align-items: center; gap: 4px; margin-top: 14px; font: 600 14px/20px var(--font-body); color: var(--color-primary); white-space: nowrap; }
+  .link .icon { font-size: 14px; transition: transform .15s; }
+  .link:hover .icon { transform: translateX(3px); }
+  .area-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .area { position: relative; display: flex; flex-direction: column; justify-content: flex-end; height: 160px; padding: 16px; border-radius: var(--radius-md); overflow: hidden; background: #3a3e46; color: #fff; transition: transform .2s ease; }
+  .area::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(11,12,14,.88) 0, rgba(11,12,14,.45) 50%, rgba(11,12,14,.05)); }
+  .area b, .area span { position: relative; z-index: 2; }
+  .listing__media .status, .listing__fav, .listing__count { z-index: 1; }
+  .area:hover { transform: translateY(-2px); }
+  .area span { color: #c9ccd2 !important; }
+  .area b { font: 500 16px/24px var(--font-head); }
+  .area span { font: 400 13px/20px var(--font-body); color: var(--color-surface-dim); }
+  .area:hover b { text-decoration: underline; }
+
+  /* partner */
+  .partner { margin-top: 40px; display: flex; align-items: center; gap: 16px; padding: 24px; border-radius: var(--radius-lg); background: var(--color-surface-container-high); }
+  .partner__icon { width: 48px; height: 48px; flex: none; border-radius: var(--radius-md); background: var(--color-primary); color: #fff; display: grid; place-items: center; }
+  .partner__icon .icon { font-size: 24px; }
+  .partner p { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .partner .btn { margin-left: auto; width: 180px; }
+
+  @media (max-width: 1100px) {
+    .hero { height: auto; padding-bottom: 72px; }
+    .search-row { grid-template-columns: 1fr 1fr; }
+    .stats { margin-top: -40px; }
+    .listing-grid { grid-template-columns: repeat(2, 1fr); }
+    .promo { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .t-display { font-size: 34px; line-height: 42px; }
+    
+    .search-row, .stats, .steps-grid, .area-grid { grid-template-columns: 1fr; }
+    .section-head { flex-direction: column; align-items: start; }
+    .toggle-avail { margin-left: 0; }
+    .listing-grid { grid-template-columns: 1fr; }
+    .step { height: auto; min-height: 260px; }
+    .partner { flex-wrap: wrap; }
+    .partner .btn { margin-left: 0; width: 100%; }
+    .promo { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>KontrakYuk</a>
+    <span class="demo-pill" title="Prototipe Tahap 1: semua unit, harga, dan angka di situs ini adalah data contoh">Data contoh</span>
+    <label class="site-search"><span class="icon" aria-hidden="true">search</span><input type="search" placeholder="Cari kontrakan…" aria-label="Cari wilayah, kota, atau nama kontrakan"></label>
+    <nav class="site-nav" aria-label="Utama">
+      <a href="index.html" aria-current="page">Cari Kontrakan</a>
+      <a href="pindahan.html">Pindahan &amp; Cleaning</a>
+    </nav>
+    <a class="btn btn--brand" href="mitra.html">Pasang Iklan Kontrakan</a>
+    <div class="account">
+      <button class="account__btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="account-menu" aria-label="Akun Rina S."><span class="avatar" aria-hidden="true"></span><span class="icon" aria-hidden="true">expand_more</span></button>
+      <div class="account__menu" id="account-menu" hidden>
+        <div class="account__who"><span class="avatar" aria-hidden="true"></span><div><b>Rina S.</b><span><span class="icon" aria-hidden="true">verified</span>Mitra Terverifikasi</span></div></div>
+        <a class="account__item account__item--mitra" href="dashboard.html"><span class="icon" aria-hidden="true">grid_view</span>Panel Mitra<small>Kelola 4 unit</small></a>
+        <a class="account__item" href="pesanan.html"><span class="icon" aria-hidden="true">local_shipping</span>Pesanan Jasa</a>
+        <a class="account__item" href="detail.html"><span class="icon" aria-hidden="true">bookmark</span>Unit Disimpan</a>
+        <a class="account__item" href="index.html"><span class="icon" aria-hidden="true">logout</span>Keluar</a>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Menu"><span class="icon">menu</span></button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <aside class="live-feed" aria-label="Perubahan status terbaru" data-live-feed>
+        <div class="live-feed__head"><span>Status diperbarui pemilik</span><button class="live-feed__pause" type="button" aria-label="Jeda pembaruan" data-feed-pause><span class="icon" aria-hidden="true">pause</span></button></div>
+        <ol aria-live="off">
+          <li><i aria-hidden="true" style="background-image:url(img/photos/listing-1.jpg)"></i><b>Petakan Melati, Unit A</b><small>Pondok Labu, Jaksel · baru saja</small><span class="status status--available">Tersedia</span></li>
+          <li><i aria-hidden="true" style="background-image:url(img/photos/listing-2.jpg)"></i><b>Kontrakan Kenanga 2 Kamar</b><small>Pondok Labu, Jaksel · 4 mnt</small><span class="status status--soon">Segera</span></li>
+          <li><i aria-hidden="true" style="background-image:url(img/photos/listing-3.jpg)"></i><b>Petakan Gandul Baru</b><small>Gandul, Cinere · 11 mnt</small><span class="status status--occupied">Terisi</span></li>
+        </ol>
+      </aside>
+      <h1 class="t-display"><span>Pindah Kontrakan</span><span class="accent">Gak Pake Ribet.<img src="img/underline.svg" width="347.828" height="12" alt=""></span></h1>
+      <p class="hero__lead t-body-lg">Temukan kontrakan &amp; rumah petak terverifikasi dengan status ketersediaan yang dicek berkala ke pemilik, serta kemudahan jasa pindahan langsung tanpa komisi agen perantara.</p>
+
+      <form class="search-card card card--lg" action="detail.html">
+        <div class="search-row">
+          <div class="field">
+            <label for="f-lokasi"><span class="icon" aria-hidden="true">location_on</span>Lokasi / Kawasan</label>
+            <div class="select"><input id="f-lokasi" name="lokasi" value="Pondok Labu / Dekat UPNVJ"><span class="icon" aria-hidden="true">expand_more</span></div>
+          </div>
+          <div class="field">
+            <label for="f-tipe"><span class="icon" aria-hidden="true">calendar_month</span>Tipe Sewa</label>
+            <div class="select"><select id="f-tipe" name="tipe"><option>Bulanan</option><option>Tahunan</option><option>Harian</option></select><span class="icon" aria-hidden="true">expand_more</span></div>
+          </div>
+          <div class="field">
+            <label for="f-budget"><span class="icon" aria-hidden="true">payments</span>Rentang Budget</label>
+            <div class="select"><select id="f-budget" name="budget"><option>Rp 1 Jt - Rp 2,5 Jt / bln</option><option>Di bawah Rp 1 Jt / bln</option><option>Di atas Rp 2,5 Jt / bln</option></select><span class="icon" aria-hidden="true">expand_more</span></div>
+          </div>
+          <button class="btn btn--primary" type="submit"><span class="icon" aria-hidden="true">search</span>Cari Kontrakan</button>
+        </div>
+        <div class="facilities">
+          <span class="facilities__label">Fasilitas Utama:</span>
+          <button class="fac" type="button" aria-pressed="true"><span class="icon" aria-hidden="true">directions_car</span>Masuk Mobil</button>
+          <button class="fac" type="button" aria-pressed="true"><span class="icon" aria-hidden="true">bolt</span>Listrik Token</button>
+          <button class="fac" type="button" aria-pressed="false"><span class="icon" aria-hidden="true">bathtub</span>Kamar Mandi Dalam</button>
+          <button class="fac" type="button" aria-pressed="false"><span class="icon" aria-hidden="true">mode_fan</span>AC / Pendingin</button>
+          <button class="fac" type="button" aria-pressed="false"><span class="icon" aria-hidden="true">water_damage</span>Bebas Banjir</button>
+          <button class="toggle-avail" type="button" role="switch" aria-checked="true"><span class="dot"></span>Hanya yang Tersedia<span class="switch" aria-hidden="true"></span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="stats card card--lg" aria-label="Angka KontrakYuk">
+      <div class="stat"><span class="stat__icon"><span class="icon" style="color:var(--color-primary)" aria-hidden="true">verified_user</span></span><p class="stat__num"><b>8 Unit</b><small style="color:var(--color-status-available)">Data Contoh</small></p><p>Petakan &amp; Kontrakan di Sekitar UPNVJ</p></div>
+      <div class="stat"><span class="stat__icon"><span class="icon" style="color:var(--color-brand-blue-vibrant)" aria-hidden="true">home</span></span><p class="stat__num"><b>Rp1–2,5 Jt</b><small style="color:var(--color-primary)">Per Bulan</small></p><p>Rentang Sewa Pondok Labu, Limo &amp; Cinere</p></div>
+      <div class="stat"><span class="stat__icon"><span class="icon" style="color:var(--color-status-available)" aria-hidden="true">sensors</span></span><p class="stat__num"><b>≤7 Hari</b><small style="color:var(--color-secondary)">Target</small></p><p>Status Unit Dikonfirmasi Ulang ke Pemilik</p></div>
+    </section>
+
+    <section class="steps" aria-labelledby="steps-h">
+      <div class="section-head">
+        <div><h2 class="t-headline-lg" id="steps-h">3 Langkah Nyaman Pindah Hunian</h2></div>
+        <p class="t-body-md">Mulai dari pencarian kamar kosong yang valid hingga barang terangkut rapi dan lantai kinclong siap huni.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step card">
+          <span class="step__icon" style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">check_circle</span></span>
+          <span class="step__num" aria-hidden="true">01</span>
+          <h3 class="t-headline-sm">Cari &amp; Cek Status Real-time</h3>
+          <p class="t-body-md">Indikator visual akurat: Hijau (Tersedia), Kuning (Segera Kosong), dan Abu-abu (Terisi). Tak ada lagi buang waktu survei kontrakan yang ternyata sudah penuh.</p>
+          <p class="step__foot" style="color:var(--color-status-available)"><span class="dot"></span>&nbsp;Diperbarui pemilik, dicek ulang tim</p>
+        </article>
+        <article class="step card">
+          <span class="step__icon" style="background:var(--color-surface-container-high);color:var(--color-primary)"><span class="icon" aria-hidden="true">forum</span></span>
+          <span class="step__num" aria-hidden="true">02</span>
+          <h3 class="t-headline-sm">Chat Pemilik Langsung</h3>
+          <p class="t-body-md">Terhubung langsung ke WhatsApp pemilik yang nomornya sudah terverifikasi OTP. Tanyakan detail, nego masa sewa, hingga atur jadwal janji temu tanpa biaya perantara.</p>
+          <p class="step__foot" style="color:var(--color-whatsapp-green)"><span class="icon" aria-hidden="true">verified</span>Nomor Kontak Terverifikasi</p>
+        </article>
+        <article class="step card">
+          <span class="step__icon" style="background:var(--color-tertiary-fixed);color:var(--color-tertiary)"><span class="icon" aria-hidden="true">local_shipping</span></span>
+          <span class="step__num" aria-hidden="true">03</span>
+          <h3 class="t-headline-sm">Pindahan &amp; Bersih-bersih</h3>
+          <p class="t-body-md">Ajukan jasa pindahan dalam kota dan pembersihan unit dari tim KontrakYuk. Pindah masuk tinggal bawa koper, hunian baru sudah bersih.</p>
+          <p class="step__foot" style="color:var(--color-primary)"><span class="icon" aria-hidden="true">event</span>Jadwal &amp; Biaya Dikonfirmasi Dulu</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="listings" aria-labelledby="listings-h">
+      <div class="section-head">
+        <div>
+          <h2 class="t-headline-lg listings__title" id="listings-h"><span class="icon" aria-hidden="true">recommend</span>Rekomendasi Kontrakan Terpopuler</h2>
+          <p class="listings__sub">Contoh unit di sekitar Kampus UPNVJ Pondok Labu dan Limo</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Filter wilayah">
+          <button role="tab" aria-selected="true" data-area="all">Semua</button>
+          <button role="tab" aria-selected="false" data-area="pondoklabu">Pondok Labu</button>
+          <button role="tab" aria-selected="false" data-area="limo">Limo &amp; Krukut</button>
+          <button role="tab" aria-selected="false" data-area="cinere">Cinere</button>
+        </div>
+      </div>
+      <div class="listing-grid">
+        <article class="listing" data-area="pondoklabu">
+          <div class="listing__media ph-frame"><img class="ph" src="img/photos/listing-1.jpg" alt="Deretan pintu kontrakan petak bercat putih" loading="lazy" width="900" height="600">
+            <span class="status status--available">Tersedia</span>
+            <button class="listing__fav" type="button" aria-pressed="false" aria-label="Simpan unit" data-toast-on="Disimpan ke daftar favorit" data-toast-off="Dihapus dari favorit"><span class="icon">favorite</span></button>
+            <span class="listing__count"><span class="icon" aria-hidden="true">photo_camera</span>6 Foto</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__loc"><span class="icon" aria-hidden="true">pin_drop</span>Pondok Labu, Cilandak · 600 m ke UPNVJ</p>
+            <h3 class="t-title"><a href="detail.html">Petakan Melati 3 Pintu, Unit A</a></h3>
+            <p class="listing__price"><span class="t-price">Rp 1.400.000</span><small>/ bulan</small></p>
+            <div class="listing__chips"><span class="chip"><span class="icon" aria-hidden="true">bolt</span>Token 1300W</span><span class="chip"><span class="icon" aria-hidden="true">water_drop</span>Air Jet Pump</span><span class="chip"><span class="icon" aria-hidden="true">bathtub</span>K. Mandi Dalam</span></div>
+            <a class="btn btn--wa" href="detail.html"><span class="icon" aria-hidden="true">chat</span>WhatsApp Pemilik</a>
+          </div>
+        </article>
+        <article class="listing" data-area="pondoklabu">
+          <div class="listing__media ph-frame"><img class="ph" src="img/photos/listing-2.jpg" alt="Rumah petak dengan atap genteng dan jendela kayu" loading="lazy" width="900" height="600">
+            <span class="status status--soon">Segera (1 Des)</span>
+            <button class="listing__fav" type="button" aria-pressed="false" aria-label="Simpan unit" data-toast-on="Disimpan ke daftar favorit" data-toast-off="Dihapus dari favorit"><span class="icon">favorite</span></button>
+            <span class="listing__count"><span class="icon" aria-hidden="true">photo_camera</span>8 Foto</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__loc"><span class="icon" aria-hidden="true">pin_drop</span>Pondok Labu · dekat Pasar Pondok Labu</p>
+            <h3 class="t-title"><a href="detail.html">Kontrakan Kenanga 2 Kamar</a></h3>
+            <p class="listing__price"><span class="t-price">Rp 2.500.000</span><small>/ bulan</small></p>
+            <div class="listing__chips"><span class="chip"><span class="icon" aria-hidden="true">bed</span>2 Kamar · 55 m²</span><span class="chip"><span class="icon" aria-hidden="true">water_drop</span>Air PAM</span><span class="chip"><span class="icon" aria-hidden="true">two_wheeler</span>Carport Motor</span></div>
+            <a class="btn btn--soon" href="detail.html"><span class="icon" aria-hidden="true">event_available</span>Booking Antrean</a>
+          </div>
+        </article>
+        <article class="listing is-full" data-area="cinere">
+          <div class="listing__media ph-frame"><img class="ph" src="img/photos/listing-3.jpg" alt="Paviliun putih beratap merah" loading="lazy" width="900" height="600">
+            <span class="status status--occupied">Terisi Penuh</span>
+            <button class="listing__fav" type="button" aria-pressed="false" aria-label="Simpan unit" data-toast-on="Disimpan ke daftar favorit" data-toast-off="Dihapus dari favorit"><span class="icon">favorite</span></button>
+          </div>
+          <div class="listing__body">
+            <p class="listing__loc"><span class="icon" aria-hidden="true">pin_drop</span>Gandul, Cinere · dekat Mall Cinere</p>
+            <h3 class="t-title"><a href="detail.html">Petakan Gandul Baru</a></h3>
+            <p class="listing__price"><span class="t-price">Rp 1.200.000</span><small>/ bulan</small></p>
+            <div class="listing__chips"><span class="chip"><span class="icon" aria-hidden="true">water_drop</span>Air Termasuk Sewa</span><span class="chip"><span class="icon" aria-hidden="true">soup_kitchen</span>Dapur Pribadi</span><span class="chip"><span class="icon" aria-hidden="true">delete</span>Sampah Rp20rb/bln</span></div>
+            <button class="btn btn--soft" type="button" data-done-label="Kami kabari saat kosong" data-done-icon="notifications" data-toast="Pengingat aktif untuk Petakan Gandul Baru"><span class="icon" aria-hidden="true">notifications_active</span>Ingatkan Saat Kosong</button>
+          </div>
+        </article>
+        <article class="listing" data-area="limo">
+          <div class="listing__media ph-frame"><img class="ph" src="img/photos/listing-4.jpg" alt="Rumah kecil putih dengan teras dan tangga" loading="lazy" width="900" height="600">
+            <span class="status status--available">Tersedia</span>
+            <button class="listing__fav" type="button" aria-pressed="false" aria-label="Simpan unit" data-toast-on="Disimpan ke daftar favorit" data-toast-off="Dihapus dari favorit"><span class="icon">favorite</span></button>
+            <span class="listing__count"><span class="icon" aria-hidden="true">photo_camera</span>5 Foto</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__loc"><span class="icon" aria-hidden="true">pin_drop</span>Krukut, Limo · 5 menit ke UPNVJ Limo</p>
+            <h3 class="t-title"><a href="detail.html">Petakan Krukut Damai</a></h3>
+            <p class="listing__price"><span class="t-price">Rp 1.000.000</span><small>/ bulan</small></p>
+            <div class="listing__chips"><span class="chip"><span class="icon" aria-hidden="true">lock_open</span>Bebas Jam Malam</span><span class="chip"><span class="icon" aria-hidden="true">bolt</span>Token 900W</span><span class="chip"><span class="icon" aria-hidden="true">two_wheeler</span>Parkir Motor</span></div>
+            <a class="btn btn--wa" href="detail.html"><span class="icon" aria-hidden="true">chat</span>WhatsApp Pemilik</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="promo" aria-labelledby="promo-h">
+      <div>
+        <h2 class="t-headline-lg" id="promo-h">Mau Pindahan atau Kontrakan Baru Kurang Bersih?</h2>
+        <p class="promo__lead t-body-lg">Ajukan jasa pindahan dalam kota dan pembersihan unit langsung dari halaman kontrakan. Jadwal, cakupan kerja, dan biaya dikonfirmasi dulu sebelum tim datang.</p>
+        <div class="promo__perks">
+          <span class="glass"><span class="icon" aria-hidden="true">check_circle</span>Biaya Dikonfirmasi di Awal</span>
+          <span class="glass"><span class="icon" aria-hidden="true">check_circle</span>Barang Difoto Saat Muat &amp; Serah Terima</span>
+          <span class="glass"><span class="icon" aria-hidden="true">check_circle</span>Deterjen &amp; Alat Higienis Komplit</span>
+        </div>
+      </div>
+      <div class="promo__box glass">
+        <p class="t-label-sm">Pindahan + Kebersihan</p>
+        <b>Rp 650rb</b>
+        <p>Pindahan dalam kota Rp400rb + kebersihan Rp250rb</p>
+        <a class="btn btn--white" href="pindahan.html"><span class="icon" aria-hidden="true">local_shipping</span>Pesan Jasa Pindahan</a>
+      </div>
+    </section>
+
+    <section class="areas card" aria-labelledby="areas-h">
+      <div class="areas__head">
+        <div><h2 class="t-headline-sm" id="areas-h">Jelajahi Berdasarkan Peta Kawasan</h2><p>Pilih kampus atau kawasan di sekitar Jakarta Selatan–Depok untuk melihat kontrakan terdekat</p></div>
+        <a class="link" href="detail.html">Lihat Peta Lengkap<span class="icon" aria-hidden="true">arrow_forward</span></a>
+      </div>
+      <div class="area-grid">
+        <a class="area ph-frame" href="detail.html"><img class="ph" src="img/photos/area-upnvj-pondoklabu.jpg" alt="Gedung Rektorat UPN Veteran Jakarta di Jalan RS Fatmawati, Pondok Labu" loading="lazy" width="900" height="600"><b>Kampus UPNVJ Pondok Labu</b><span>3 Unit Contoh • Mulai Rp 1,4 Jt</span></a>
+        <a class="area ph-frame" href="detail.html"><img class="ph" src="img/photos/area-limo.jpg" alt="Gedung Fakultas Ilmu Kesehatan UPN Veteran Jakarta, kampus Limo" loading="lazy" width="900" height="600"><b>Kampus UPNVJ Limo &amp; Krukut</b><span>2 Unit Contoh • Mulai Rp 1 Jt</span></a>
+        <a class="area ph-frame" href="detail.html"><img class="ph" src="img/photos/area-cinere.jpg" alt="Pintu masuk Mal Cinere dengan angkot di jalan depannya" loading="lazy" width="900" height="600"><b>Cinere, Gandul &amp; Andara</b><span>3 Unit Contoh • Mulai Rp 1,2 Jt</span></a>
+      </div>
+    </section>
+
+    <section class="partner" aria-labelledby="partner-h">
+      <span class="partner__icon"><span class="icon" aria-hidden="true">real_estate_agent</span></span>
+      <div><h2 class="t-headline-sm" id="partner-h">Punya Rumah Petakan atau Kamar Kosong?</h2><p>Iklankan langsung tanpa biaya potongan sewa. Kendalikan status ketersediaan kapan saja lewat WhatsApp bot atau dashboard.</p></div>
+      <a class="btn btn--dark" href="mitra.html">Daftar Mitra Gratis</a>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>KontrakYuk</a>
+        <p class="t-headline-sm">Cari Kontrakan Jadi Lebih Mudah</p>
+        <p class="t-body-md muted">Informasi kontrakan dan petakan di sekitar Kampus UPNVJ Pondok Labu dan Limo, dilengkapi jasa pindahan dan cleaning service.</p>
+        <div class="footer-socials"><a href="index.html" aria-label="Situs"><span class="icon">public</span></a><a href="index.html" aria-label="Bagikan"><span class="icon">share</span></a><a href="index.html" aria-label="Forum"><span class="icon">forum</span></a></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="footer-col"><h4>Layanan Utama</h4><ul><li><a href="index.html">Sewa Kontrakan &amp; Petakan</a></li><li><a href="pindahan.html">Jasa Angkut Pindahan</a></li><li><a href="pindahan.html?layanan=cleaning#sec-cleaning">Cleaning Service Kamar</a></li><li><a href="mitra.html">Iklankan Properti Anda</a></li></ul></div>
+      <div class="footer-col"><h4>Wilayah Populer</h4><ul><li><a href="index.html">Kontrakan Pondok Labu &amp; UPNVJ</a></li><li><a href="index.html">Kontrakan Cilandak</a></li><li><a href="index.html">Kontrakan Limo &amp; Krukut</a></li><li><a href="index.html">Kontrakan Cinere &amp; Gandul</a></li><li><a href="index.html">Kontrakan Pangkalan Jati &amp; Andara</a></li></ul></div>
+      <div class="footer-col"><h4>Mitra &amp; Bantuan</h4><ul><li><a href="mitra.html">Daftar Jadi Mitra Pemilik</a></li><li><a href="index.html">Pusat Bantuan Penyewa</a></li><li><a href="terms.html">Syarat &amp; Ketentuan</a></li></ul><a class="btn btn--wa" href="index.html"><span class="icon" aria-hidden="true">chat</span>Kontak WhatsApp</a></div>
+    </div>
+    <div class="footer-legal">
+      <p>© 2026 KontrakYuk · Prototipe Tahap 1, seluruh unit dan angka adalah data contoh.</p>
+      <nav aria-label="Legal"><a href="credits.html">Foto via Unsplash &amp; Wikimedia Commons</a><a href="privacy.html">Privasi</a><a href="terms.html">Keamanan Sewa</a><a href="index.html">Peta Situs</a></nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/kontrakyuk.js"></script>
+<script>
+(() => {
+  // the hero's one live moment: a new status update arrives on top every 3.2 s; pauses off screen, on hover, by button
+  const feed = document.querySelector('[data-live-feed]');
+  if (!feed) return;
+  const list = feed.querySelector('ol');
+  const updates = [
+    ['Petakan Cilobak Asri', 'Pangkalan Jati, Cinere', 'available', 'Tersedia', 'listing-1'],
+    ['Kontrakan Limo Hijau', 'Limo, Depok', 'soon', 'Segera', 'unit-kenanga'],
+    ['Kontrakan Andara Indah', 'Andara, Pangkalan Jati', 'available', 'Tersedia', 'listing-3'],
+    ['Petakan Melati, Unit B', 'Pondok Labu, Jaksel', 'occupied', 'Terisi', 'unit-a01'],
+    ['Petakan Krukut Damai', 'Krukut, Limo', 'available', 'Tersedia', 'listing-4'],
+    ['Kontrakan Kenanga 2 Kamar', 'Pondok Labu, Jaksel', 'soon', 'Segera', 'listing-2'],
+  ];
+  // lock the list to its three-row height so a new row never pushes the search box down
+  list.style.height = list.offsetHeight + 'px';
+  let i = 0, timer = null, paused = false, visible = true, hovered = false;
+  const ages = ['baru saja', '3 mnt', '9 mnt'];
+  function tick() {
+    const [name, place, cls, label, img] = updates[i++ % updates.length];
+    const li = document.createElement('li');
+    li.className = 'is-new';
+    li.innerHTML = '<i aria-hidden="true"></i><b></b><small></small><span class="status status--' + cls + '"></span>';
+    li.querySelector('b').textContent = name;
+    if (img) li.querySelector('i').style.backgroundImage = `url(img/photos/${img}.jpg)`;
+    li.querySelector('span').textContent = label;
+    list.prepend(li);
+    const items = [...list.children];
+    items.forEach((el, k) => { const sm = el.querySelector('small'); const where = sm.textContent.split(' · ')[0] || place; sm.textContent = (k === 0 ? place : where) + ' · ' + (ages[k] || ''); });
+    const last = items[3];
+    if (last) { last.classList.add('is-leaving'); setTimeout(() => last.remove(), 300); }
+  }
+  function sync() {
+    const run = !paused && visible && !hovered && !KY.reduce.matches;
+    if (run && !timer) timer = setInterval(tick, 3200);
+    if (!run && timer) { clearInterval(timer); timer = null; }
+  }
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; sync(); }).observe(feed);
+  document.addEventListener('visibilitychange', () => { visible = !document.hidden; sync(); });
+  feed.addEventListener('mouseenter', () => { hovered = true; sync(); });
+  feed.addEventListener('mouseleave', () => { hovered = false; sync(); });
+  const btn = feed.querySelector('[data-feed-pause]');
+  btn.addEventListener('click', () => { paused = !paused; btn.querySelector('.icon').textContent = paused ? 'play_arrow' : 'pause'; btn.setAttribute('aria-label', paused ? 'Lanjutkan pembaruan' : 'Jeda pembaruan'); sync(); });
+  KY.reduce.addEventListener('change', sync);
+  sync();
+
+  // stats count up once when they come into view
+  const nums = document.querySelectorAll('.stat__num b');
+  if (!KY.reduce.matches) {
+    const io = new IntersectionObserver((ents) => ents.forEach((en) => {
+      if (!en.isIntersecting) return; io.unobserve(en.target);
+      const el = en.target, final = el.textContent, m = final.match(/[\d.,]+/);
+      if (!m) return;
+      const target = parseFloat(m[0].replace(/,/g, '')), dec = m[0].includes('.') ? 1 : 0, t0 = performance.now();
+      const step = (now) => { const k = Math.min(1, (now - t0) / 1000), e = 1 - Math.pow(1 - k, 4); const v = target * e;
+        el.textContent = final.replace(m[0], dec ? v.toFixed(1) : Math.round(v).toLocaleString('en-US')); if (k < 1) requestAnimationFrame(step); else el.textContent = final; };
+      requestAnimationFrame(step);
+    }), { threshold: .6 });
+    nums.forEach((n) => io.observe(n));
+  }
+})();
+</script>
+</body>
+</html>

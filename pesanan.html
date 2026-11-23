@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pesanan Jasa · MitraYuk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
+<link rel="stylesheet" href="css/kontrakyuk.css">
+<link rel="stylesheet" href="css/panel.css">
+<style>
+  .filters { padding: 16px; display: grid; gap: 16px; }
+  .filters__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .filters__search { flex: 1 1 360px; max-width: 576px; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: var(--radius-pill); background: var(--color-surface-container-low); box-shadow: var(--shadow-xs); color: var(--color-outline); }
+  .filters__search input { flex: 1; min-width: 0; border: 0; background: none; outline: none; font: 400 14px/20px var(--font-body); color: var(--color-on-surface); }
+  .filters__search .icon { font-size: 18px; }
+  .day-tabs { margin-left: auto; display: flex; gap: 6px; }
+  .chip-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: var(--radius-pill); background: var(--color-surface-container-low); font: 600 13px/16px var(--font-body); color: var(--color-on-surface-variant); white-space: nowrap; }
+  .chip-btn:hover { background: var(--color-surface-container-high); }
+  .chip-btn[aria-selected="true"] { background: var(--color-primary); color: #fff; }
+  .chip-btn .n { padding: 0 6px; border-radius: var(--radius-pill); background: rgba(255,255,255,.2); font-size: 12px; }
+  .chip-btn .dot { background: var(--c, var(--color-outline)); }
+  .chip-btn .icon { font-size: 16px; }
+  .filters__more { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .mini-sel { position: relative; }
+  .mini-sel select { appearance: none; height: 32px; padding: 0 32px 0 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--color-surface-container-low); font: 600 12px/16px var(--font-body); color: var(--color-on-surface); }
+  .mini-sel .icon { position: absolute; right: 8px; top: 7px; font-size: 18px; color: var(--color-outline); pointer-events: none; }
+  .filters__more .link { margin: 0 0 0 auto; font-size: 12px; }
+
+  .orders-wrap { display: grid; grid-template-columns: minmax(0, 728fr) minmax(0, 352fr); gap: 24px; align-items: start; }
+  .orders { display: grid; gap: 16px; }
+  .order { position: relative; overflow: hidden; padding: 24px; }
+    .order__head { display: flex; justify-content: space-between; gap: 16px; }
+  .order__id { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .order__id h3 { font: 500 20px/28px var(--font-head); letter-spacing: -.015em; }
+  .order__state { display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 10px; border-radius: var(--radius-pill); font: 600 12px/16px var(--font-body); }
+  .order__state .icon { font-size: 14px; }
+  .order__type { margin-top: 6px; display: inline-block; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-primary-fixed); color: var(--color-primary); font: 600 12px/16px var(--font-body); }
+  .order__bill { text-align: right; flex: none; }
+  .order__bill small { display: block; font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .order__bill strong { display: block; font: 500 20px/28px var(--font-head); font-variant-numeric: tabular-nums; }
+  .order__bill span { display: inline-flex; align-items: center; gap: 4px; font: 600 12px/16px var(--font-body); }
+  .order__bill span .icon { font-size: 14px; }
+  .order__grid { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .box { padding: 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .box small.k { display: block; font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .renter { display: grid; grid-template-columns: 40px 1fr auto; column-gap: 12px; align-items: center; }
+  .initials { grid-row: span 2; width: 40px; height: 40px; border-radius: 20px; display: grid; place-items: center; background: var(--color-primary-fixed); color: var(--color-primary); font: 700 14px/1 var(--font-body); }
+  .renter b { font: 500 16px/22px var(--font-head); }
+  .renter span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .renter .icon-btn { grid-row: 1 / span 2; grid-column: 3; width: 32px; height: 32px; background: var(--color-status-available-bg); color: var(--color-status-available); box-shadow: none; border-radius: 16px; }
+  .when { margin-top: 12px; display: flex; align-items: center; gap: 6px; font: 600 14px/20px var(--font-body); }
+  .when .icon { font-size: 16px; color: var(--color-primary); }
+  .box p { margin-top: 4px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .route { display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; }
+  .route > :not(i) { grid-column: 2; }
+  .route i { grid-row: 1 / span 3; width: 22px; height: 22px; border-radius: 11px; display: grid; place-items: center; font: 700 11px/1 var(--font-body); font-style: normal; }
+  .route b { font: 600 13px/20px var(--font-body); }
+  .route span { grid-column: 2; font: 400 12px/18px var(--font-body); color: var(--color-on-surface-variant); }
+  .route + .route { margin-top: 14px; }
+  .alert { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--color-status-soon-bg); }
+  .alert > .icon { font-size: 20px; color: var(--color-status-soon); }
+  .alert div { flex: 1 1 260px; }
+  .alert b { font: 600 14px/20px var(--font-body); }
+  .alert p { font: 400 12px/18px var(--font-body); color: var(--color-on-surface-variant); }
+  .alert p em { font-style: normal; font-weight: 600; color: #b42318; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .trip { margin-top: 20px; padding: 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .trip__top { display: flex; justify-content: space-between; gap: 12px; font: 600 13px/20px var(--font-body); }
+  .trip__top span:first-child { display: inline-flex; align-items: center; gap: 6px; color: var(--color-primary); }
+  .trip__top .icon { font-size: 16px; }
+  .trip__bar { margin-top: 10px; height: 8px; border-radius: 4px; background: var(--color-surface-container-high); overflow: hidden; }
+  .trip__bar { position: relative; overflow: visible; }
+  .trip__bar i { display: block; height: 100%; width: var(--p, 68%); border-radius: 4px; background: var(--color-primary); transition: width 1.2s var(--m-ease); }
+  .trip__van { position: absolute; top: 50%; left: var(--p, 68%); width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 13px; background: #fff; box-shadow: 0 0 0 2px var(--color-primary); display: grid; place-items: center; color: var(--color-primary); transition: left 1.2s var(--m-ease); }
+  .trip__van .icon { font-size: 14px; }
+  .order__state, .alert { transition: background-color var(--m-slide) var(--m-ease), color var(--m-slide) var(--m-ease); }
+  .alert.is-assigned { background: var(--color-status-available-bg); }
+  .alert.is-assigned > .icon { color: var(--color-status-available); }
+  .trip__stops { margin-top: 8px; display: flex; justify-content: space-between; gap: 8px; font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .trip__stops span:nth-child(2) { color: var(--color-primary); }
+  .driver { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .driver .avatar { width: 44px; height: 44px; border-radius: 22px; }
+  .driver > div:not(.actions) { flex: 1; }
+  .driver b { display: block; font: 500 16px/22px var(--font-head); }
+  .driver span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .crew { display: grid; grid-template-columns: 32px 1fr; column-gap: 10px; margin-top: 12px; }
+  .crew i { grid-row: span 2; width: 32px; height: 32px; border-radius: 16px; display: grid; place-items: center; background: var(--color-on-surface); color: #fff; font: 700 11px/1 var(--font-body); font-style: normal; }
+  .crew b { font: 600 13px/20px var(--font-body); }
+  .crew span { font: 400 12px/18px var(--font-body); color: var(--color-on-surface-variant); }
+  .done-line { margin-top: 12px; display: flex; align-items: center; gap: 6px; font: 600 12px/16px var(--font-body); color: var(--color-status-available); }
+  .done-line .icon { font-size: 16px; }
+  .order__foot { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .order__foot > p { flex: 1 1 220px; display: flex; align-items: center; gap: 8px; font: 400 12px/18px var(--font-body); color: var(--color-on-surface-variant); }
+  .order__foot > p .icon { font-size: 18px; color: var(--color-outline); }
+  .rating { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: var(--radius-pill); background: var(--color-status-soon-bg); font: 600 12px/16px var(--font-body); color: var(--color-status-soon); }
+  .rating span { font-weight: 400; color: var(--color-on-surface-variant); }
+
+  .rail { position: sticky; top: 104px; display: grid; gap: 16px; }
+  .rail .card { padding: 20px; }
+  .rail-head { display: grid; grid-template-columns: 36px 1fr auto; column-gap: 10px; align-items: center; }
+  .rail-head i { grid-row: span 2; width: 36px; height: 36px; border-radius: var(--radius-md); display: grid; place-items: center; font-style: normal; }
+  .rail-head i .icon { font-size: 20px; }
+  .rail-head > b, .rail-head > span:not(.dot) { grid-column: 2; }
+  .rail-head b { font: 500 16px/22px var(--font-head); }
+  .rail-head span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .rail-head .dot { grid-row: 1 / span 2; grid-column: 3; }
+  .fleet-row { margin-top: 14px; }
+  .fleet-row div { display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 600 12px/16px var(--font-body); }
+  .fleet-row div span:first-child { display: inline-flex; align-items: center; gap: 6px; }
+  .fleet-row .icon { font-size: 16px; color: var(--color-primary); }
+  .fleet-row div b { font-weight: 700; }
+  .fleet-row div span:last-child { color: var(--color-on-surface-variant); font-weight: 400; }
+  .meter { margin-top: 6px; height: 8px; border-radius: 4px; background: var(--color-surface-container-high); overflow: hidden; }
+  .meter i { display: block; height: 100%; border-radius: 4px; }
+  .rail .btn { margin-top: 16px; }
+  .sop { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .sop li { display: grid; grid-template-columns: 18px 1fr; column-gap: 8px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .sop li .icon { font-size: 16px; color: var(--color-status-available); margin-top: 2px; }
+  .sop b { color: var(--color-on-surface); font-weight: 600; }
+  .note { margin-top: 16px; display: flex; gap: 10px; padding: 12px; border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .note .icon { font-size: 18px; color: var(--color-outline); }
+  .hotline { position: relative; overflow: hidden; padding: 24px; border-radius: var(--radius-lg); background: var(--color-on-surface); color: #fff; }
+    .hotline > * { position: relative; z-index: 1; }
+  .hotline small { display: flex; align-items: center; gap: 6px; font: 600 12px/16px var(--font-body); color: var(--color-inverse-on-surface); }
+  .hotline small .icon { font-size: 16px; }
+  .hotline b { display: block; margin-top: 8px; font: 500 20px/28px var(--font-head); }
+  .hotline p { margin-top: 8px; font: 400 13px/20px var(--font-body); color: var(--color-inverse-on-surface); }
+  .hotline .btn { margin-top: 16px; }
+
+  @media (max-width: 1200px) { .orders-wrap { grid-template-columns: 1fr; } .rail { position: static; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
+  @media (max-width: 700px) { .order__grid { grid-template-columns: 1fr; } .order__head { flex-direction: column; } .order__bill { text-align: left; } .day-tabs { margin-left: 0; } .title-actions { flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+
+<div class="panel-shell">
+  <aside class="sidebar">
+    <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>MitraYuk</a><span class="demo-pill">Data contoh</span>
+    <nav aria-label="Panel mitra">
+      <a class="side-link" href="dashboard.html"><span class="icon" aria-hidden="true">grid_view</span>Ringkasan Unit</a>
+      <a class="side-link" href="dashboard.html#unit"><span class="icon" aria-hidden="true">home_work</span>Daftar Kontrakan</a>
+      <a class="side-link" href="pesanan.html" aria-current="page"><span class="icon" aria-hidden="true">local_shipping</span>Pesanan Jasa</a>
+      <a class="side-link" href="dashboard.html#rekening"><span class="icon" aria-hidden="true">payments</span>Keuangan &amp; Sewa</a>
+    </nav>
+    <a class="side-link" href="index.html"><span class="icon" aria-hidden="true">arrow_back</span>Halaman Utama</a>
+  </aside>
+
+  <div>
+    <header class="topbar">
+      <h1>Panel Kontrol Mitra Pemilik</h1><span class="live">Sistem Dispatch Aktif</span>
+      <a class="btn btn--primary" href="dashboard.html#unit"><span class="icon" aria-hidden="true">add_home</span>Tambah Unit Baru</a>
+      <div class="who"><span class="avatar" aria-hidden="true"></span><b>Rina S.</b><span>Mitra Terverifikasi</span></div>
+    </header>
+
+    <main class="panel-main">
+      <div class="page-title">
+        <div>
+          <h2 class="t-headline-lg">Manajemen Pesanan Jasa Pindahan &amp; Cleaning</h2>
+          <p class="t-body-md">Kelola jadwal penjemputan barang, koordinasi armada supir &amp; kru angkut, serta pemantauan status sanitasi dan cleaning secara real-time.</p>
+        </div>
+        <div class="title-actions">
+          <button class="btn btn--ghost" type="button" data-done-label="Laporan diunduh" data-done-icon="download_done" data-toast="laporan-pesanan-hari-ini.csv siap"><span class="icon" aria-hidden="true">table_view</span>Export Laporan (CSV)</button>
+          <a class="btn btn--wa" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">support_agent</span>Koordinator Lapangan</a>
+        </div>
+      </div>
+
+      <section class="kpis" aria-label="Ringkasan pesanan">
+        <div class="kpi card">
+          <div class="kpi__top">Total Pesanan Aktif<span class="kpi__ico" style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">local_shipping</span></span></div>
+          <div class="kpi__num"><b>4</b><span>Pesanan</span></div>
+          <p class="kpi__foot" style="color:var(--color-status-available)"><span class="icon" aria-hidden="true">trending_up</span>+1 masuk hari ini</p>
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Menunggu Kru / Supir<span class="kpi__ico" style="background:var(--color-status-soon-bg);color:var(--color-status-soon)"><span class="icon" aria-hidden="true">person_alert</span></span></div>
+          <div class="kpi__num"><b style="color:var(--color-status-soon)">1</b><span>Jadwal</span></div>
+          <p class="kpi__foot" style="color:var(--color-status-soon)"><span class="dot" style="background:var(--color-status-soon)"></span>Butuh Penugasan Segera</p>
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Sedang Dikerjakan / Jalan<span class="kpi__ico" style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">route</span></span></div>
+          <div class="kpi__num"><b>2</b><span>Tim Bertugas</span></div>
+          <p class="kpi__foot" style="color:var(--color-primary)"><span class="icon" aria-hidden="true">navigation</span>Koordinasi via WhatsApp</p>
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Selesai Bulan Ini<span class="kpi__ico" style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">check_circle</span></span></div>
+          <div class="kpi__num"><b>3</b><span>Order Selesai</span></div>
+          <p class="kpi__foot" style="color:var(--color-status-available)"><span class="icon" aria-hidden="true">payments</span>Rp 1.300.000 pendapatan jasa</p>
+        </div>
+      </section>
+
+      <section class="filters card" aria-label="Filter pesanan">
+        <div class="filters__row">
+          <label class="filters__search"><span class="icon" aria-hidden="true">search</span><input type="search" placeholder="Cari no. pesanan, nama penyewa, atau lokasi..." aria-label="Cari pesanan"></label>
+          <div class="day-tabs" role="tablist" aria-label="Rentang hari">
+            <button class="chip-btn" role="tab" aria-selected="true">Hari Ini <span class="n">2</span></button>
+            <button class="chip-btn" role="tab" aria-selected="false">Besok</button>
+            <button class="chip-btn" role="tab" aria-selected="false">Minggu Ini</button>
+            <button class="chip-btn" type="button" aria-label="Pilih tanggal"><span class="icon">calendar_today</span></button>
+          </div>
+        </div>
+        <div class="filters__row" role="tablist" aria-label="Status pesanan">
+          <button class="chip-btn" role="tab" aria-selected="true" data-group="all">Semua Pesanan (7)</button>
+          <button class="chip-btn" role="tab" aria-selected="false" data-group="confirm" style="--c:var(--color-status-soon)"><span class="dot"></span>Perlu Konfirmasi (1)</button>
+          <button class="chip-btn" role="tab" aria-selected="false" data-group="scheduled">Dijadwalkan (1)</button>
+          <button class="chip-btn" role="tab" aria-selected="false" data-group="ongoing" style="--c:var(--color-primary)"><span class="dot"></span>Sedang Berlangsung (2)</button>
+          <button class="chip-btn" role="tab" aria-selected="false" data-group="done">Selesai (3)</button>
+          <button class="chip-btn" role="tab" aria-selected="false" data-group="cancelled">Dibatalkan (0)</button>
+        </div>
+        <div class="filters__more">
+          Filter Khusus:
+          <span class="mini-sel"><select aria-label="Layanan"><option>Layanan: Semua Tipe</option><option>Layanan: Pindahan</option><option>Layanan: Cleaning</option><option>Layanan: Bundling</option></select><span class="icon" aria-hidden="true">expand_more</span></span>
+          <span class="mini-sel"><select aria-label="Armada"><option>Armada: Semua Kendaraan</option><option>Armada: Pickup Bak</option><option>Armada: Blind Van</option></select><span class="icon" aria-hidden="true">expand_more</span></span>
+          <span class="mini-sel"><select aria-label="Wilayah"><option>Wilayah: Pondok Labu &amp; Sekitarnya</option><option>Wilayah: Limo &amp; Krukut</option><option>Wilayah: Cinere</option></select><span class="icon" aria-hidden="true">expand_more</span></span>
+          <a class="link" href="pesanan.html">Reset Semua Filter</a>
+        </div>
+      </section>
+
+      <div class="orders-wrap">
+        <div class="orders">
+          <article class="order card" style="--accent:var(--color-status-soon)" data-group-item="confirm">
+            <div class="order__head">
+              <div>
+                <div class="order__id"><h3>#KY-MOV-8841</h3><span class="order__state" data-state style="background:var(--color-status-soon-bg);color:var(--color-status-soon)"><span class="dot" style="background:currentColor"></span><span data-state-text>Perlu Penugasan Kru</span></span></div>
+                <span class="order__type">Paket Bundling Pindahan + Cleaning</span>
+              </div>
+              <div class="order__bill"><small>Total Tagihan</small><strong>Rp 650.000</strong><span style="color:var(--color-status-available)"><span class="icon" aria-hidden="true">verified</span>Lunas (Transfer Bank)</span></div>
+            </div>
+            <div class="order__grid">
+              <div class="box">
+                <div class="renter"><span class="initials">FA</span><b>Farhan Ardiansyah</b><span>Penyewa Terverifikasi • Mahasiswa UPNVJ</span><a class="icon-btn" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Chat Farhan"><span class="icon">chat</span></a></div>
+                <p class="when"><span class="icon" aria-hidden="true">alarm</span>Hari Ini, 08:30 WIB (Pagi)</p>
+                <p>Muatan: Kasur busa no.2, lemari pakaian 2 pintu lipat, rak buku, 4 kardus perlengkapan belajar &amp; dispenser.</p>
+              </div>
+              <div class="box">
+                <div class="route"><i style="background:var(--color-status-soon-bg);color:var(--color-status-soon)">A</i><small class="k">Titik Jemput</small><b>Kos lama dekat Jl. RS Fatmawati, Cilandak</b><span>Lt. 2 (Masuk gang motor 10m dari jalan utama)</span></div>
+                <div class="route"><i style="background:var(--color-status-available-bg);color:var(--color-status-available)">B</i><small class="k">Tujuan Bongkar</small><b>Petakan Melati 3 Pintu, Unit A, Pondok Labu</b><span style="color:var(--color-status-available)">Pickup parkir di mulut gang (±20 m)</span></div>
+              </div>
+            </div>
+            <div class="alert" data-assign>
+              <span class="icon" aria-hidden="true">warning</span>
+              <div><b>Armada Dibutuhkan: Pickup Bak Terbuka + 2 Helper</b><p>Supir: <em>Belum Ditugaskan</em> • Kru: <em>Belum Ada</em></p></div>
+              <div class="actions"><button class="btn btn--primary btn--md" type="button" data-assign-btn><span class="icon" aria-hidden="true">person_add</span>Tugaskan Supir &amp; Kru</button><a class="btn btn--ghost btn--md" href="https://wa.me/" target="_blank" rel="noopener" style="color:var(--color-status-available)"><span class="icon" aria-hidden="true">chat</span>Hubungi</a></div>
+            </div>
+          </article>
+
+          <article class="order card" style="--accent:var(--color-primary)" data-group-item="ongoing">
+            <div class="order__head">
+              <div>
+                <div class="order__id"><h3>#KY-MOV-8839</h3><span class="order__state" style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">sync</span>Dalam Perjalanan (Menuju Tujuan)</span></div>
+                <span class="order__type">Jasa Pindahan Saja</span>
+              </div>
+              <div class="order__bill"><small>Metode Bayar</small><strong>Rp 400.000</strong><span style="color:var(--color-status-soon)"><span class="icon" aria-hidden="true">payments</span>COD (Bayar di Tempat)</span></div>
+            </div>
+            <div class="trip">
+              <div class="trip__top"><span><span class="icon" aria-hidden="true">directions_car</span>Pickup Mitra: Pak Bambang</span><span>Estimasi Tiba: <b data-eta>25 Menit lagi</b></span></div>
+              <div class="trip__bar" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Progres perjalanan" data-trip><i></i><span class="trip__van" aria-hidden="true"><span class="icon">local_shipping</span></span></div>
+              <div class="trip__stops"><span>Kos di Krukut (Selesai Muat)</span><span>Jl. Limo Raya</span><span>Kontrakan Limo Hijau</span></div>
+            </div>
+            <div class="driver">
+              <span class="avatar" aria-hidden="true"></span>
+              <div><b>Pak Bambang Suherman</b><span>Kru Angkut: Agus &amp; Rian</span></div>
+              <div class="actions"><button class="btn btn--soft btn--md" type="button" style="color:var(--color-primary)" data-toast="Update posisi kru dikirim via WhatsApp" data-toast-icon="near_me"><span class="icon" aria-hidden="true">near_me</span>Update Posisi via WA</button><a class="btn btn--wa btn--md" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">chat</span>Chat Supir</a></div>
+            </div>
+          </article>
+
+          <article class="order card" style="--accent:#5bbfb4" data-group-item="ongoing">
+            <div class="order__head">
+              <div>
+                <div class="order__id"><h3>#KY-CLN-8835</h3><span class="order__state" style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">cleaning_services</span>Sedang Dikerjakan (Sanitasi Unit)</span></div>
+                <span class="order__type">Kebersihan Pra-Penempatan</span>
+              </div>
+              <div class="order__bill"><small>Paket Kebersihan</small><strong>Rp 250.000</strong><span style="color:var(--color-status-available)"><span class="icon" aria-hidden="true">check_circle</span>Lunas Digital</span></div>
+            </div>
+            <div class="order__grid">
+              <div class="box">
+                <small class="k">Lokasi Unit Kontrakan</small>
+                <b class="t-title" style="display:block;margin-top:4px">Petakan Krukut Damai</b>
+                <p>Krukut, Limo, Depok (Petakan 1 Kamar / 28 m²)</p>
+                <p style="margin-top:8px"><span class="order__type" style="margin:0">Penyewa: Dimas Anggoro</span> &nbsp;• Mulai 09:00 WIB</p>
+              </div>
+              <div class="box">
+                <div style="display:flex;justify-content:space-between"><small class="k">Petugas Cleaning</small><small class="k" style="color:var(--color-on-surface)">2 Personel Bertugas</small></div>
+                <div class="crew"><i>SP</i><b>Siti &amp; Yudi (Tim Bersih Pro)</b><span>Vakum debu, pel wangi, kerak kamar mandi</span></div>
+                <p class="done-line"><span class="icon" aria-hidden="true">sanitizer</span>Disinfektan Kamar Mandi Selesai</p>
+              </div>
+            </div>
+            <div class="order__foot">
+              <p><span class="icon" aria-hidden="true">photo_camera</span>Checklist &amp; 6 Foto Sebelum Pembersihan telah diunggah</p>
+              <div class="actions"><button class="btn btn--soft btn--md" type="button"><span class="icon" aria-hidden="true">checklist</span>Lihat Foto Sebelum / Sesudah</button><a class="btn btn--wa btn--md" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">chat</span>Hubungi Tim</a></div>
+            </div>
+          </article>
+
+          <article class="order card" style="--accent:var(--color-status-available)" data-group-item="done">
+            <div class="order__head">
+              <div>
+                <div class="order__id"><h3>#KY-MOV-8828</h3><span class="order__state" style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">check_circle</span>Selesai &amp; Terverifikasi</span></div>
+                <span class="order__type">Jasa Pindahan Saja · Pickup Bak</span>
+              </div>
+              <div class="order__bill"><small>Selesai Kemarin 14:00 WIB</small><strong>Rp 400.000</strong></div>
+            </div>
+            <div class="order__foot">
+              <p style="display:block"><b style="display:block;font:600 14px/20px var(--font-body);color:var(--color-on-surface)">Penyewa: Rahmat Hidayat</b>Supir: Mas Dwi (Pickup Mitra)</p>
+              <span class="rating">Catatan penyewa: <span>"Cepat &amp; rapi."</span></span>
+              <div class="actions"><button class="btn btn--ghost btn--md" type="button"><span class="icon" aria-hidden="true">receipt_long</span>Bukti Serah Terima</button><button class="btn btn--ghost btn--md" type="button"><span class="icon" aria-hidden="true">download</span>Invoice</button></div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="rail" aria-label="Operasional">
+          <section class="card" aria-labelledby="fleet-h">
+            <div class="rail-head"><i style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">garage</span></i><b id="fleet-h">Kesiapan Armada Hari Ini</b><span>Pondok Labu, Limo &amp; Cinere</span><span class="dot"></span></div>
+            <div class="fleet-row"><div><span><span class="icon" aria-hidden="true">airport_shuttle</span>Pickup Bak (Mitra Sewa)</span><span><b>1</b> dari 2 Siap</span></div><div class="meter"><i style="width:50%;background:var(--color-primary)"></i></div></div>
+            <div class="fleet-row"><div><span><span class="icon" aria-hidden="true">local_shipping</span>Blind Van (Mitra Sewa)</span><span><b>0</b> dari 1 Siap (1 Jalan)</span></div><div class="meter"><i style="width:0%;background:#6a74f0"></i></div></div>
+            <div class="fleet-row"><div><span><span class="icon" aria-hidden="true">groups</span>Helper &amp; Petugas Kebersihan</span><span><b>4</b> Orang Siaga</span></div><div class="meter"><i style="width:65%;background:var(--color-on-surface)"></i></div></div>
+            <a class="btn btn--soft btn--block btn--md" href="pesanan.html" style="color:var(--color-primary)"><span class="icon" aria-hidden="true">manage_accounts</span>Buka Dashboard Jadwal Kru</a>
+          </section>
+          <section class="card" aria-labelledby="sop-h">
+            <div class="rail-head"><i style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">verified_user</span></i><b id="sop-h">Standar SOP Layanan</b><span>Proteksi Mitra &amp; Konsumen</span></div>
+            <ul class="sop">
+              <li><span class="icon" aria-hidden="true">check_circle</span><span><b>Muatan Aman:</b> Tali kargo &amp; terpal anti-hujan wajib terpasang rapi sebelum armada jalan.</span></li>
+              <li><span class="icon" aria-hidden="true">check_circle</span><span><b>Dokumentasi Wajib:</b> Foto kondisi barang saat muat dan serah terima kunci di depan pintu kontrakan.</span></li>
+              <li><span class="icon" aria-hidden="true">check_circle</span><span><b>Kebersihan Petakan:</b> Pembersihan lumut kamar mandi, lantai, dapur, dan lap jendela.</span></li>
+            </ul>
+            <p class="note"><span class="icon" aria-hidden="true">info</span>Kendala di lapangan (gang sempit / jalan portal ditutup)? Segera eskalasi ke grup dispatcher.</p>
+          </section>
+          <section class="hotline" aria-labelledby="hot-h">
+            <small><span class="icon" aria-hidden="true">headset_mic</span>Hotline Darurat Logistik</small>
+            <b id="hot-h">Kanal Darurat Pindahan</b>
+            <p>Tim siaga untuk pergantian supir darurat atau tambahan terpal hujan di area Pondok Labu, Limo, dan Cinere.</p>
+            <a class="btn btn--white btn--block" href="https://wa.me/" target="_blank" rel="noopener">Hubungi Tim Dispatcher (WhatsApp)</a>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // assign driver and crew: the alert turns into a confirmation, the order moves to "Dijadwalkan"
+  const btn = document.querySelector('[data-assign-btn]');
+  btn.addEventListener('click', () => {
+    const alert = document.querySelector('[data-assign]');
+    alert.classList.add('is-assigned');
+    alert.querySelector('.icon').textContent = 'task_alt';
+    alert.querySelector('b').textContent = 'Pickup Bak Terbuka + 1 Kru sudah ditugaskan';
+    alert.querySelector('p').innerHTML = 'Supir: <b style="font-weight:600;color:var(--color-on-surface)">Pak Dodi (B 9112 KJ)</b> • Kru: <b style="font-weight:600;color:var(--color-on-surface)">Rian</b>';
+    btn.dataset.done = 'true'; btn.disabled = true;
+    btn.innerHTML = '<span class="icon" aria-hidden="true">check_circle</span>Sudah Ditugaskan';
+    const st = document.querySelector('[data-state]');
+    st.style.background = 'var(--color-primary-fixed)'; st.style.color = 'var(--color-primary)';
+    KY.roll(st.querySelector('[data-state-text]'), 'Dijadwalkan 08:30');
+    const wait = document.querySelectorAll('.kpi__num b')[1]; KY.roll(wait, '2');
+    KY.toast('Pak Dodi dan Rian ditugaskan ke #KY-MOV-8841');
+  });
+  // the van moves along its route: progress and arrival time update every 20 s while the page is open
+  const bar = document.querySelector('[data-trip]'), eta = document.querySelector('[data-eta]');
+  let p = 68, mins = 25;
+  setInterval(() => {
+    if (document.hidden || mins <= 3) return;
+    p = Math.min(96, p + 2); mins -= 1;
+    bar.style.setProperty('--p', p + '%'); bar.setAttribute('aria-valuenow', p);
+    KY.roll(eta, mins + ' Menit lagi');
+  }, 20000);
+});
+</script>
+
+<script src="js/kontrakyuk.js"></script>
+</body>
+</html>

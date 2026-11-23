@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Pemilik · MitraYuk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
+<link rel="stylesheet" href="css/kontrakyuk.css">
+<link rel="stylesheet" href="css/panel.css">
+<style>
+  .reach { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: var(--radius-pill); background: #fff; box-shadow: var(--shadow-xs); font: 600 12px/16px var(--font-body); white-space: nowrap; }
+  .reach::before { content: ""; width: 8px; height: 8px; border-radius: 4px; background: var(--color-status-available); box-shadow: 0 0 0 3px var(--color-status-available-bg); }
+  .stackbar { margin-top: 8px; display: flex; gap: 2px; height: 8px; border-radius: 4px; overflow: hidden; background: var(--color-surface-container-high); }
+  .stackbar i { display: block; }
+  .avail-list { display: grid; gap: 6px; font: 400 13px/20px var(--font-body); }
+  .avail-list div { display: flex; align-items: center; gap: 8px; }
+  .avail-list b { margin-left: auto; font: 600 13px/20px var(--font-body); color: var(--c); }
+  .avail-list .dot { background: var(--c); }
+  .kpi img { width: 100%; height: 24px; }
+  .kpi p { font: 400 12px/18px var(--font-body); color: var(--color-on-surface-variant); }
+
+  .units { padding: 0; }
+  .units__head { display: flex; justify-content: space-between; align-items: start; gap: 24px; }
+  .units__head h2 { display: flex; align-items: center; gap: 8px; }
+  .count { padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-primary-fixed); color: var(--color-primary); font: 600 12px/16px var(--font-body); }
+  .units__head p { margin-top: 4px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .units__tools { display: flex; gap: 8px; flex: none; }
+  .units__tools label { display: flex; align-items: center; gap: 8px; width: 240px; height: 40px; padding: 0 14px; border-radius: var(--radius-pill); background: var(--color-surface-container-low); box-shadow: var(--shadow-xs); color: var(--color-outline); }
+  .units__tools input { flex: 1; min-width: 0; border: 0; background: none; outline: none; font: 400 13px/20px var(--font-body); color: var(--color-on-surface); }
+  .units__tools .icon { font-size: 18px; }
+  .unit-list { margin-top: 20px; display: grid; gap: 12px; }
+  .unit-row { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto auto; gap: 20px; align-items: center; padding: 16px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-xs); transition: box-shadow .2s ease; }
+  .unit-row:hover { box-shadow: var(--shadow-lg); }
+  .unit-thumb { position: relative; height: 96px; border-radius: var(--radius-md); background: var(--color-placeholder); }
+  .unit-thumb span { z-index: 1; position: absolute; right: 6px; bottom: 6px; padding: 2px 8px; border-radius: var(--radius-pill); background: #fff; font: 600 11px/16px var(--font-body); }
+  .unit-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font: 600 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .unit-meta .icon { font-size: 14px; }
+  .unit-meta small { font-weight: 400; color: var(--color-outline); }
+  .unit-name { margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .unit-name .tag { padding: 2px 10px; border-radius: var(--radius-pill); font: 600 12px/16px var(--font-body); }
+  .unit-price { margin-top: 6px; display: flex; align-items: baseline; gap: 4px; }
+  .unit-price small { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .status-box { padding: 0; }
+  .status-box__head { display: flex; justify-content: space-between; margin-bottom: 8px; font: 600 12px/16px var(--font-body); }
+  .status-box__head b { color: var(--state-c); transition: color var(--m-slide) var(--m-ease); }
+  .seg { position: relative; isolation: isolate; }
+  .seg__thumb { position: absolute; z-index: -1; top: 4px; left: 0; height: 30px; border-radius: var(--radius-pill); transition: transform var(--m-slide) cubic-bezier(.65,0,.35,1), width var(--m-slide) cubic-bezier(.65,0,.35,1), background-color var(--m-slide) var(--m-ease); }
+  .seg.has-thumb button[aria-checked="true"] { background: transparent; transition: color var(--m-slide) var(--m-ease); }
+  .unit-meta small { transition: color var(--m-slide) var(--m-ease); }
+  .unit-meta small.is-fresh { color: var(--color-status-available); }
+  .row-actions { display: flex; gap: 6px; }
+
+  .promo-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; }
+  .qr-banner { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 192px; gap: 24px; align-items: center; padding: 32px; border-radius: var(--radius-xl); background: var(--color-on-surface); color: #fff; }
+  .qr-banner__glow { position: absolute; left: -120px; bottom: -200px; width: 420px; height: 420px; border-radius: 50%; background: var(--color-primary); filter: blur(140px); opacity: .5; pointer-events: none; }
+  .qr-banner > :not(.qr-banner__glow) { position: relative; }
+  .qr-banner .glass-pill { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: var(--radius-pill); background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); font: 600 12px/16px var(--font-body); }
+  .qr-banner .glass-pill .icon { font-size: 16px; }
+  .qr-banner h2 { color: #fff; text-wrap: balance; }
+  .qr-banner p { margin-top: 12px; color: var(--color-inverse-on-surface); }
+  .qr-banner .btns { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn--glass { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); color: #fff; }
+  .btn--glass:hover { background: rgba(255,255,255,.22); }
+  .qr-card { padding: 12px 10px; border-radius: var(--radius-md); background: #fff; color: var(--color-on-surface); text-align: center; }
+  .qr-card__top { display: flex; justify-content: space-between; align-items: center; font: 700 11px/16px var(--font-body); }
+  .qr-card img { margin: 10px auto 6px; width: 112px; height: 112px; }
+  .qr-card small { display: block; font: 600 10px/14px var(--font-body); color: var(--color-on-surface-variant); }
+  .qr-card code { margin-top: 8px; display: block; padding: 8px; border-radius: var(--radius-default); background: var(--color-surface-container-low); font: 600 11px/16px var(--font-body); color: var(--color-primary); }
+  .photo-help { padding: 24px; display: flex; flex-direction: column; }
+  .photo-help__icon { width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-status-available-bg); color: var(--color-status-available); display: grid; place-items: center; }
+  .photo-help h2 { margin-top: 16px; }
+  .photo-help p { margin-top: 8px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .officer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 36px 1fr; column-gap: 10px; align-items: center; }
+  .officer .avatar { width: 36px; height: 36px; border-radius: 18px; grid-row: span 2; }
+  .officer b { font: 600 13px/18px var(--font-body); }
+  .officer span { font: 400 12px/16px var(--font-body); color: var(--color-on-surface-variant); }
+  .officer .btn { grid-column: 1 / -1; margin-top: 12px; }
+
+  .money-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .money { padding: 24px; display: flex; flex-direction: column; scroll-margin-top: 96px; }
+  .money__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .money__icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: grid; place-items: center; background: var(--color-primary-fixed); color: var(--color-primary); }
+  .money h2 { margin-top: 16px; }
+  .money p { margin-top: 8px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .money__state { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: var(--radius-pill); background: var(--color-status-soon-bg); color: var(--color-status-soon); font: 600 12px/16px var(--font-body); }
+  .money__price { margin-top: 16px; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+  .money__price b { font: 500 24px/32px var(--font-head); font-variant-numeric: tabular-nums; }
+  .money__price span { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .money .btn { margin-top: auto; }
+  .money .btn-gap { height: 20px; flex: none; }
+  @media (max-width: 1200px) { .unit-row { grid-template-columns: 112px minmax(0, 1fr); } .status-box, .row-actions { grid-column: 2; } .promo-row, .money-row { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .reach { white-space: normal; height: auto; padding: 6px 14px; } .units__head { flex-direction: column; } .units__tools { width: 100%; } .units__tools label { width: auto; flex: 1; } .unit-row { grid-template-columns: 1fr; } .status-box, .row-actions { grid-column: auto; } .qr-banner { grid-template-columns: 1fr; } .seg { flex-wrap: wrap; border-radius: var(--radius-md); } }
+</style>
+</head>
+<body>
+
+<div class="panel-shell">
+  <aside class="sidebar">
+    <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>MitraYuk</a><span class="demo-pill">Data contoh</span>
+    <nav aria-label="Panel mitra">
+      <a class="side-link" href="dashboard.html" aria-current="page"><span class="icon" aria-hidden="true">grid_view</span>Ringkasan Unit</a>
+      <a class="side-link" href="dashboard.html#unit"><span class="icon" aria-hidden="true">home_work</span>Daftar Kontrakan</a>
+      <a class="side-link" href="pesanan.html"><span class="icon" aria-hidden="true">local_shipping</span>Pesanan Jasa</a>
+      <a class="side-link" href="dashboard.html#rekening"><span class="icon" aria-hidden="true">payments</span>Keuangan &amp; Sewa</a>
+    </nav>
+    <a class="side-link" href="index.html"><span class="icon" aria-hidden="true">arrow_back</span>Halaman Utama</a>
+  </aside>
+
+  <div>
+    <header class="topbar">
+      <h1>Panel Kontrol Mitra Pemilik</h1><span class="live">Real-Time Sync Aktif</span>
+      <a class="btn btn--primary" href="dashboard.html#unit"><span class="icon" aria-hidden="true">add_home</span>Tambah Unit Baru</a>
+      <div class="who"><span class="avatar" aria-hidden="true"></span><b>Rina S.</b><span>Mitra Terverifikasi</span></div>
+    </header>
+
+    <main class="panel-main">
+      <div class="page-title">
+        <div>
+          <h2 class="t-headline-lg">Halo Ibu Rina, kelola unit Anda dengan praktis</h2>
+          <p class="t-body-md">Ubah status kontrakan dalam 1 klik agar calon penyewa selalu mendapatkan info akurat.</p>
+        </div>
+        <span class="reach">Tampil di Pencarian Area Pondok Labu &amp; UPNVJ</span>
+      </div>
+
+      <section class="kpis" aria-label="Ringkasan">
+        <div class="kpi card">
+          <div class="kpi__top">Total Properti<span class="kpi__ico" style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">real_estate_agent</span></span></div>
+          <div class="kpi__num"><b>3</b><span>Unit Terdaftar</span></div>
+          <div class="stackbar" aria-hidden="true"><i style="width:33.4%;background:var(--color-status-available)"></i><i style="width:33.3%;background:var(--color-status-soon)"></i><i style="width:33.3%;background:var(--color-status-occupied)"></i></div>
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Status Ketersediaan<span class="icon" style="font-size:18px;color:var(--color-outline)" aria-hidden="true">sync_alt</span></div>
+          <div class="avail-list">
+            <div style="--c:var(--color-status-available)"><span class="dot"></span>Tersedia Kosong<b data-count="available">1 Unit</b></div>
+            <div style="--c:var(--color-status-soon)"><span class="dot"></span>Segera Tersedia<b data-count="soon">1 Unit</b></div>
+            <div style="--c:var(--color-status-occupied)"><span class="dot"></span>Terisi Penuh<b data-count="occupied">1 Unit</b></div>
+          </div>
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Pengunjung Bulan Ini<span class="kpi__ico" style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">visibility</span></span></div>
+          <div class="kpi__num"><b>96</b><span class="kpi__foot" style="color:var(--color-status-available);margin-left:auto">Data contoh</span></div>
+          <img src="img/sparkline.svg" width="232" height="24" alt="">
+        </div>
+        <div class="kpi card">
+          <div class="kpi__top">Calon Penyewa (WA)<span class="kpi__ico" style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">chat</span></span></div>
+          <div class="kpi__num"><b>9</b><span class="kpi__foot" style="color:var(--color-status-available);margin-left:auto"><span class="icon" aria-hidden="true">call_made</span>Chat Masuk</span></div>
+          <p>Peminat langsung klik tombol chat menuju nomor WhatsApp Anda.</p>
+        </div>
+      </section>
+
+      <section class="units" id="unit" aria-labelledby="units-h">
+        <div class="units__head">
+          <div><h2 class="t-headline-sm" id="units-h">Daftar Kontrakan Saya<span class="count">3 Properti</span></h2><p>Perbarui status ketersediaan instan di bawah ini tanpa perlu reload halaman atau mengisi form baru.</p></div>
+          <div class="units__tools">
+            <label><span class="icon" aria-hidden="true">search</span><input type="search" placeholder="Cari nama unit..." aria-label="Cari nama unit"></label>
+            <button class="btn btn--ghost btn--md" type="button"><span class="icon" aria-hidden="true">filter_list</span>Semua Area</button>
+          </div>
+        </div>
+        <div class="unit-list">
+          <article class="unit-row">
+            <div class="unit-thumb ph-frame"><img class="ph" src="img/photos/listing-1.jpg" alt="Foto Petakan Melati Unit A" loading="lazy" width="900" height="600"><span>3 Petak</span></div>
+            <div>
+              <p class="unit-meta"><span class="icon" aria-hidden="true">location_on</span>Pondok Labu, Cilandak - Jaksel<small>• Update: Hari ini, 09:30</small></p>
+              <h3 class="t-title unit-name">Petakan Melati 3 Pintu, Unit A</h3>
+              <p class="unit-price"><span class="t-price">Rp 1.400.000</span><small>/ bulan</small></p>
+            </div>
+            <div class="status-box" data-unit>
+              <div class="status-box__head">Ubah Status Tampil:<b data-state-label>Aktif Tersedia</b></div>
+              <div class="seg" role="radiogroup" aria-label="Status unit A">
+                <button type="button" role="radio" aria-checked="true" data-choice="a02" data-value="available" style="--c:var(--color-status-available)">Tersedia</button>
+                <button type="button" role="radio" aria-checked="false" data-choice="a02" data-value="soon" style="--c:var(--color-status-soon)">Segera Tersedia</button>
+                <button type="button" role="radio" aria-checked="false" data-choice="a02" data-value="occupied" style="--c:var(--color-status-occupied)">Terisi</button>
+              </div>
+            </div>
+            <div class="row-actions"><button class="icon-btn" type="button" aria-label="Cetak QR unit" data-toast="QR unit siap dicetak" data-toast-icon="qr_code_2"><span class="icon">qr_code_2</span></button><a class="icon-btn" href="detail.html" aria-label="Ubah data unit"><span class="icon">edit_note</span></a><a class="icon-btn" href="detail.html" aria-label="Lihat halaman unit"><span class="icon">open_in_new</span></a></div>
+          </article>
+          <article class="unit-row">
+            <div class="unit-thumb ph-frame"><img class="ph" src="img/photos/unit-a01.jpg" alt="Foto Petakan Melati Unit B" loading="lazy" width="900" height="600"><span>3 Petak</span></div>
+            <div>
+              <p class="unit-meta"><span class="icon" aria-hidden="true">location_on</span>Pondok Labu, Cilandak - Jaksel<small>• Update: 3 hari lalu</small></p>
+              <h3 class="t-title unit-name">Petakan Melati 3 Pintu, Unit B<span class="tag" style="background:var(--color-surface-container-high);color:var(--color-on-surface-variant)">Disewa s/d Mei 2027</span></h3>
+              <p class="unit-price"><span class="t-price">Rp 1.400.000</span><small>/ bulan</small></p>
+            </div>
+            <div class="status-box" data-unit>
+              <div class="status-box__head">Ubah Status Tampil:<b data-state-label>Terisi Penuh</b></div>
+              <div class="seg" role="radiogroup" aria-label="Status unit B">
+                <button type="button" role="radio" aria-checked="false" data-choice="a01" data-value="available" style="--c:var(--color-status-available)">Tersedia</button>
+                <button type="button" role="radio" aria-checked="false" data-choice="a01" data-value="soon" style="--c:var(--color-status-soon)">Segera Tersedia</button>
+                <button type="button" role="radio" aria-checked="true" data-choice="a01" data-value="occupied" style="--c:var(--color-status-occupied)">Terisi</button>
+              </div>
+            </div>
+            <div class="row-actions"><button class="icon-btn" type="button" aria-label="Cetak QR unit" data-toast="QR unit siap dicetak" data-toast-icon="qr_code_2"><span class="icon">qr_code_2</span></button><a class="icon-btn" href="detail.html" aria-label="Ubah data unit"><span class="icon">edit_note</span></a><a class="icon-btn" href="detail.html" aria-label="Lihat halaman unit"><span class="icon">open_in_new</span></a></div>
+          </article>
+          <article class="unit-row">
+            <div class="unit-thumb ph-frame"><img class="ph" src="img/photos/unit-kenanga.jpg" alt="Foto Kontrakan Kenanga 2 Kamar" loading="lazy" width="900" height="600"><span>Petak Mini</span></div>
+            <div>
+              <p class="unit-meta"><span class="icon" aria-hidden="true">location_on</span>Pondok Labu, Cilandak - Jaksel<small>• Update: Kemarin</small></p>
+              <h3 class="t-title unit-name">Kontrakan Kenanga 2 Kamar<span class="tag" style="background:var(--color-status-soon-bg);color:var(--color-status-soon)">Kosong per 1 Des</span></h3>
+              <p class="unit-price"><span class="t-price">Rp 2.500.000</span><small>/ bulan</small></p>
+            </div>
+            <div class="status-box" data-unit>
+              <div class="status-box__head">Ubah Status Tampil:<b data-state-label>Segera Tersedia</b></div>
+              <div class="seg" role="radiogroup" aria-label="Status Kontrakan Kenanga">
+                <button type="button" role="radio" aria-checked="false" data-choice="k5" data-value="available" style="--c:var(--color-status-available)">Tersedia</button>
+                <button type="button" role="radio" aria-checked="true" data-choice="k5" data-value="soon" style="--c:var(--color-status-soon)">Segera Tersedia</button>
+                <button type="button" role="radio" aria-checked="false" data-choice="k5" data-value="occupied" style="--c:var(--color-status-occupied)">Terisi</button>
+              </div>
+            </div>
+            <div class="row-actions"><button class="icon-btn" type="button" aria-label="Cetak QR unit" data-toast="QR unit siap dicetak" data-toast-icon="qr_code_2"><span class="icon">qr_code_2</span></button><a class="icon-btn" href="detail.html" aria-label="Ubah data unit"><span class="icon">edit_note</span></a><a class="icon-btn" href="detail.html" aria-label="Lihat halaman unit"><span class="icon">open_in_new</span></a></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="promo-row">
+        <section class="qr-banner" aria-labelledby="qr-h">
+          <div>
+            <h2 class="t-headline-md" id="qr-h">Cetak Spanduk Pintar KontrakYuk (QR Code)</h2>
+            <p class="t-body-md">Pasang spanduk di pagar kontrakan Anda. Calon penyewa cukup memindai QR untuk langsung melihat foto dalam ruangan, fasilitas, dan ketersediaan tanpa perlu mengetuk pintu atau mengganggu waktu istirahat Anda!</p>
+            <div class="btns">
+              <a class="btn btn--white" href="img/qr.svg" download><span class="icon" aria-hidden="true">download</span>Download Spanduk QR (PDF)</a>
+              <a class="btn btn--glass" href="detail.html"><span class="icon" aria-hidden="true">visibility</span>Preview Layout Banner</a>
+            </div>
+          </div>
+          <div class="qr-card" aria-hidden="true">
+            <div class="qr-card__top">KONTRAKAN KOSONG?<span class="dot"></span></div>
+            <img src="img/qr.svg" width="112" height="112" alt="">
+            <small>Scan Cek Foto &amp; Harga</small>
+            <code>kontrakyuk.id/mitra/rina</code>
+          </div>
+        </section>
+        <section class="photo-help card" aria-labelledby="photo-h">
+          <span class="photo-help__icon"><span class="icon" aria-hidden="true">photo_camera</span></span>
+          <h2 class="t-headline-sm" id="photo-h">Bantuan Foto Properti Gratis</h2>
+          <p>Foto gelap atau buram bikin calon penyewa ragu. Tim KontrakYuk siap datang ke area Pondok Labu, Limo, dan Cinere untuk memotret unit tanpa biaya.</p>
+          <div class="officer"><span class="avatar" aria-hidden="true"></span><b>Budi Prakoso</b><span>Mitra Officer (Pondok Labu–Limo)</span><a class="btn btn--wa btn--block btn--md" href="https://wa.me/" target="_blank" rel="noopener"><span class="icon" aria-hidden="true">chat</span>Chat Bantuan Mitra (WhatsApp)</a></div>
+        </section>
+      </div>
+
+      <div class="money-row">
+        <section class="money card" id="rekening" aria-labelledby="rek-h">
+          <div class="money__head"><span class="money__icon"><span class="icon" aria-hidden="true">account_balance</span></span><span class="money__state">Belum diisi</span></div>
+          <h2 class="t-headline-sm" id="rek-h">Lengkapi rekening</h2>
+          <p>Isi rekening atas nama pemilik yang terdaftar. Penyewa membayar sewa langsung ke rekening ini, tanpa potongan dari KontrakYuk.</p>
+          <span class="btn-gap"></span>
+          <button class="btn btn--primary btn--md" type="button" data-toast="Form rekening dibuka" data-toast-icon="account_balance"><span class="icon" aria-hidden="true">edit</span>Lengkapi rekening</button>
+        </section>
+        <section class="money card" aria-labelledby="promo-h">
+          <div class="money__head"><span class="money__icon"><span class="icon" aria-hidden="true">campaign</span></span></div>
+          <h2 class="t-headline-sm" id="promo-h">Paket Promosi Listing</h2>
+          <p>Listing dasar tetap gratis. Paket promosi menaikkan unit Anda ke urutan atas pencarian di kawasannya.</p>
+          <div class="money__price"><b>Rp 300.000</b><span>per unit untuk 6 bulan (setara Rp 50.000/unit/bulan)</span></div>
+          <span class="btn-gap"></span>
+          <button class="btn btn--ghost btn--md" type="button" data-toast="Pilih unit yang ingin dipromosikan" data-toast-icon="campaign"><span class="icon" aria-hidden="true">trending_up</span>Pilih unit untuk dipromosikan</button>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const labels = { available: ['Aktif Tersedia', 'var(--color-status-available)'], soon: ['Segera Tersedia', 'var(--color-status-soon)'], occupied: ['Terisi Penuh', 'var(--color-status-occupied)'] };
+  const paint = (box) => {
+    const on = box.querySelector('[aria-checked="true"]').dataset.value;
+    const lab = box.querySelector('[data-state-label]');
+    lab.textContent = labels[on][0];
+    box.style.setProperty('--state-c', labels[on][1]);
+  };
+  const recount = () => {
+    const n = { available: 0, soon: 0, occupied: 0 };
+    document.querySelectorAll('[data-unit] [aria-checked="true"]').forEach((b) => n[b.dataset.value]++);
+    Object.keys(n).forEach((k) => { KY.roll(document.querySelector(`[data-count="${k}"]`), n[k] + ' Unit'); });
+  };
+  const place = (seg) => {
+    let th = seg.querySelector('.seg__thumb');
+    if (!th) { th = document.createElement('span'); th.className = 'seg__thumb'; th.setAttribute('aria-hidden', 'true'); seg.prepend(th); seg.classList.add('has-thumb'); }
+    const on = seg.querySelector('[aria-checked="true"]');
+    th.style.width = on.offsetWidth + 'px';
+    th.style.transform = `translateX(${on.offsetLeft}px)`;
+    th.style.background = getComputedStyle(on).getPropertyValue('--c');
+  };
+  const names = { a02: 'Petakan Melati Unit A', a01: 'Petakan Melati Unit B', k5: 'Kontrakan Kenanga' };
+  document.querySelectorAll('[data-unit]').forEach(paint);
+  document.querySelectorAll('.seg').forEach(place);
+  window.addEventListener('resize', () => document.querySelectorAll('.seg').forEach(place));
+  document.addEventListener('ky:choice', (e) => {
+    document.querySelectorAll('[data-unit]').forEach(paint); recount();
+    const seg = e.detail.el.closest('.seg'); place(seg);
+    const row = seg.closest('.unit-row'); const stamp = row.querySelector('.unit-meta small');
+    stamp.textContent = '• Update: baru saja'; stamp.classList.add('is-fresh'); setTimeout(() => stamp.classList.remove('is-fresh'), 1600);
+    KY.toast(`${names[e.detail.set]} sekarang tampil ${labels[e.detail.value][0].replace('Aktif ', '')}`);
+  });
+});
+</script>
+
+<script src="js/kontrakyuk.js"></script>
+</body>
+</html>

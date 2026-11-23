@@ -1,0 +1,107 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-13T11:11:36.162Z",
+        "reason": "Claude triage: flagged nodes are centred icon glyphs in square tiles, label pills placed on photo placeholders, and full-bleed section bands whose inset comes from the inner .wrap"
+      },
+      {
+        "rule": "radial-halo",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-13T11:11:36.188Z",
+        "reason": "Claude triage: light page; the gradient is the WebGL grain-gradient fallback ground behind the hero window, not a glow on a dark page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "assets/effects/gallery.html"
+        ],
+        "createdAt": "2026-11-13T11:38:50.404Z",
+        "reason": "Claude triage: taste-skill kit's own effects gallery demo copied with the assets, not a page of this site"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-13T11:38:50.421Z",
+        "reason": "Claude triage: the dots are the kit chat's typing indicator, shown only while a reply arrives in its loop, and the hero window's live marker from layout.js"
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "assets/starter.html"
+        ],
+        "createdAt": "2026-11-13T11:46:09.422Z",
+        "reason": "Claude triage: taste-skill kit's unstyled starter template copied with the assets, not a page of this site"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          "assets/starter.html"
+        ],
+        "createdAt": "2026-11-13T11:46:09.438Z",
+        "reason": "Claude triage: taste-skill kit's unstyled starter template copied with the assets, not a page of this site"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "pindahan.html"
+        ],
+        "createdAt": "2026-11-13T12:01:11.129Z",
+        "reason": "Claude triage: flagged nodes are centred icon glyphs in square tiles, label pills placed on photo placeholders, and full-bleed section bands whose inset comes from the inner .wrap"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "detail.html"
+        ],
+        "createdAt": "2026-11-13T12:01:11.144Z",
+        "reason": "Claude triage: flagged nodes are centred icon glyphs in square tiles, label pills placed on photo placeholders, and full-bleed section bands whose inset comes from the inner .wrap"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "pesanan.html"
+        ],
+        "createdAt": "2026-11-13T12:01:11.158Z",
+        "reason": "Claude triage: flagged nodes are centred icon glyphs in square tiles, label pills placed on photo placeholders, and full-bleed section bands whose inset comes from the inner .wrap"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "dashboard.html"
+        ],
+        "createdAt": "2026-11-13T12:01:11.172Z",
+        "reason": "Claude triage: flagged nodes are centred icon glyphs in square tiles, label pills placed on photo placeholders, and full-bleed section bands whose inset comes from the inner .wrap"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "mitra.html"
+        ],
+        "createdAt": "2026-11-13T12:23:43.107Z",
+        "reason": "Claude triage: centred icon glyphs in square tiles and timeline dots, plus the full-bleed hero band whose inset comes from the inner .wrap; same pattern as the other pages"
+      }
+    ]
+  }
+}

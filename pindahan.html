@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jasa Pindahan & Cleaning · KontrakYuk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
+<link rel="stylesheet" href="css/kontrakyuk.css">
+<style>
+  .page-hero { position: relative; overflow: hidden; background: var(--color-surface-container-low); padding: 40px 0; border-bottom: 1px solid var(--line); }
+  .page-hero__blob { position: absolute; border-radius: 50%; filter: blur(48px); pointer-events: none; }
+  .page-hero .wrap { position: relative; display: flex; justify-content: space-between; align-items: end; gap: 32px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: var(--radius-pill); background: var(--color-primary-fixed); color: var(--color-primary); font: 600 12px/16px var(--font-body); }
+  .badge .icon { font-size: 14px; }
+  .page-hero h1 { max-width: 673px; text-wrap: balance; }
+  .page-hero p { margin-top: 12px; max-width: 673px; color: var(--color-on-surface-variant); }
+  .assurances { display: flex; gap: 0; padding: 12px 8px; border-radius: var(--radius-md); background: #fff; box-shadow: var(--shadow-xs); }
+  .assurance { display: grid; grid-template-columns: 20px auto; column-gap: 8px; padding: 0 16px; }
+  .assurance + .assurance { border-left: 1px solid var(--line); }
+  .assurance .icon { grid-row: span 2; font-size: 20px; margin-top: 2px; }
+  .assurance b { font: 600 12px/16px var(--font-body); }
+  .assurance span:last-child { font: 400 13px/20px var(--font-body); color: var(--color-outline); }
+
+  .booking { display: grid; grid-template-columns: minmax(0, 692px) minmax(0, 484px); justify-content: space-between; gap: 40px; padding-top: 40px; }
+  .stack { display: grid; gap: 40px; align-content: start; }
+  .panel { padding: 24px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-xs); }
+  .panel-head { display: grid; grid-template-columns: 28px 1fr auto; column-gap: 8px; align-items: start; }
+  .step-dot { width: 28px; height: 28px; border-radius: 14px; background: var(--color-primary); color: #fff; display: grid; place-items: center; font: 600 14px/20px var(--font-body); }
+  .panel-head h2 { line-height: 28px; }
+  .panel-head p { grid-column: 2; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .panel-head .aside { grid-row: 1; grid-column: 3; align-self: center; }
+  .pill-info { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: var(--radius-pill); background: var(--color-surface-container-high); font: 600 12px/16px var(--font-body); white-space: nowrap; }
+  .pill-info b { font-weight: 800; color: var(--color-primary); }
+  .pill-info--ok { background: var(--color-status-available-bg); color: var(--color-secondary); }
+  .choice-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .choice { position: relative; text-align: left; display: flex; flex-direction: column; min-height: 148px; padding: 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); border: 2px solid transparent; transition: border-color .15s, background-color .15s; }
+  .choice:hover { background: var(--color-surface-container-high); }
+  .choice[aria-checked="true"] { border-color: var(--color-primary); background: #fff; }
+  .choice .icon { font-size: 24px; color: var(--color-on-surface-variant); }
+  .choice[aria-checked="true"] > .icon { color: var(--color-primary); }
+  .choice__check { position: absolute; right: 16px; top: 18px; color: var(--color-primary) !important; opacity: 0; }
+  .choice[aria-checked="true"] .choice__check { opacity: 1; animation: ky-pop 320ms var(--m-arrive); }
+  .choice { transition: border-color var(--m-in) var(--m-ease), background-color var(--m-in) var(--m-ease), transform var(--m-press) var(--m-ease); }
+  .choice:active { transform: scale(.985); }
+  .total__amt strong { display: inline-block; }
+  .choice b { margin-top: 16px; font: 500 16px/24px var(--font-head); letter-spacing: -.015em; color: var(--color-on-surface); }
+  .choice span.desc { margin-top: 4px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .choice__tag { position: absolute; left: 8px; top: -12px; display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 10px; border-radius: var(--radius-pill); background: var(--color-primary); color: #fff; font: 600 12px/16px var(--font-body); white-space: nowrap; }
+  .choice__tag .icon { font-size: 14px; color: #fff; }
+
+  .form-grid { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fld { display: grid; gap: 6px; align-content: start; }
+  .fld > label { display: flex; align-items: center; gap: 4px; font: 600 14px/20px var(--font-body); }
+  .fld > label .icon { font-size: 18px; }
+  .inp { width: 100%; height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 13px/20px var(--font-body); color: var(--color-on-surface); }
+  .inp--sub { height: 36px; background: #fff; color: var(--color-on-surface-variant); }
+  .inp:focus { outline: 2px solid var(--color-primary); outline-offset: 0; border-color: transparent; }
+  .sel { position: relative; }
+  .sel select { appearance: none; padding-right: 40px; }
+  .sel .icon { position: absolute; right: 12px; top: 12px; font-size: 20px; color: var(--color-outline); pointer-events: none; }
+  textarea.inp { height: 74px; padding: 12px 16px; resize: vertical; }
+  .sub-title { margin-top: 24px; font: 600 14px/20px var(--font-body); }
+  .fleet-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .fleet { min-height: 222px; }
+  .fleet__top { display: flex; justify-content: space-between; align-items: center; }
+  .fleet__top .icon { font-size: 20px; }
+  .fleet__top small { font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .fleet[aria-checked="true"] .fleet__top small { color: var(--color-primary); }
+  .fleet b { margin-top: 12px; }
+  .fleet__price { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; font: 500 20px/26px var(--font-head); letter-spacing: -.015em; color: var(--color-on-surface); }
+  .fleet[aria-checked="true"] .fleet__price { color: var(--color-primary); }
+  .fleet__price small { font: 400 13px/20px var(--font-body); color: var(--color-outline); }
+  .extra { margin-top: 16px; display: grid; grid-template-columns: 20px 1fr auto; gap: 4px 16px; align-items: center; padding: 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); cursor: pointer; }
+  .extra input { width: 20px; height: 20px; accent-color: var(--color-primary); grid-row: span 2; }
+  .extra b { font: 500 16px/24px var(--font-head); letter-spacing: -.015em; }
+  .extra span { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .extra__price { grid-column: 3; grid-row: 1 / span 2; text-align: right; font: 500 16px/24px var(--font-head); color: var(--color-primary); }
+  .extra__price small { display: block; font: 400 13px/20px var(--font-body); color: var(--color-outline); }
+  .scope { margin-top: 16px; padding: 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); }
+  .scope b { font: 600 14px/20px var(--font-body); }
+  .scope ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .scope li { display: flex; gap: 8px; font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .scope .icon { font-size: 18px; color: var(--color-status-available); }
+  .duration { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: var(--radius-md); background: var(--color-surface-container-low); font: 400 13px/20px var(--font-body); }
+  .duration .icon { font-size: 18px; color: var(--color-outline); }
+  .duration small { margin-left: auto; font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .note-head { margin-top: 16px; display: flex; justify-content: space-between; }
+  .note-head small { font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .is-off { display: none; }
+  .promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .promise { position: relative; display: flex; flex-direction: column; justify-content: flex-end; height: 176px; padding: 16px; border-radius: var(--radius-lg); overflow: hidden; color: #fff; background: linear-gradient(0deg, #0b0c0e 0, rgba(11,12,14,.72) 55%, rgba(11,12,14,.35)), #3a3e46; }
+  .promise::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(11,12,14,.9) 0, rgba(11,12,14,.5) 55%, rgba(11,12,14,.1)); }
+  .promise > :not(.ph) { position: relative; z-index: 2; }
+  .promise small { font: 600 12px/16px var(--font-body); color: var(--color-secondary-fixed); }
+  .promise b { font: 500 16px/24px var(--font-head); }
+  .promise span { font: 400 13px/20px var(--font-body); opacity: .9; }
+
+  .summary { position: sticky; top: 104px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; }
+  .receipt { padding: 24px; border-radius: var(--radius-lg); background: #fff; box-shadow: var(--shadow-lg); }
+  .receipt__head { display: flex; justify-content: space-between; }
+  .receipt__head p { font: 400 13px/20px var(--font-body); color: var(--color-outline); }
+  .receipt__head .icon { font-size: 24px; color: var(--color-primary); }
+  .lines { margin-top: 24px; display: grid; gap: 12px; }
+  .line { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; }
+  .line b { font: 600 14px/20px var(--font-body); }
+  .line small { font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .line > span:last-child { grid-row: 1; grid-column: 2; font: 500 16px/24px var(--font-head); font-variant-numeric: tabular-nums; }
+  .line--discount { padding: 8px; border-radius: var(--radius-default); background: var(--color-status-available-bg); color: var(--color-secondary); grid-template-columns: 24px 1fr auto; }
+  .line--discount > .icon { grid-row: 1 / span 2; grid-column: 1; font-size: 18px; margin-top: 2px; }
+  .line--discount > b, .line--discount > small { grid-column: 2; }
+  .line--discount b, .line--discount small { color: var(--color-secondary); }
+  .line--discount > span:last-child { grid-column: 3; }
+  .total { margin-top: 16px; padding-top: 20px; border-top: 2px solid var(--color-surface-container-high); display: flex; justify-content: space-between; align-items: start; }
+  .total b { font: 500 20px/28px var(--font-head); }
+  .total small { display: block; font: 600 13px/20px var(--font-body); color: var(--color-status-available); }
+  .total__amt { text-align: right; }
+  .total__amt strong { font: 500 30px/38px var(--font-head); letter-spacing: -.03em; color: var(--color-primary); font-variant-numeric: tabular-nums; }
+  .total__amt s { display: block; font: 600 12px/16px var(--font-body); color: var(--color-outline); }
+  .receipt .btn { margin-top: 12px; }
+  .receipt .btn:first-of-type { margin-top: 24px; height: 48px; font-size: 16px; }
+  .info { margin-top: 16px; display: flex; gap: 10px; padding: 8px 10px; border-radius: var(--radius-default); background: var(--color-surface-container-low); font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .info .icon { font-size: 20px; color: var(--color-outline); }
+  .guarantee { padding: 16px; }
+  .guarantee > b { font: 600 14px/20px var(--font-body); }
+  .g-item { margin-top: 12px; display: grid; grid-template-columns: 32px 1fr; gap: 0 8px; }
+  .g-item i { grid-row: span 2; width: 32px; height: 32px; border-radius: 16px; display: grid; place-items: center; font-style: normal; }
+  .g-item i .icon { font-size: 16px; }
+  .g-item b { font: 600 14px/20px var(--font-body); }
+  .g-item > span { font: 400 13px/20px var(--font-body); color: var(--color-on-surface-variant); }
+  .review { display: grid; grid-template-columns: 44px 1fr; gap: 0 16px; align-items: center; padding: 16px; border-radius: var(--radius-lg); background: var(--color-surface-container-high); }
+  .review .avatar { width: 44px; height: 44px; border-radius: 22px; grid-row: span 2; }
+  .review .stars { display: flex; align-items: center; gap: 2px; color: #b7791f; font: 700 12px/16px var(--font-body); }
+  .review .stars .icon { font-size: 16px; font-variation-settings: "FILL" 1; }
+  .review .stars b { margin-left: 6px; color: var(--color-on-surface); }
+  .review q { font: 400 13px/20px var(--font-body); }
+  .review small { font: 400 12px/16px var(--font-body); color: var(--color-outline); }
+
+  @media (max-width: 1100px) { .booking { grid-template-columns: minmax(0, 1fr); } .summary { position: static; } .page-hero .wrap { flex-direction: column; align-items: start; } }
+  @media (max-width: 680px) { .choice-grid, .fleet-grid, .form-grid, .promise-grid, .scope ul { grid-template-columns: 1fr; } .assurances { flex-direction: column; gap: 12px; } .assurance + .assurance { border-left: 0; } .panel-head { grid-template-columns: 28px 1fr; } .panel-head .aside { grid-column: 2; grid-row: auto; justify-self: start; margin-top: 8px; } }
+</style>
+</head>
+<body>
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>KontrakYuk</a>
+    <span class="demo-pill" title="Prototipe Tahap 1: semua unit, harga, dan angka di situs ini adalah data contoh">Data contoh</span>
+    <label class="site-search"><span class="icon" aria-hidden="true">search</span><input type="search" placeholder="Cari kontrakan…" aria-label="Cari wilayah, kota, atau nama kontrakan"></label>
+    <nav class="site-nav" aria-label="Utama">
+      <a href="index.html">Cari Kontrakan</a>
+      <a href="pindahan.html" aria-current="page">Pindahan &amp; Cleaning</a>
+    </nav>
+    <a class="btn btn--brand" href="mitra.html">Pasang Iklan Kontrakan</a>
+    <div class="account">
+      <button class="account__btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="account-menu" aria-label="Akun Rina S."><span class="avatar" aria-hidden="true"></span><span class="icon" aria-hidden="true">expand_more</span></button>
+      <div class="account__menu" id="account-menu" hidden>
+        <div class="account__who"><span class="avatar" aria-hidden="true"></span><div><b>Rina S.</b><span><span class="icon" aria-hidden="true">verified</span>Mitra Terverifikasi</span></div></div>
+        <a class="account__item account__item--mitra" href="dashboard.html"><span class="icon" aria-hidden="true">grid_view</span>Panel Mitra<small>Kelola 4 unit</small></a>
+        <a class="account__item" href="pesanan.html"><span class="icon" aria-hidden="true">local_shipping</span>Pesanan Jasa</a>
+        <a class="account__item" href="detail.html"><span class="icon" aria-hidden="true">bookmark</span>Unit Disimpan</a>
+        <a class="account__item" href="index.html"><span class="icon" aria-hidden="true">logout</span>Keluar</a>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Menu"><span class="icon">menu</span></button>
+  </div>
+</header>
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div>
+        <h1 class="t-headline-lg">Layanan Pindahan &amp; Cleaning Service KontrakYuk</h1>
+        <p class="t-body-lg">Pindahan barang aman, rumah kontrakan baru bersih kinclong sebelum ditempati.</p>
+      </div>
+      <div class="assurances">
+        <div class="assurance"><span class="icon" style="color:var(--color-status-available)" aria-hidden="true">shield</span><b>Barang Aman</b><span>Difoto saat muat &amp; serah terima</span></div>
+        <div class="assurance"><span class="icon" style="color:var(--color-primary)" aria-hidden="true">cleaning_services</span><b>Alat Lengkap</b><span>Bahan Kimia Aman</span></div>
+        <div class="assurance"><span class="icon" style="color:var(--color-status-available)" aria-hidden="true">schedule</span><b>Tepat Waktu</b><span>Driver Terlatih</span></div>
+      </div>
+    </div>
+  </section>
+
+  <form class="wrap booking" id="booking" action="pesanan.html">
+    <div class="stack">
+      <section class="panel" aria-labelledby="s1-h">
+        <div class="panel-head"><span class="step-dot">1</span><h2 class="t-headline-sm" id="s1-h">Pilih Jenis Layanan</h2><p class="aside t-body-sm" style="color:var(--color-outline)">Pilih sesuai kebutuhan Anda</p></div>
+        <div class="choice-grid" role="radiogroup" aria-labelledby="s1-h">
+          <button class="choice" type="button" role="radio" aria-checked="true" data-choice="service" data-value="bundle">
+            <span class="choice__tag"><span class="icon" aria-hidden="true">local_fire_department</span>Paling Praktis</span>
+            <span class="icon" aria-hidden="true">auto_awesome</span><span class="icon choice__check" aria-hidden="true">check_circle</span>
+            <b>Paket Bundling</b><span class="desc">Pindahan &amp; Deep Cleaning sebelum pindah masuk.</span>
+          </button>
+          <button class="choice" type="button" role="radio" aria-checked="false" data-choice="service" data-value="moving">
+            <span class="icon" aria-hidden="true">local_shipping</span><span class="icon choice__check" aria-hidden="true">check_circle</span>
+            <b>Pindahan Saja</b><span class="desc">Angkut barang dari kontrakan lama ke baru.</span>
+          </button>
+          <button class="choice" type="button" role="radio" aria-checked="false" data-choice="service" data-value="cleaning">
+            <span class="icon" aria-hidden="true">sanitizer</span><span class="icon choice__check" aria-hidden="true">check_circle</span>
+            <b>Cleaning Saja</b><span class="desc">Pembersihan mendalam pra-penempatan unit.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel" id="sec-moving" aria-labelledby="s2-h">
+        <div class="panel-head"><span class="step-dot">2</span><h2 class="t-headline-sm" id="s2-h">Detail Jasa Pindahan</h2><p>Rute pengangkutan dan armada sesuai volume perabot Anda</p><span class="aside pill-info">Estimasi Jarak: <b>±4 km</b></span></div>
+        <div class="form-grid">
+          <div class="fld"><label for="from"><span class="icon" style="color:#c2410c" aria-hidden="true">trip_origin</span>Alamat Asal (Tempat Tinggal Lama)</label><input class="inp" id="from" value="Kos lama dekat Jl. RS Fatmawati, Cilandak"><input class="inp inp--sub" aria-label="Catatan alamat asal" value="Lantai 2, Gang masuk motor 10 meter dari jalan utama"></div>
+          <div class="fld"><label for="to"><span class="icon" style="color:var(--color-primary)" aria-hidden="true">location_on</span>Alamat Tujuan (Kontrakan Baru)</label><input class="inp" id="to" value="Petakan Melati 3 Pintu, Unit A, Pondok Labu"><input class="inp inp--sub" aria-label="Catatan alamat tujuan" value="Lantai 1, pickup parkir di mulut gang (±20 m)"></div>
+          <div class="fld"><label for="date"><span class="icon" style="color:var(--color-outline)" aria-hidden="true">calendar_today</span>Tanggal Pindahan</label><input class="inp" id="date" type="date" value="2026-12-01"></div>
+          <div class="fld"><label for="slot"><span class="icon" style="color:var(--color-outline)" aria-hidden="true">access_time</span>Pilihan Slot Jam</label><div class="sel"><select class="inp" id="slot"><option>Pagi - Slot 08:30 WIB</option><option>Siang - Slot 12:00 WIB</option><option>Sore - Slot 15:30 WIB</option></select><span class="icon" aria-hidden="true">expand_more</span></div></div>
+        </div>
+        <p class="sub-title" id="fleet-h">Pilihan Armada &amp; Kapasitas Muatan</p>
+        <div class="fleet-grid" role="radiogroup" aria-labelledby="fleet-h">
+          <button class="choice fleet" type="button" role="radio" aria-checked="true" data-choice="fleet" data-value="pickup">
+            <span class="choice__tag">Rekomendasi Kontrakan</span>
+            <span class="fleet__top"><span class="icon" aria-hidden="true">local_shipping</span><small>Kapasitas 800 kg</small></span>
+            <b>Mobil Pickup Bak</b><span class="desc">Standar kontrakan 2-3 petak: kasur springbed queen, kulkas, mesin cuci, rak piring.</span>
+            <span class="fleet__price">Rp 400.000<small>/ dalam kota</small></span>
+          </button>
+          <button class="choice fleet" type="button" role="radio" aria-checked="false" data-choice="fleet" data-value="van">
+            <span class="fleet__top"><span class="icon" aria-hidden="true">airport_shuttle</span><small>Tertutup Box</small></span>
+            <b>Mobil Blind Van</b><span class="desc">Tertutup, barang terlindung dari hujan dan debu jalanan. Kapasitas volume lega.</span>
+            <span class="fleet__price">Rp 550.000<small>/ dalam kota</small></span>
+          </button>
+        </div>
+        <label class="extra"><input type="checkbox" id="crew"><b>Tambah 1 Orang Kru Angkut Tambahan</b><span>Bantu angkat barang berat tangga, muat perabot besar &amp; tata di kontrakan tujuan.</span><span class="extra__price">+Rp 75.000<small>per orang</small></span></label>
+      </section>
+
+      <section class="panel" id="sec-cleaning" aria-labelledby="s3-h">
+        <div class="panel-head"><span class="step-dot">3</span><h2 class="t-headline-sm" id="s3-h">Detail Jasa Kebersihan (Pra-Penempatan)</h2><p>Sanitasi &amp; Deep Cleaning sebelum perabot Anda dimasukkan ke kontrakan</p><span class="aside pill-info pill-info--ok"><span class="dot"></span>Tim KontrakYuk</span></div>
+        <div class="form-grid">
+          <div class="fld"><label for="size">Pilih Tipe Ukuran Kontrakan</label><div class="sel"><select class="inp" id="size"><option value="250000">Petakan 1 Kamar (25 - 40 m²)</option><option value="350000">Kontrakan 2 Kamar (40 - 70 m²)</option></select><span class="icon" aria-hidden="true">expand_more</span></div></div>
+          <div class="fld"><label>Estimasi Waktu Pengerjaan</label><div class="duration"><span class="icon" aria-hidden="true">timer</span>2.5 - 3 Jam Pengerjaan<small>2 Staf Cleaner</small></div></div>
+        </div>
+        <div class="scope"><b>Cakupan Standard Deep Cleaning KontrakYuk:</b>
+          <ul><li><span class="icon" aria-hidden="true">check_circle</span>Scrubbing kerak lantai &amp; nat ubin kotor</li><li><span class="icon" aria-hidden="true">check_circle</span>Disinfeksi kloset &amp; dinding kamar mandi</li><li><span class="icon" aria-hidden="true">check_circle</span>Pembersihan sisa lemak &amp; wastafel dapur</li><li><span class="icon" aria-hidden="true">check_circle</span>Lap kaca jendela, kusen, dan ventilasi debu</li></ul>
+        </div>
+        <div class="note-head"><label class="t-label-md" for="note">Catatan Khusus Kebersihan untuk Petugas (Opsional)</label><small>Maks. 150 karakter</small></div>
+        <textarea class="inp" id="note" maxlength="150" style="margin-top:8px">Kamar mandi agak berlumut tolong dibersihkan ekstra dan kaca jendela ruang depan dilap kinclong ya mas.</textarea>
+      </section>
+
+      <div class="promise-grid">
+        <div class="promise ph-frame"><img class="ph" src="img/photos/svc-cleaning.jpg" alt="Ember pel dan cairan pembersih" loading="lazy" width="900" height="600"><small>Cek Ulang Gratis</small><b>Standar Higienis KontrakYuk</b><span>Ada yang terlewat? Kami cek ulang gratis, maks. 1×24 jam setelah selesai.</span></div>
+        <div class="promise ph-frame"><img class="ph" src="img/photos/svc-moving.jpg" alt="Tumpukan kardus barang pindahan" loading="lazy" width="900" height="600"><small>Proteksi Muatan</small><b>Kru Angkut Berpengalaman</b><span>Terbiasa navigasi gang sempit &amp; handling kasur/kulkas.</span></div>
+      </div>
+    </div>
+
+    <aside class="summary" aria-label="Ringkasan pesanan">
+      <div class="receipt">
+        <div class="receipt__head"><div><h2 class="t-headline-sm">Ringkasan Pesanan</h2><p>Estimasi transparan tanpa biaya siluman</p></div><span class="icon" aria-hidden="true">receipt_long</span></div>
+        <div class="lines">
+          <div class="line" data-line="fleet"><b data-fleet-name>Pindahan Dalam Kota · Pickup</b><small>Pickup, 2 helper, bensin, dan tali pengikat muatan</small><span data-fleet-price>Rp 400.000</span></div>
+          <div class="line" data-line="crew"><b>Jasa 1 Kru Angkut Tambahan</b><small>Bantu angkat tangga &amp; susun barang</small><span>Rp 75.000</span></div>
+          <div class="line" data-line="clean"><b>Kebersihan Petakan 1 Kamar</b><small>Kamar mandi, lantai, dapur &amp; jendela</small><span data-clean-price>Rp 250.000</span></div>
+          <div class="line line--discount" data-line="discount"><span class="icon" aria-hidden="true">percent</span><b>Diskon</b><small>Tidak ada diskon</small><span data-discount>-Rp 0</span></div>
+        </div>
+        <div class="total"><div><b>Total Estimasi</b><small>Dikonfirmasi tim sebelum hari H</small></div><div class="total__amt"><strong data-total>Rp 650.000</strong><s data-gross hidden>Rp 650.000</s></div></div>
+        <button class="btn btn--primary btn--block" type="submit">Konfirmasi &amp; Lanjutkan Pemesanan<span class="icon" aria-hidden="true">arrow_forward</span></button>
+        <a class="btn btn--wa btn--block" href="pesanan.html"><span class="icon" aria-hidden="true">chat</span>Konsultasi Cepat via WhatsApp</a>
+        <p class="info"><span class="icon" aria-hidden="true">info</span>Pesanan akan langsung diteruskan ke Tim Operasional KontrakYuk via WhatsApp/Sistem untuk konfirmasi jadwal armada dan petugas cleaning.</p>
+      </div>
+      <div class="panel guarantee">
+        <b>Jaminan Layanan KontrakYuk:</b>
+        <div class="g-item"><i style="background:var(--color-status-available-bg);color:var(--color-status-available)"><span class="icon" aria-hidden="true">verified_user</span></i><b>Proteksi Barang Aman</b><span>Barang diikat tali dan ditutup terpal, kondisinya difoto saat muat dan saat serah terima.</span></div>
+        <div class="g-item"><i style="background:var(--color-primary-fixed);color:var(--color-primary)"><span class="icon" aria-hidden="true">badge</span></i><b>Tim Cleaning Terverifikasi</b><span>Membawa cairan desinfektan, alat sikat, vacuum, dan wiper lengkap sendiri.</span></div>
+      </div>
+      <div class="review">
+        <span class="avatar" aria-hidden="true"></span>
+        
+        <q>Hemat banget ambil bundling, kontrakan baru langsung bersih wangi pas kasur datang!</q>
+        <small>Dimas A. (contoh) — Pindahan ke Pondok Labu</small>
+      </div>
+    </aside>
+  </form>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const fleets = { pickup: ['Pindahan Dalam Kota · Pickup', 400000], van: ['Pindahan Dalam Kota · Blind Van', 550000] };
+  const state = { service: 'bundle', fleet: 'pickup' };
+  const rp = (n) => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+  const set = (el, t) => (window.KY ? KY.roll(el, t) : (el.textContent = t));
+  const show = (el, on) => { const was = !el.hidden; el.hidden = !on; if (on && !was && window.KY) KY.enter([el]); };
+  const $ = (s) => document.querySelector(s);
+  function update() {
+    const moving = state.service !== 'cleaning', cleaning = state.service !== 'moving';
+    const crew = moving && $('#crew').checked;
+    const [fname, fprice] = fleets[state.fleet];
+    const clean = Number($('#size').value);
+    $('#sec-moving').classList.toggle('is-off', !moving);
+    $('#sec-cleaning').classList.toggle('is-off', !cleaning);
+    show($('[data-line="fleet"]'), moving);
+    show($('[data-line="crew"]'), crew);
+    show($('[data-line="clean"]'), cleaning);
+    $('[data-fleet-name]').textContent = fname;
+    set($('[data-fleet-price]'), rp(fprice));
+    set($('[data-clean-price]'), rp(clean));
+    const gross = (moving ? fprice : 0) + (crew ? 75000 : 0) + (cleaning ? clean : 0);
+    const discount = 0; // proposal: tidak ada diskon bundling
+    show($('[data-line="discount"]'), !!discount);
+    set($('[data-discount]'), '-' + rp(discount));
+    set($('[data-total]'), rp(gross - discount));
+    $('[data-gross]').textContent = rp(gross);
+    $('[data-gross]').hidden = !discount;
+  }
+  document.addEventListener('ky:choice', (e) => { state[e.detail.set] = e.detail.value; update(); });
+  $('#crew').addEventListener('change', update);
+  $('#size').addEventListener('change', update);
+  // a link with ?layanan=cleaning or ?layanan=moving (footer) preselects that service
+  const want = new URLSearchParams(location.search).get('layanan');
+  const pre = want && document.querySelector(`[data-choice="service"][data-value="${want}"]`);
+  if (pre) { document.querySelectorAll('[data-choice="service"]').forEach((b) => b.setAttribute('aria-checked', String(b === pre))); state.service = want; }
+  update();
+  if (pre && location.hash) requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView());
+  document.querySelector('#booking').addEventListener('submit', (e) => { e.preventDefault(); KY.toast('Pesanan diteruskan ke tim operasional'); setTimeout(() => { location.href = 'pesanan.html'; }, 1200); });
+});
+</script>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="brand" href="index.html"><span class="brand__logo" aria-hidden="true"></span>KontrakYuk</a>
+        <p class="t-headline-sm">Cari Kontrakan Jadi Lebih Mudah</p>
+        <p class="t-body-md muted">Informasi kontrakan dan petakan di sekitar Kampus UPNVJ Pondok Labu dan Limo, dilengkapi jasa pindahan dan cleaning service.</p>
+        <div class="footer-socials"><a href="index.html" aria-label="Situs"><span class="icon">public</span></a><a href="index.html" aria-label="Bagikan"><span class="icon">share</span></a><a href="index.html" aria-label="Forum"><span class="icon">forum</span></a></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="footer-col"><h4>Layanan Utama</h4><ul><li><a href="index.html">Sewa Kontrakan &amp; Petakan</a></li><li><a href="pindahan.html">Jasa Angkut Pindahan</a></li><li><a href="pindahan.html?layanan=cleaning#sec-cleaning">Cleaning Service Kamar</a></li><li><a href="mitra.html">Iklankan Properti Anda</a></li></ul></div>
+      <div class="footer-col"><h4>Wilayah Populer</h4><ul><li><a href="index.html">Kontrakan Pondok Labu &amp; UPNVJ</a></li><li><a href="index.html">Kontrakan Cilandak</a></li><li><a href="index.html">Kontrakan Limo &amp; Krukut</a></li><li><a href="index.html">Kontrakan Cinere &amp; Gandul</a></li><li><a href="index.html">Kontrakan Pangkalan Jati &amp; Andara</a></li></ul></div>
+      <div class="footer-col"><h4>Mitra &amp; Bantuan</h4><ul><li><a href="mitra.html">Daftar Jadi Mitra Pemilik</a></li><li><a href="index.html">Pusat Bantuan Penyewa</a></li><li><a href="terms.html">Syarat &amp; Ketentuan</a></li></ul><a class="btn btn--wa" href="index.html"><span class="icon" aria-hidden="true">chat</span>Kontak WhatsApp</a></div>
+    </div>
+    <div class="footer-legal">
+      <p>© 2026 KontrakYuk · Prototipe Tahap 1, seluruh unit dan angka adalah data contoh.</p>
+      <nav aria-label="Legal"><a href="credits.html">Foto via Unsplash &amp; Wikimedia Commons</a><a href="privacy.html">Privasi</a><a href="terms.html">Keamanan Sewa</a><a href="index.html">Peta Situs</a></nav>
+    </div>
+  </div>
+</footer>
+<script src="js/kontrakyuk.js"></script>
+</body>
+</html>

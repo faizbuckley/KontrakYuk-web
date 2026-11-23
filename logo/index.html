@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketsa Logo KontrakYuk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@500;600&family=Funnel+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #0b0c0e; --cobalt: #1f2de6; --bg: #eef0f3; --muted: #4f5560; --line: rgba(11,12,14,.1); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 "Funnel Sans", system-ui, sans-serif; }
+  main { max-width: 1200px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font: 500 36px/1.1 "Funnel Display", sans-serif; letter-spacing: -.03em; margin: 0; }
+  .lead { color: var(--muted); margin: 8px 0 40px; max-width: 640px; }
+  .option { background: #fff; border-radius: 24px; box-shadow: 0 0 0 1px var(--line); padding: 28px; margin-bottom: 24px; }
+  .option header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+  .option h2 { font: 500 22px/1.2 "Funnel Display", sans-serif; letter-spacing: -.02em; margin: 0; }
+  .option header span { font: 600 13px/1 "Funnel Sans", sans-serif; color: var(--cobalt); background: #e2e4fd; padding: 6px 10px; border-radius: 99px; }
+  .option p { margin: 0 0 20px; color: var(--muted); max-width: 720px; }
+  .row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .tile { aspect-ratio: 1 / 1; border-radius: 16px; display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--line); }
+  .tile svg { width: 56%; height: 56%; }
+  .t-white { background: #fff; color: var(--cobalt); }
+  .t-cobalt { background: var(--cobalt); color: #fff; }
+  .t-black { background: var(--ink); color: #fff; }
+  .t-bw { background: #fff; color: var(--ink); }
+  .lockups { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lockup { display: flex; align-items: center; gap: 14px; padding: 28px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--line); }
+  .lockup svg { width: 44px; height: 44px; flex: none; }
+  .lockup b { font: 500 34px/1 "Funnel Display", sans-serif; letter-spacing: -.035em; }
+  .lockup.dark { background: var(--ink); color: #fff; }
+  .lockup.dark svg { color: #fff; }
+  .lockup:not(.dark) svg { color: var(--cobalt); }
+  .lockup.inline b { display: inline-block; white-space: nowrap; }
+  .lockup.inline .k { display: inline-block; width: .8em !important; height: .8em !important; margin-right: -.02em; vertical-align: -.06em; }
+  .lockup.inline:not(.dark) b { color: var(--ink); }
+  .lockup.inline:not(.dark) .k { color: var(--cobalt); }
+  .sizes { margin-top: 12px; display: flex; align-items: end; gap: 20px; padding: 20px 28px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--line); }
+  .sizes .app { width: 64px; height: 64px; border-radius: 15px; background: var(--cobalt); color: #fff; display: grid; place-items: center; }
+  .sizes .app svg { width: 60%; height: 60%; }
+  .sizes small { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); text-align: center; }
+  .sizes .fav { color: var(--ink); }
+  @media (max-width: 760px) { .row { grid-template-columns: 1fr 1fr; } .lockups { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Sketsa logo KontrakYuk</h1>
+  <p class="lead">Tiga arah dari referensi yang kamu kumpulkan. Setiap arah ditampilkan di latar putih, kobalt, hitam, satu warna, bersama wordmark, dan di ukuran kecil (ikon aplikasi dan favicon).</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- D · K-rumah: lengan atas K dan kaki K membentuk atap, ruang di bawahnya jadi rumah dengan jendela empat kotak -->
+      <symbol id="mark-d" viewBox="0 0 100 100">
+        <path fill="currentColor" d="M10 10h20v80H10z"/>
+        <path fill="currentColor" d="M30 50 72 8h22L30 72z"/>
+        <path fill="currentColor" d="M52 50 70 32l27 58H77z"/>
+        <path fill="currentColor" d="M39 69h6v6h-6zM47 69h6v6h-6zM39 77h6v6h-6zM47 77h6v6h-6z"/>
+      </symbol>
+      <!-- A · K-atap + centang: batang K di kiri, lengan atas K naik ke kanan, kaki K menjadi atap yang turun; ruang di bawah atap dipotong berbentuk centang -->
+      <symbol id="mark-a" viewBox="0 0 100 100">
+        <path fill="currentColor" d="M14 10h19v80H14z"/>
+        <path fill="currentColor" d="M33 47 72 10h22L33 68z"/>
+        <path fill="currentColor" fill-rule="evenodd" d="M40 66 62 45l28 45H67L58 76 49 90H33l7-13zm4 6 7 7 12-13-3-4-9 10-4-4z"/>
+      </symbol>
+      <!-- B · K + pintu terbuka: batang K jadi kusen pintu, celah antara batang dan lengan menjadi daun pintu yang terbuka -->
+      <symbol id="mark-b" viewBox="0 0 100 100">
+        <path fill="currentColor" fill-rule="evenodd" d="M8 10h34v80H8zM15 17h20v73H15z"/>
+        <path fill="currentColor" d="M15 17 31 25v59l-16 6z"/>
+        <path fill="currentColor" d="M42 50 76 10h20L42 72z"/>
+        <path fill="currentColor" d="M50 62 61 51l31 39H68z"/>
+      </symbol>
+      <!-- C · K + garis gerak: atap K berlapis tiga garis miring, kesan pindah dan bergerak maju -->
+      <symbol id="mark-c" viewBox="0 0 100 100">
+        <path fill="currentColor" d="M30 10h18v80H30z"/>
+        <path fill="currentColor" d="M48 50 80 14h18L48 70z"/>
+        <path fill="currentColor" d="M54 62 66 52l30 38H74z"/>
+        <path fill="currentColor" d="M4 50 14 50 28 34v14L18 60H4z" opacity=".9"/>
+        <path fill="currentColor" d="M4 70h14l10-10v14l-4 4H4z" opacity=".55"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <section class="option" id="d">
+    <header><h2>D · K-rumah dengan jendela</h2><span>Pilihan kamu</span></header>
+    <p>Mengikuti dua referensi yang kamu pilih: lengan dan kaki huruf K bertemu membentuk atap, dan ruang di bawahnya jadi rumah dengan jendela empat kotak. Wordmark versi kedua memakai tanda ini langsung sebagai huruf K pertama, seperti cara "Realest" menyatukan rumah ke huruf R.</p>
+    <div class="row">
+      <div class="tile t-white"><svg><use href="#mark-d"/></svg></div>
+      <div class="tile t-cobalt"><svg><use href="#mark-d"/></svg></div>
+      <div class="tile t-black"><svg><use href="#mark-d"/></svg></div>
+      <div class="tile t-bw"><svg><use href="#mark-d"/></svg></div>
+    </div>
+    <div class="lockups">
+      <div class="lockup"><svg><use href="#mark-d"/></svg><b>KontrakYuk</b></div>
+      <div class="lockup dark"><svg><use href="#mark-d"/></svg><b>KontrakYuk</b></div>
+      <div class="lockup inline"><b><svg class="k"><use href="#mark-d"/></svg>ontrakYuk</b></div>
+      <div class="lockup dark inline"><b><svg class="k"><use href="#mark-d"/></svg>ontrakYuk</b></div>
+    </div>
+    <div class="sizes"><div><div class="app"><svg><use href="#mark-d"/></svg></div><small>Ikon app</small></div><div><svg class="fav" width="32" height="32"><use href="#mark-d"/></svg><small>32 px</small></div><div><svg class="fav" width="16" height="16"><use href="#mark-d"/></svg><small>16 px</small></div></div>
+  </section>
+
+  <section class="option" id="a">
+    <header><h2>A · K-atap + centang</h2></header>
+    <p>Kaki huruf K menjadi atap rumah, dan ruang di bawah atap dipotong berbentuk centang. Dalam satu bentuk terbaca: <b>K</b> untuk KontrakYuk, <b>rumah</b>, dan <b>status tersedia yang sudah dicek</b>, pembeda utama KontrakYuk.</p>
+    <div class="row">
+      <div class="tile t-white"><svg><use href="#mark-a"/></svg></div>
+      <div class="tile t-cobalt"><svg><use href="#mark-a"/></svg></div>
+      <div class="tile t-black"><svg><use href="#mark-a"/></svg></div>
+      <div class="tile t-bw"><svg><use href="#mark-a"/></svg></div>
+    </div>
+    <div class="lockups">
+      <div class="lockup"><svg><use href="#mark-a"/></svg><b>KontrakYuk</b></div>
+      <div class="lockup dark"><svg><use href="#mark-a"/></svg><b>KontrakYuk</b></div>
+    </div>
+    <div class="sizes"><div><div class="app"><svg><use href="#mark-a"/></svg></div><small>Ikon app</small></div><div><svg class="fav" width="32" height="32"><use href="#mark-a"/></svg><small>32 px</small></div><div><svg class="fav" width="16" height="16"><use href="#mark-a"/></svg><small>16 px</small></div></div>
+  </section>
+
+  <section class="option" id="b">
+    <header><h2>B · K + pintu terbuka</h2></header>
+    <p>Batang K menjadi kusen, dan bidang miring di tengah menjadi daun pintu yang terbuka ke dalam. Ceritanya "tinggal masuk, siap huni". Paling hangat dan ramah.</p>
+    <div class="row">
+      <div class="tile t-white"><svg><use href="#mark-b"/></svg></div>
+      <div class="tile t-cobalt"><svg><use href="#mark-b"/></svg></div>
+      <div class="tile t-black"><svg><use href="#mark-b"/></svg></div>
+      <div class="tile t-bw"><svg><use href="#mark-b"/></svg></div>
+    </div>
+    <div class="lockups">
+      <div class="lockup"><svg><use href="#mark-b"/></svg><b>KontrakYuk</b></div>
+      <div class="lockup dark"><svg><use href="#mark-b"/></svg><b>KontrakYuk</b></div>
+    </div>
+    <div class="sizes"><div><div class="app"><svg><use href="#mark-b"/></svg></div><small>Ikon app</small></div><div><svg class="fav" width="32" height="32"><use href="#mark-b"/></svg><small>32 px</small></div><div><svg class="fav" width="16" height="16"><use href="#mark-b"/></svg><small>16 px</small></div></div>
+  </section>
+
+  <section class="option" id="c">
+    <header><h2>C · K + garis gerak</h2></header>
+    <p>Huruf K dengan dua garis bertingkat di kiri, seperti rumah yang sedang dipindahkan. Paling energik dan mewakili jasa pindahan, tapi sisi "sewa" kurang terasa.</p>
+    <div class="row">
+      <div class="tile t-white"><svg><use href="#mark-c"/></svg></div>
+      <div class="tile t-cobalt"><svg><use href="#mark-c"/></svg></div>
+      <div class="tile t-black"><svg><use href="#mark-c"/></svg></div>
+      <div class="tile t-bw"><svg><use href="#mark-c"/></svg></div>
+    </div>
+    <div class="lockups">
+      <div class="lockup"><svg><use href="#mark-c"/></svg><b>KontrakYuk</b></div>
+      <div class="lockup dark"><svg><use href="#mark-c"/></svg><b>KontrakYuk</b></div>
+    </div>
+    <div class="sizes"><div><div class="app"><svg><use href="#mark-c"/></svg></div><small>Ikon app</small></div><div><svg class="fav" width="32" height="32"><use href="#mark-c"/></svg><small>32 px</small></div><div><svg class="fav" width="16" height="16"><use href="#mark-c"/></svg><small>16 px</small></div></div>
+  </section>
+</main>
+</body>
+</html>

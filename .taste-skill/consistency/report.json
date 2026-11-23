@@ -1,0 +1,1237 @@
+{
+ "page": "/Users/faizz/Downloads/KontrakYuk-web/index.html",
+ "url": "http://127.0.0.1:5200/index.html",
+ "at": "2026-11-13T11:28:13.992Z",
+ "out": "/Users/faizz/Downloads/KontrakYuk-web/.taste-skill/consistency",
+ "widths": [
+  {
+   "width": 1440,
+   "height": 900,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "overlap-text",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > button.loop-pause.mo-mq__pause",
+     "text": "",
+     "msg": "lies over the text \"Tangerang\" (ul.mo-mq__track:nth-of-type(1) > li:nth-of-type(10))",
+     "stop": 5,
+     "crop": "1440-12-overlap-text.jpg",
+     "fix": "move the box off the text (or the text off the box)"
+    },
+    {
+     "check": "no-visual",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+     "stop": 6,
+     "crop": "1440-14-no-visual.jpg",
+     "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits"
+    },
+    {
+     "check": "copy-headings",
+     "sev": "FAIL",
+     "sel": "div.group > div.grid > article.card.card--row:nth-of-type(1) > h3.ui-pause-beside",
+     "text": "Mengubah status unit dalam satu ketukan",
+     "msg": "\"Mengubah status unit dalam satu ketukan\" names no product, part, place or section (7 headings like it; at most one brand line per page) (and 6 more like it: \"Mengabari penyewa saat u\", \"Menghitung pencari dari \", \"Pertanyaan penyewa\", \"Siapa yang mengubah stat\", ...)",
+     "stop": 2,
+     "crop": "1440-06-copy-headings.jpg",
+     "fix": "name the thing in every heading: the product, a part, the place or a section noun"
+    },
+    {
+     "check": "stagger",
+     "sev": "FAIL",
+     "sel": "div.ui.app > div.app__pane.app__pane--open > div.ui.ui-panel > div.ui-chat__body",
+     "text": "Pak, unit A-02 masih kosong? Saya mau survei Sab",
+     "msg": "4 rows start at 3 different left offsets (+445, +0, +512, +0px)",
+     "stop": 1,
+     "crop": "1440-04-stagger.jpg",
+     "fix": "start every row of the list on one left edge"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__body",
+     "text": "Sabtu, 10:00 di Kukusan",
+     "msg": "cut 14px at the bottom by the overflow of div.group > div.grid > article.card.card--row:nth-of-type(2) > div.panel: a fragment run out through its panel's edge",
+     "stop": 3,
+     "crop": "1440-07-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "text-contrast",
+     "sev": "WARN",
+     "sel": "div.at-rise.fit > div.ui.ui-panel > div.ui-checks__head > div.ui-title",
+     "text": "Deep cleaning 3 petak",
+     "stop": 4,
+     "msg": "15 lines of text in drawn mocks read under 4.5:1 (5 colour pairs), the worst \"Deep cleaning 3 petak\" in #2a2622 on #252324 at 1.04:1",
+     "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+     "crop": "1440-09-text-contrast.jpg"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "188px between these sections, -46% against the median 349px of gaps at a change of ground",
+     "crop": "1440-10-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "uneven space at the edge of a band: 72px outside its edge, 116px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "1440-11-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#pindahan / section#tanya",
+     "text": "",
+     "stop": 5,
+     "msg": "uneven space at the edge of a band: 116px outside its edge, 233px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "1440-13-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(2)",
+     "text": "Ingatkan saat kosongKabar saat unit dile",
+     "msg": "\"Ingatkan saat kosongKabar saat unit dile\" opens a section headed \"Satu aplikasi untuk penyewa dan pemilik. Status, k\"",
+     "stop": null,
+     "fix": "name each nav link after the heading of the section it opens"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "div.nav__item:nth-of-type(1) > div.nav__menu > div.wrap.grid > a.menu-card.span-3",
+     "text": "Pickup bak dijadwalkan08:30Pondok Cina k",
+     "msg": "\"Pickup bak dijadwalkan08:30Pondok Cina k\" opens a section headed \"Pindahan dan cleaning sekaligus\"",
+     "stop": null,
+     "fix": "name each nav link after the heading of the section it opens"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(2) > a.nav__link",
+     "text": "Fitur",
+     "msg": "\"Fitur\" opens a section headed \"Satu aplikasi untuk penyewa dan pemilik. Status, k\"",
+     "stop": 0,
+     "crop": "1440-01-nav-labels.jpg",
+     "fix": "name each nav link after the heading of the section it opens"
+    },
+    {
+     "check": "nav-labels",
+     "sev": "WARN",
+     "sel": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(2)",
+     "text": "Ingatkan saat kosongKabar saat",
+     "msg": "3 entries of one menu go to the same place (#fitur): \"Ingatkan saat kosongKabar saat\", \"Ubah status unitTersedia, sege\", \"Spanduk QRPencari scan di paga\"",
+     "fix": "give each menu entry its own target (its section, its tab, its page), or show fewer entries",
+     "stop": null
+    },
+    {
+     "check": "label-centre",
+     "sev": "WARN",
+     "sel": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Cari kontrakan",
+     "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Cari kontrakan\")",
+     "stop": 0,
+     "crop": "1440-02-label-centre.jpg",
+     "fix": "centre the label in its button, or fill the empty side with an icon"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__title",
+     "text": "Survei dikonfirmasi 12m",
+     "stop": 3,
+     "msg": "2 lines of div.ui.ui-notify fade out under its edge (\"Survei dikonfirmasi 12\", \"12m\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "1440-08-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "copy-length",
+     "sev": "WARN",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "1 section over 90 words a screen outside the UI mocks (\"Pertanyaan penyewa\" 95); 56 words a screen across the page (334 words in 6 screens): a tech page says it in about 80 or fewer",
+     "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+     "stop": 6,
+     "crop": "1440-15-copy-length.jpg"
+    },
+    {
+     "check": "nav-current",
+     "sev": "WARN",
+     "sel": "header.nav",
+     "text": "",
+     "stop": 1,
+     "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+     "crop": "1440-05-nav-current.jpg",
+     "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls"
+    },
+    {
+     "check": "button-contrast",
+     "sev": "WARN",
+     "sel": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary",
+     "text": "Pesan jasa pindahan",
+     "stop": 0,
+     "msg": "the button \"Pesan jasa pindahan\" (#d9dbde) stands only 1.22:1 off the ground around it: it reads as part of the ground, or as switched off",
+     "crop": "1440-03-button-contrast.jpg",
+     "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink"
+    },
+    {
+     "check": "section-air",
+     "sev": "WARN",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa Yang paling sering di",
+     "msg": "the content fills 54.5% of the section's height (491 of 900px): 55% or more (40% WARN) (SR-3)",
+     "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+     "rule": "SR-3 T-fill",
+     "crop": "1440-rhythm-06-section-air.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "1 text block starts on a left line at x 495, 415px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "1440-rhythm-01-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "the h1 starts 415px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "1440-rhythm-02-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "1 text block starts on a left line at x 475, 395px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (and 1 more like it: x 70) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "1440-rhythm-03-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "\"Cari kontrakan yang masih kosong\" is set centred across 649px, over half the 1280px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "1440-rhythm-04-container-edges.jpg"
+    },
+    {
+     "check": "row-lines",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > div.mo-mq__rail",
+     "text": "KukusanBejiPondok CinaMargondaTebetCempa",
+     "msg": "a clipped carousel: 1 item cut at rest (SR-7)",
+     "fix": "show every item inside the container, or stack them: no sideways scroller, no half-cut carousel",
+     "rule": "SR-7 T-overflow",
+     "crop": "1440-rhythm-05-row-lines.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 1024,
+   "height": 768,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.d-win__body > div.inbox > div.t:nth-of-type(3) > span",
+     "text": "Rp 950.000 / bulan · Beji Timur",
+     "msg": "cut 3px at the bottom by the overflow of section.hero.hero--centred > div.wrap > div.hero-text > div.hero__window",
+     "stop": 0,
+     "crop": "1024-01-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "no-visual",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+     "stop": 6,
+     "crop": "1024-12-no-visual.jpg",
+     "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits"
+    },
+    {
+     "check": "stagger",
+     "sev": "FAIL",
+     "sel": "div.ui.app > div.app__pane.app__pane--open > div.ui.ui-panel > div.ui-chat__body",
+     "text": "Pak, unit A-02 masih kosong? Saya mau survei Sab",
+     "msg": "4 rows start at 3 different left offsets (+274, +0, +342, +0px)",
+     "stop": 1,
+     "crop": "1024-04-stagger.jpg",
+     "fix": "start every row of the list on one left edge"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "div.ui-win__main > ul.ui-win__rows > li.ui-win__row:nth-of-type(2) > span.ui-win__sub",
+     "text": "Petak Kenanga · Rp 950 rb",
+     "msg": "shortened with an ellipsis",
+     "stop": 1,
+     "crop": "1024-05-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__body",
+     "text": "Sabtu, 10:00 di Kukusan",
+     "msg": "cut 14px at the bottom by the overflow of div.group > div.grid > article.card.card--row:nth-of-type(2) > div.panel: a fragment run out through its panel's edge",
+     "stop": 3,
+     "crop": "1024-07-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "text-contrast",
+     "sev": "WARN",
+     "sel": "div.at-rise.fit > div.ui.ui-panel > div.ui-checks__head > div.ui-title",
+     "text": "Deep cleaning 3 petak",
+     "stop": 4,
+     "msg": "15 lines of text in drawn mocks read under 4.5:1 (5 colour pairs), the worst \"Deep cleaning 3 petak\" in #2a2622 on #252324 at 1.04:1",
+     "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+     "crop": "1024-10-text-contrast.jpg"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "uneven space at the edge of a band: 72px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "1024-11-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "label-centre",
+     "sev": "WARN",
+     "sel": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Cari kontrakan",
+     "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Cari kontrakan\")",
+     "stop": 0,
+     "crop": "1024-02-label-centre.jpg",
+     "fix": "centre the label in its button, or fill the empty side with an icon"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-toggles__list > li.ui-tg:nth-of-type(4) > span.ui-tg__text > span.ui-tg__sub",
+     "text": "Tersedia, Rp 1.600.000 / bulan",
+     "stop": 3,
+     "msg": "a line of div.ui.ui-panel fades out under its edge (\"Tersedia, Rp 1.600.000\"): drawn at a fraction of #5d6470 on #fffeff, half-erased",
+     "crop": "1024-08-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__title",
+     "text": "Survei dikonfirmasi 12m",
+     "stop": 3,
+     "msg": "2 lines of div.ui.ui-notify fade out under its edge (\"Survei dikonfirmasi 12\", \"12m\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "1024-09-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "nav-current",
+     "sev": "WARN",
+     "sel": "header.nav",
+     "text": "",
+     "stop": 1,
+     "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+     "crop": "1024-06-nav-current.jpg",
+     "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls"
+    },
+    {
+     "check": "button-contrast",
+     "sev": "WARN",
+     "sel": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary",
+     "text": "Pesan jasa pindahan",
+     "stop": 0,
+     "msg": "the button \"Pesan jasa pindahan\" (#d9dbde) stands only 1.22:1 off the ground around it: it reads as part of the ground, or as switched off",
+     "crop": "1024-03-button-contrast.jpg",
+     "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 820,
+   "height": 1180,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "overlap-text",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > button.loop-pause.mo-mq__pause",
+     "text": "",
+     "msg": "lies over the text \"Buah Batu\" (ul.mo-mq__track:nth-of-type(1) > li:nth-of-type(7))",
+     "stop": 5,
+     "crop": "820-12-overlap-text.jpg",
+     "fix": "move the box off the text (or the text off the box)"
+    },
+    {
+     "check": "no-visual",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+     "stop": 6,
+     "crop": "820-14-no-visual.jpg",
+     "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits"
+    },
+    {
+     "check": "stagger",
+     "sev": "FAIL",
+     "sel": "div.ui.app > div.app__pane.app__pane--open > div.ui.ui-panel > div.ui-chat__body",
+     "text": "Pak, unit A-02 masih kosong? Saya mau survei Sab",
+     "msg": "4 rows start at 3 different left offsets (+422, +0, +490, +0px)",
+     "stop": 1,
+     "crop": "820-03-stagger.jpg",
+     "fix": "start every row of the list on one left edge"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "FAIL",
+     "sel": "main#top > section.hero.hero--centred / section#cari",
+     "text": "",
+     "stop": 1,
+     "msg": "181px between these sections, -64% against the median 509px",
+     "crop": "820-04-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "FAIL",
+     "sel": "section#cari / section#fitur",
+     "text": "",
+     "stop": 2,
+     "msg": "189px between these sections, -63% against the median 509px",
+     "crop": "820-05-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "ul.ui-toggles__list > li.ui-tg:nth-of-type(2) > span.ui-tg__text > span.ui-tg__sub",
+     "text": "Segera, kosong tanggal 1",
+     "msg": "cut 14px at the bottom by the overflow of div.group > div.grid > article.card.card--row:nth-of-type(1) > div.panel: a fragment run out through its panel's edge (and 1 more like it: \"Sabtu, 10:00 di Kukusan\")",
+     "stop": 2,
+     "crop": "820-06-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "div.ui.ui-panel > ul.ui-checks__list > li.ui-check:nth-of-type(3) > span.ui-check__label",
+     "text": "Barang dimuat di Pondok Cina",
+     "msg": "cut 13px at the bottom by the overflow of div.wrap > div.grid > article.card.card--row:nth-of-type(1) > div.panel: a fragment run out through its panel's edge",
+     "stop": 3,
+     "crop": "820-08-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "text-contrast",
+     "sev": "WARN",
+     "sel": "div.at-rise.fit > div.ui.ui-panel > div.ui-checks__head > div.ui-title",
+     "text": "Deep cleaning 3 petak",
+     "stop": 4,
+     "msg": "25 lines of text in drawn mocks read under 4.5:1 (8 colour pairs), the worst \"Deep cleaning 3 petak\" in #2a2622 on #252324 at 1.04:1",
+     "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+     "crop": "820-10-text-contrast.jpg"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "uneven space at the edge of a band: 392px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "820-11-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#pindahan / section#tanya",
+     "text": "",
+     "stop": 5,
+     "msg": "uneven space at the edge of a band: 117px outside its edge, 517px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "820-13-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#tanya / footer#contact",
+     "text": "",
+     "stop": 6,
+     "msg": "uneven space at the edge of a band: 419px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "820-15-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "label-centre",
+     "sev": "WARN",
+     "sel": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Cari kontrakan",
+     "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Cari kontrakan\")",
+     "stop": 0,
+     "crop": "820-01-label-centre.jpg",
+     "fix": "centre the label in its button, or fill the empty side with an icon"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-toggles__list > li.ui-tg:nth-of-type(2) > span.ui-tg__text > span.ui-tg__label",
+     "text": "Rumah Petak Kenanga",
+     "stop": 2,
+     "msg": "a line of div.ui.ui-panel fades out under its edge (\"Rumah Petak Kenanga\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "820-07-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__title",
+     "text": "Survei dikonfirmasi 12m",
+     "stop": 3,
+     "msg": "2 lines of div.ui.ui-notify fade out under its edge (\"Survei dikonfirmasi 12\", \"12m\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "820-09-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "button-contrast",
+     "sev": "WARN",
+     "sel": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary",
+     "text": "Pesan jasa pindahan",
+     "stop": 0,
+     "msg": "the button \"Pesan jasa pindahan\" (#d9dbde) stands only 1.22:1 off the ground around it: it reads as part of the ground, or as switched off",
+     "crop": "820-02-button-contrast.jpg",
+     "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink"
+    },
+    {
+     "check": "section-air",
+     "sev": "WARN",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa Yang paling sering di",
+     "msg": "the content fills 54.5% of the section's height (644 of 1180px): 55% or more (40% WARN) (SR-3)",
+     "fix": "fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block",
+     "rule": "SR-3 T-fill",
+     "crop": "820-rhythm-07-section-air.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "1 text block starts on a left line at x 244, 196px from the container's left: text starts on the container's left, or on one split line (x 360, 422, 484) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "820-rhythm-01-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "the h1 starts 196px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "820-rhythm-02-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "1 text block starts on a left line at x 187, 139px from the container's left: text starts on the container's left, or on one split line (x 360, 422, 484) (and 1 more like it: x 38) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "820-rhythm-03-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "\"Setiap unit tertulis Tersedia, S\" is set centred across 521px, over half the 724px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "820-rhythm-04-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "\"Cari kontrakan yang masih kosong\" is set centred across 479px, over half the 724px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "820-rhythm-05-container-edges.jpg"
+    },
+    {
+     "check": "row-lines",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > div.mo-mq__rail",
+     "text": "KukusanBejiPondok CinaMargondaTebetCempa",
+     "msg": "a clipped carousel: 1 item cut at rest (SR-7)",
+     "fix": "show every item inside the container, or stack them: no sideways scroller, no half-cut carousel",
+     "rule": "SR-7 T-overflow",
+     "crop": "820-rhythm-06-row-lines.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "screens": 9,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "overlap-text",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > button.loop-pause.mo-mq__pause",
+     "text": "",
+     "msg": "lies over the text \"Buah Batu\" (ul.mo-mq__track:nth-of-type(1) > li:nth-of-type(7))",
+     "stop": 5,
+     "crop": "768-12-overlap-text.jpg",
+     "fix": "move the box off the text (or the text off the box)"
+    },
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.mo-mq > div.mo-mq__rail > ul.mo-mq__track:nth-of-type(1) > li:nth-of-type(7)",
+     "text": "Buah Batu",
+     "msg": "cut 42px at the right by the overflow of div.wrap > div.mq-row > div.mo-mq > div.mo-mq__rail",
+     "stop": 5,
+     "crop": "768-13-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "no-visual",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+     "stop": 6,
+     "crop": "768-16-no-visual.jpg",
+     "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits"
+    },
+    {
+     "check": "stagger",
+     "sev": "FAIL",
+     "sel": "div.ui.app > div.app__pane.app__pane--open > div.ui.ui-panel > div.ui-chat__body",
+     "text": "Pak, unit A-02 masih kosong? Saya mau survei Sab",
+     "msg": "4 rows start at 3 different left offsets (+370, +0, +438, +0px)",
+     "stop": 2,
+     "crop": "768-04-stagger.jpg",
+     "fix": "start every row of the list on one left edge"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "ul.ui-toggles__list > li.ui-tg:nth-of-type(2) > span.ui-tg__text > span.ui-tg__sub",
+     "text": "Segera, kosong tanggal 1",
+     "msg": "cut 14px at the bottom by the overflow of div.group > div.grid > article.card.card--row:nth-of-type(1) > div.panel: a fragment run out through its panel's edge (and 1 more like it: \"Sabtu, 10:00 di Kukusan\")",
+     "stop": 2,
+     "crop": "768-05-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "div.ui.ui-panel > ul.ui-checks__list > li.ui-check:nth-of-type(3) > span.ui-check__label",
+     "text": "Barang dimuat di Pondok Cina",
+     "msg": "cut 13px at the bottom by the overflow of div.wrap > div.grid > article.card.card--row:nth-of-type(1) > div.panel: a fragment run out through its panel's edge",
+     "stop": 3,
+     "crop": "768-08-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "text-contrast",
+     "sev": "WARN",
+     "sel": "div.at-rise.fit > div.ui.ui-panel > div.ui-checks__head > div.ui-title",
+     "text": "Deep cleaning 3 petak",
+     "stop": 4,
+     "msg": "25 lines of text in drawn mocks read under 4.5:1 (8 colour pairs), the worst \"Deep cleaning 3 petak\" in #2a2622 on #252324 at 1.04:1",
+     "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+     "crop": "768-10-text-contrast.jpg"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "main#top > section.hero.hero--centred / section#cari",
+     "text": "",
+     "stop": 1,
+     "msg": "181px between these sections, -47% against the median 341px",
+     "crop": "768-03-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#cari / section#fitur",
+     "text": "",
+     "stop": 2,
+     "msg": "189px between these sections, -45% against the median 341px",
+     "crop": "768-06-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#pindahan / section#tanya",
+     "text": "",
+     "stop": 5,
+     "msg": "455px between these sections, +29% against the median 353px of gaps at a change of ground",
+     "crop": "768-14-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "uneven space at the edge of a band: 236px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "768-11-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#pindahan / section#tanya",
+     "text": "",
+     "stop": 5,
+     "msg": "uneven space at the edge of a band: 117px outside its edge, 338px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "768-15-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "label-centre",
+     "sev": "WARN",
+     "sel": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Cari kontrakan",
+     "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Cari kontrakan\")",
+     "stop": 0,
+     "crop": "768-01-label-centre.jpg",
+     "fix": "centre the label in its button, or fill the empty side with an icon"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-toggles__list > li.ui-tg:nth-of-type(2) > span.ui-tg__text > span.ui-tg__label",
+     "text": "Rumah Petak Kenanga",
+     "stop": 2,
+     "msg": "a line of div.ui.ui-panel fades out under its edge (\"Rumah Petak Kenanga\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "768-07-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "fade-cut",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__title",
+     "text": "Survei dikonfirmasi 12m",
+     "stop": 3,
+     "msg": "2 lines of div.ui.ui-notify fade out under its edge (\"Survei dikonfirmasi 12\", \"12m\"): drawn at a fraction of #0b0c0e on #fffeff, half-erased",
+     "crop": "768-09-fade-cut.jpg",
+     "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased"
+    },
+    {
+     "check": "button-contrast",
+     "sev": "WARN",
+     "sel": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary",
+     "text": "Pesan jasa pindahan",
+     "stop": 0,
+     "msg": "the button \"Pesan jasa pindahan\" (#d9dbde) stands only 1.22:1 off the ground around it: it reads as part of the ground, or as switched off",
+     "crop": "768-02-button-contrast.jpg",
+     "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "1 text block starts on a left line at x 223, 175px from the container's left: text starts on the container's left, or on one split line (x 338, 396, 454) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "768-rhythm-01-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "the h1 starts 175px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "768-rhythm-02-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "1 text block starts on a left line at x 163, 115px from the container's left: text starts on the container's left, or on one split line (x 338, 396, 454) (and 1 more like it: x 37) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "768-rhythm-03-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "\"Setiap unit tertulis Tersedia, S\" is set centred across 517px, over half the 672px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "768-rhythm-04-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "\"Cari kontrakan yang masih kosong\" is set centred across 464px, over half the 672px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "768-rhythm-05-container-edges.jpg"
+    },
+    {
+     "check": "row-lines",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.mq-row > div.mo-mq > div.mo-mq__rail",
+     "text": "KukusanBejiPondok CinaMargondaTebetCempa",
+     "msg": "a clipped carousel: 1 item cut at rest (SR-7)",
+     "fix": "show every item inside the container, or stack them: no sideways scroller, no half-cut carousel",
+     "rule": "SR-7 T-overflow",
+     "crop": "768-rhythm-06-row-lines.jpg"
+    }
+   ],
+   "glAsked": 2
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "screens": 10,
+   "held": 0,
+   "errors": [],
+   "findings": [
+    {
+     "check": "flush",
+     "sev": "FAIL",
+     "sel": "div.grid > div.faq.span-6 > div.faq__item:nth-of-type(4) > p",
+     "text": "Satu armada pilihan Anda, kru angkut, dan deep c",
+     "msg": "its last line sits -39px above the lower edge of section#tanya, where the ground changes to the footer",
+     "stop": 8,
+     "crop": "390-13-flush.jpg",
+     "fix": "give the section its padding at the edge where the ground changes (the closing call keeps a clear gap above the footer)"
+    },
+    {
+     "check": "cut-text",
+     "sev": "FAIL",
+     "sel": "div.convo > div.d-chat > div.acts > span:nth-of-type(1)",
+     "text": "Chat pemilik",
+     "msg": "cut 5px at the bottom by the overflow of section.hero.hero--centred > div.wrap > div.hero-text > div.hero__window (and 1 more like it: \"Simpan unit\")",
+     "stop": 0,
+     "crop": "390-01-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "no-visual",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa",
+     "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+     "stop": 7,
+     "crop": "390-12-no-visual.jpg",
+     "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits"
+    },
+    {
+     "check": "stagger",
+     "sev": "FAIL",
+     "sel": "div.ui.app > div.app__pane.app__pane--open > div.ui.ui-panel > div.ui-chat__body",
+     "text": "Pak, unit A-02 masih kosong? Saya mau survei Sab",
+     "msg": "4 rows start at 3 different left offsets (+40, +0, +108, +0px)",
+     "stop": 1,
+     "crop": "390-04-stagger.jpg",
+     "fix": "start every row of the list on one left edge"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "ul.ui-notify__list > li.ui-note:nth-of-type(3) > span.ui-note__text > span.ui-note__title",
+     "text": "Survei dikonfirmasi 12m",
+     "msg": "cut 9px at the bottom by the overflow of div.group > div.grid > article.card.card--row:nth-of-type(2) > div.panel: a fragment run out through its panel's edge (and 1 more like it: \"12m\")",
+     "stop": 3,
+     "crop": "390-05-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "div.wrap > div.grid > article.card.card--row:nth-of-type(1) > h3",
+     "text": "Menyusun jadwal armada pindahan",
+     "msg": "sits across the edge of a panel behind it (and 1 more like it: \"Satu armada pilihan Anda\")",
+     "stop": 3,
+     "crop": "390-06-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cut-text",
+     "sev": "WARN",
+     "sel": "div.ui.ui-panel > ul.ui-checks__list > li.ui-check:nth-of-type(3) > span.ui-check__label",
+     "text": "Barang dimuat di Pondok Cina",
+     "msg": "cut 9px at the bottom by the overflow of div.wrap > div.grid > article.card.card--row:nth-of-type(1) > div.panel: a fragment run out through its panel's edge",
+     "stop": 3,
+     "crop": "390-07-cut-text.jpg",
+     "fix": "give the text room: no overflow clipping a line, no line past its box"
+    },
+    {
+     "check": "cta",
+     "sev": "WARN",
+     "sel": "section#pindahan",
+     "text": "Pindahan dan cleaning sekaligus",
+     "msg": "a section over 1.5 screens long with no link or button in it",
+     "stop": 5,
+     "crop": "390-09-cta.jpg",
+     "fix": "add the action: a button in the hero, one on every priced item, one in the closing section"
+    },
+    {
+     "check": "text-contrast",
+     "sev": "WARN",
+     "sel": "div.at-rise.fit > div.ui.ui-panel > div.ui-checks__head > div.ui-title",
+     "text": "Deep cleaning 3 petak",
+     "stop": 6,
+     "msg": "10 lines of text in drawn mocks read under 4.5:1 (5 colour pairs), the worst \"Deep cleaning 3 petak\" in #2a2622 on #252324 at 1.04:1",
+     "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+     "crop": "390-11-text-contrast.jpg"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#tanya / footer#contact",
+     "text": "",
+     "stop": 8,
+     "msg": "54px between these sections, -54% against the median 117px",
+     "crop": "390-14-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "section-gaps",
+     "sev": "WARN",
+     "sel": "section#fitur / section#pindahan",
+     "text": "",
+     "stop": 4,
+     "msg": "uneven space at the edge of a band: 46px outside its edge, 93px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+     "crop": "390-08-section-gaps.jpg",
+     "fix": "use one gap between sections (all within 25% of each other)"
+    },
+    {
+     "check": "label-centre",
+     "sev": "WARN",
+     "sel": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary",
+     "text": "Cari kontrakan",
+     "msg": "its label sits 18px off-centre (13px of room at the left, 31px at the right)",
+     "stop": 0,
+     "crop": "390-02-label-centre.jpg",
+     "fix": "centre the label in its button, or fill the empty side with an icon"
+    },
+    {
+     "check": "unit-break",
+     "sev": "WARN",
+     "sel": "div.grid > div.stack-5 > ul.rows > li:nth-of-type(2)",
+     "text": "Mobil pickup bak, 800 kg Rp 180.000",
+     "msg": "\"800 kg\" breaks across two lines: the number ends one line and its unit starts the next",
+     "stop": 5,
+     "crop": "390-10-unit-break.jpg",
+     "fix": "keep a number with its unit: a no-break space (&nbsp;) between them"
+    },
+    {
+     "check": "button-contrast",
+     "sev": "WARN",
+     "sel": "div.hero-text > div.hero__c > div.btn-row > a.btn.btn--secondary",
+     "text": "Pesan jasa pindahan",
+     "stop": 0,
+     "msg": "the button \"Pesan jasa pindahan\" (#d9dbde) stands only 1.22:1 off the ground around it: it reads as part of the ground, or as switched off",
+     "crop": "390-03-button-contrast.jpg",
+     "fix": "give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink"
+    },
+    {
+     "check": "section-height",
+     "sev": "FAIL",
+     "sel": "section#tanya",
+     "text": "Pertanyaan penyewa Yang paling sering di",
+     "msg": "the section's content does not fit it: its content is 59px taller than the section (scrollHeight 903, clientHeight 844); its lowest content ends 883px below its top, past 796px (the section less 48px of bottom padding); 4 parts lie outside the section's box (SR-2)",
+     "fix": "fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups",
+     "rule": "SR-2 T-fit",
+     "crop": "390-rhythm-01-section-height.jpg"
+    },
+    {
+     "check": "section-height",
+     "sev": "FAIL",
+     "sel": "section#fitur",
+     "text": "Satu aplikasi untuk penyewa dan pemilik.",
+     "msg": "the section's content does not fit it: its first screen group ends 837px below its top, past 796px (SR-2)",
+     "fix": "fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups",
+     "rule": "SR-2 T-fit",
+     "crop": "390-rhythm-02-section-height.jpg"
+    },
+    {
+     "check": "section-height",
+     "sev": "FAIL",
+     "sel": "section#tanya > div.wrap > div.grid",
+     "text": "Pertanyaan penyewa Yang paling sering di",
+     "msg": "\"Pertanyaan penyewa Yang paling s\" lies outside section 5 (96 to 903px from its top; the section is 844px tall) (and 2 more like it: \"Siapa yang mengubah stat\", \"Apa saja isi paket bundl\") (SR-2)",
+     "fix": "fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups",
+     "rule": "SR-2 T-fit",
+     "crop": "390-rhythm-03-section-height.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "1 text block starts on a left line at x 70, 46px from the container's left: text starts on the container's left, or on one split line (x 177, 207, 238) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "390-rhythm-04-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "the h1 starts 46px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "390-rhythm-05-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "1 text block starts on a left line at x 40, 16px from the container's left: text starts on the container's left, or on one split line (x 177, 207, 238) (SR-6)",
+     "fix": "start the text on the container's left, or on the one split line every split shares",
+     "rule": "SR-6 T3-left-lines",
+     "crop": "390-rhythm-06-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "h1#hero-h",
+     "text": "Cari kontrakan yang masih kosong",
+     "msg": "\"Cari kontrakan yang masih kosong\" is set centred across 342px, over half the 342px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "390-rhythm-07-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > p.hero__lead",
+     "text": "Setiap unit tertulis Tersedia, Segera, a",
+     "msg": "\"Setiap unit tertulis Tersedia, S\" is set centred across 342px, over half the 342px container: text that wide is set left (SR-6)",
+     "fix": "set the text left (text-align: start)",
+     "rule": "SR-6 T4-alignment",
+     "crop": "390-rhythm-08-container-edges.jpg"
+    },
+    {
+     "check": "container-edges",
+     "sev": "FAIL",
+     "sel": "div.wrap > div.hero-text > div.hero__c > a.pill",
+     "text": "Jasa pindahan mulai Rp 120.000Lihat arma",
+     "msg": "a box over half the container wide runs 47-343px, not on the container's lines at 24-366px (SR-6)",
+     "fix": "run the picture or box from the container's left line to its right line, or put it in a row or a split",
+     "rule": "SR-6 T6-right-edges",
+     "crop": "390-rhythm-09-container-edges.jpg"
+    }
+   ],
+   "glAsked": 2
+  }
+ ],
+ "shaders": 7,
+ "glFallback": {
+  "hosts": 1,
+  "asked": 2,
+  "empty": 0
+ },
+ "reduced": {
+  "screens": 7,
+  "notRead": 0
+ },
+ "hidden": {
+  "screens": 7
+ },
+ "slow": {
+  "stops": 10,
+  "late": 0
+ },
+ "sweep": {
+  "widths": [
+   1280,
+   1152,
+   896
+  ],
+  "errors": [],
+  "findings": []
+ },
+ "counts": {
+  "FAIL": 46,
+  "WARN": 57
+ },
+ "checks": {
+  "assets": "PASS",
+  "shader-lint": "PASS",
+  "gl-fallback": "PASS",
+  "empty-visual": "PASS",
+  "hero-fill": "PASS",
+  "flush": "FAIL",
+  "placeholder": "PASS",
+  "sample-label": "PASS",
+  "caption": "PASS",
+  "credit-wall": "PASS",
+  "nav": "PASS",
+  "nav-covers": "PASS",
+  "spill": "PASS",
+  "off-viewport": "PASS",
+  "fold-card": "PASS",
+  "hover-spill": "PASS",
+  "overlap-text": "FAIL",
+  "row-gap": "PASS",
+  "cut-text": "FAIL",
+  "fold-cut": "PASS",
+  "marquee": "PASS",
+  "scroll-linked": "PASS",
+  "scroll-reveal": "PASS",
+  "pinned": "PASS",
+  "loop-pause": "PASS",
+  "reduced-motion": "PASS",
+  "hidden-content": "PASS",
+  "webgl": "PASS",
+  "no-visual": "FAIL",
+  "text-only": "PASS",
+  "card-visual": "PASS",
+  "hidden-visual": "PASS",
+  "card-family": "PASS",
+  "card-layout": "PASS",
+  "nesting": "PASS",
+  "effect-repeat": "PASS",
+  "ui-fit": "PASS",
+  "ui-centre": "PASS",
+  "dark-ground": "PASS",
+  "button-styles": "PASS",
+  "button-shape": "PASS",
+  "same-action": "PASS",
+  "button-picture": "PASS",
+  "cta": "WARN",
+  "pricing-tiers": "PASS",
+  "copy-headline": "PASS",
+  "copy-fact": "PASS",
+  "copy-headings": "FAIL",
+  "copy-buttons": "PASS",
+  "copy-actions": "PASS",
+  "heading-scale": "PASS",
+  "stagger": "FAIL",
+  "top-stagger": "PASS",
+  "off-grid": "PASS",
+  "col-edge": "PASS",
+  "right-edge": "PASS",
+  "centre-axis": "PASS",
+  "tilt": "PASS",
+  "contrast": "PASS",
+  "text-contrast": "WARN",
+  "body-size": "PASS",
+  "busy-ground": "PASS",
+  "section-gaps": "FAIL",
+  "proximity": "PASS",
+  "hole": "PASS",
+  "links": "PASS",
+  "forms": "PASS",
+  "photo-upscale": "PASS",
+  "photo-set": "PASS",
+  "photo-credit": "PASS",
+  "nav-family": "PASS",
+  "nav-labels": "WARN",
+  "link-styles": "PASS",
+  "heading-align": "PASS",
+  "label-centre": "WARN",
+  "fake-button": "PASS",
+  "stranded-action": "PASS",
+  "orphan": "PASS",
+  "unit-break": "WARN",
+  "tab-wrap": "PASS",
+  "effects-fit": "PASS",
+  "fade-cut": "WARN",
+  "photo-weight": "PASS",
+  "copy-length": "WARN",
+  "nav-current": "WARN",
+  "progress-bar": "PASS",
+  "photo-repeat": "PASS",
+  "button-contrast": "WARN",
+  "photo-print": "PASS",
+  "grounds": "PASS",
+  "split-align": "PASS",
+  "fact-agree": "PASS",
+  "fold-action": "PASS",
+  "action-count": "PASS",
+  "one-screen": "PASS",
+  "hover": "PASS",
+  "hover-move": "PASS",
+  "product-shown": "PASS",
+  "same-object": "PASS",
+  "font-load": "PASS",
+  "visual-caption": "PASS",
+  "visual-empty": "PASS",
+  "effect-kind": "PASS",
+  "street-number": "PASS",
+  "postcode": "PASS",
+  "coordinates": "PASS",
+  "company-number": "PASS",
+  "phone-number": "PASS",
+  "hero-screen": "PASS",
+  "section-height": "FAIL",
+  "section-air": "WARN",
+  "one-section": "PASS",
+  "one-heading": "PASS",
+  "container-edges": "FAIL",
+  "row-lines": "FAIL",
+  "split-pair": "PASS",
+  "motion-layer": "PASS",
+  "count-text": "PASS",
+  "loop-cycle": "PASS",
+  "section-tile": "PASS"
+ }
+}
